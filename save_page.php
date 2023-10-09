@@ -45,11 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Page</title>
-     <style>
-        body {
-           background-color: rgb(157, 117, 223);
-        }
-     </style>
+    <link rel="stylesheet" href="/home_page.css">
 </head>
 <body>
     <h1>Create a New Page</h1>
@@ -60,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br><br>
         <input type="submit" value="Save Page">
     </form>
-	<a href="/index.html">Home Page </a>
+    <a href="/index.php">Home Page</a>
 </body>
 </html>
 

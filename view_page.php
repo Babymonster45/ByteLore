@@ -39,17 +39,13 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
-    <style>
-        body {
-           background-color: rgb(157, 117, 223);
-        }
-     </style>
+    <link rel="stylesheet" href="/home_page.css"> <!-- Link to your CSS file -->
 </head>
 <body>
     <h1><?php echo $pageTitle; ?></h1>
     <p><?php echo $pageContent; ?></p>
     <p>Created at: <?php echo $pageCreatedAt; ?></p>
-	<a href="/index.html">Home Page </a>
+    <a href="/index.php">Home Page</a>
 </body>
 </html>
 
