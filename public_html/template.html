@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">	
-    <title>ByteLore Template</title>
-    <link rel="stylesheet" href="public_html/home_page.css">
-    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Page</title>
     <style>
         body {
            background-color: rgb(157, 117, 223);
@@ -14,15 +11,16 @@
      </style>
 </head>
 <body>
-    <main>
-        <a href="https://youtu.be/dQw4w9WgXcQ?si=XicsvjBmBxivOd1E">
-        <img src="/images/12ozmouse.png" height="500" alt="A picture of 12 Oz Mouse" title="I do it all">
-        </a><br>
-        <label for="Title">Title:</label>
-        <input type="text" id="Name" name="Name" placeholder="Megaman"><br>
-        <label for="freeform">Body:</label><br>
-        <textarea id="freeform" name="freeform" rows="4" cols="50" placeholder="Enter text here.."></textarea><br>
+    <h1>Create a New Page</h1>
+    <form id="pageForm">
+        <label for="pageTitle">Page Title:</label>
+        <input type="text" id="pageTitle" name="pageTitle" placeholder="Megaman" required><br><br>
+
+        <label for="pageContent">Page Content:</label><br>
+        <textarea id="pageContent" name="pageContent" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br><br>
+
+        <input type="submit" value="Save">
         <a href="/index.html">Home Page </a>
-    </main>
+    </form>
 </body>
 </html>
