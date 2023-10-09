@@ -12,15 +12,13 @@
 </head>
 <body>
     <h1>Create a New Page</h1>
-    <form id="pageForm">
-        <label for="pageTitle">Page Title:</label>
-        <input type="text" id="pageTitle" name="pageTitle" placeholder="Megaman" required><br><br>
-
-        <label for="pageContent">Page Content:</label><br>
-        <textarea id="pageContent" name="pageContent" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br><br>
-
-        <input type="submit" value="Save">
-        <a href="/index.html">Home Page </a>
-    </form>
+    <form action="save_page.php" method="POST">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" placeholder="Megaman" required><br><br>
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br><br>
+        <input type="submit" value="Save Page">
+    </form><br>
+    <a href="/index.html">Home Page </a>
 </body>
 </html>
