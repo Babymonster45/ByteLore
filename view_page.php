@@ -39,6 +39,11 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
+    <style>
+        body {
+           background-color: rgb(157, 117, 223);
+        }
+     </style>
 </head>
 <body>
     <h1><?php echo $pageTitle; ?></h1>
