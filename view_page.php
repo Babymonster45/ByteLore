@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         $pageTitle = $row['title'];
-        $pageContent = $row['content'];
+        $pageContent = nl2br($row['content']); // Convert newline characters to HTML line breaks
         $pageCreatedAt = $row['created_at'];
     } else {
         echo "Page not found.";
@@ -39,13 +39,20 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
-    <link rel="stylesheet" href="/home_page.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="/home_page.css">
+    <style>
+    body {
+        background-color: #67b3b5;
+    }
+    </style>
 </head>
 <body>
+    <main>
     <h1><?php echo $pageTitle; ?></h1>
     <p><?php echo $pageContent; ?></p>
     <p>Created at: <?php echo $pageCreatedAt; ?></p>
-    <a href="/index.php">Home Page</a>
+    </main>
+    <a href="/">Home Page</a>
 </body>
 </html>
 

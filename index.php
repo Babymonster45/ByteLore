@@ -9,10 +9,10 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to ByteLore Website</h1>
+        <h1>Welcome to ByteLore</h1>
     </header>
     <main>
-	<div><a class="button" href="/save_page.php">Create Page</a></div><br><br>
+	<div><a class="button" href="/save_page">Create Page</a></div><br><br>
 
 	<h2>Recently Created Pages</h2><br>
   	<?php include('recent_pages.php'); ?>

@@ -46,17 +46,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Page</title>
     <link rel="stylesheet" href="/home_page.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #67b3b5;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        input[type="submit"] {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #67b3b5;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4a8a8c;
+        }
+    </style>
 </head>
 <body>
     <h1>Create a New Page</h1>
     <form action="save_page.php" method="POST">
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" placeholder="Megaman" required><br><br>
-        <label for="content">Content:</label><br>
-        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br><br>
+        <input type="text" id="title" name="title" placeholder="Megaman" required>
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
         <input type="submit" value="Save Page">
     </form>
-    <a href="/index.php">Home Page</a>
+    <a href="/">Home Page</a>
 </body>
 </html>
 
