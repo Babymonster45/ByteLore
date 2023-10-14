@@ -47,9 +47,9 @@ if (isset($_GET['id'])) {
     </style>
 </head>
 <body>
-    <main>
+    <br><main>
     <h1><?php echo $pageTitle; ?></h1>
-    </main>
+    </main><br>
     <main>
     <p><?php echo $pageContent; ?></p>
     <p>Created at: <?php echo $pageCreatedAt; ?></p>
