@@ -103,12 +103,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h1>Create a New Page</h1>
-    <form action="save_page.php" method="POST">
+    <form action="create_page.php" method="POST">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" placeholder="Megaman" required>
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-        <input type="submit" value="Save Page">
+        <input type="submit" value="Create Page">
     </form>
     <a href="/">Home Page</a>
 </body>
