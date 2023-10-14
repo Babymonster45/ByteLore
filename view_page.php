@@ -21,7 +21,6 @@ if (isset($_GET['id'])) {
         $row = $result->fetch_assoc();
         $pageTitle = $row['title'];
         $pageContent = nl2br($row['content']); // Convert newline characters to HTML line breaks
-        $imagePath = $row['image_path']; // Get the image path
         $pageCreatedAt = $row['created_at'];
     } else {
         echo "Page not found.";
@@ -40,16 +39,20 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
+    <link rel="stylesheet" href="/home_page.css">
+    <style>
+    body {
+        background-color: #67b3b5;
+    }
+    </style>
 </head>
 <body>
+    <main>
     <h1><?php echo $pageTitle; ?></h1>
-    <?php
-    if (!empty($imagePath)) {
-        // Display the image if an image path is present
-        echo '<img src="' . $imagePath . '" alt="' . $pageTitle . '">';
-    }
-    ?>
     <p><?php echo $pageContent; ?></p>
     <p>Created at: <?php echo $pageCreatedAt; ?></p>
+    </main>
+    <a href="/">Home Page</a>
 </body>
 </html>
+
