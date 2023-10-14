@@ -40,15 +40,8 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
-    <link rel="stylesheet" href="/home_page.css">
-    <style>
-    body {
-        background-color: #67b3b5;
-    }
-    </style>
 </head>
 <body>
-    <main>
     <h1><?php echo $pageTitle; ?></h1>
     <?php
     if (!empty($imagePath)) {
@@ -58,8 +51,5 @@ if (isset($_GET['id'])) {
     ?>
     <p><?php echo $pageContent; ?></p>
     <p>Created at: <?php echo $pageCreatedAt; ?></p>
-    </main>
-    <a href="/">Home Page</a>
 </body>
 </html>
-

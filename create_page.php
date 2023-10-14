@@ -63,9 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Please select a file to upload.";
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
