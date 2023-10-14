@@ -52,9 +52,9 @@ if (isset($_GET['id'])) {
     </main><br>
     <main>
     <p><?php echo $pageContent; ?></p>
-    <p>Created at: <?php echo $pageCreatedAt; ?></p>
     </main>
     <a href="/">Home Page</a>
+    <p>Created at: <?php echo $pageCreatedAt; ?></p>
 </body>
 </html>
 
