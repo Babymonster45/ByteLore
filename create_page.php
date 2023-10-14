@@ -45,61 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Page</title>
-    <link rel="stylesheet" href="/home_page.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        h1 {
-            background-color: #67b3b5;
-            color: #fff;
-            padding: 20px 0;
-        }
-
-        form {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin: 5px 0;
-        }
-
-        input[type="submit"] {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #67b3b5;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 10px;
-            font-weight: bold;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #4a8a8c;
-        }
-    </style>
+    <link rel="stylesheet" href="/create_page.css">
 </head>
 <body>
     <h1>Create a New Page</h1>
@@ -113,4 +59,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="/">Home Page</a>
 </body>
 </html>
-
