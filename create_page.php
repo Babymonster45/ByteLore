@@ -12,30 +12,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST["title"];
     $content = $_POST["content"];
 
-    // Insert data into the database
-    $sql = "INSERT INTO user_pages (title, content) VALUES (?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $title, $content);
+    // Check if a page with the same title already exists
+    $checkSql = "SELECT COUNT(*) as count FROM user_pages WHERE title = ?";
+    $checkStmt = $conn->prepare($checkSql);
+    $checkStmt->bind_param("s", $title);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+    $count = $checkResult->fetch_assoc()['count'];
 
-    if ($stmt->execute()) {
-        // Get the ID of the newly created page
-        $newPageID = $stmt->insert_id;
+    if ($count > 0) {
+        // A page with the same title already exists, show an error message
+        echo "A page with the same title already exists. Please choose a different title.";
+    } else {
+        // Insert data into the database
+        $sql = "INSERT INTO user_pages (title, content) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $title, $content);
+
+        if ($stmt->execute()) {
+            // Get the ID of the newly created page
+            $newPageID = $stmt->insert_id;
+
+            // Close the prepared statement
+            $stmt->close();
+
+            // Close the database connection
+            $conn->close();
+
+            // Redirect the user to their new page
+            header("Location: view_page.php?id=$newPageID");
+            exit();
+        } else {
+            echo "Error: " . $stmt->error;
+        }
 
         // Close the prepared statement
         $stmt->close();
-
-        // Close the database connection
-        $conn->close();
-
-        // Redirect the user to their new page
-        header("Location: view_page.php?id=$newPageID");
-        exit();
-    } else {
-        echo "Error: " . $stmt->error;
     }
 
     // Close the prepared statement and database connection if an error occurred
-    $stmt->close();
+    $checkStmt->close();
     $conn->close();
 }
 ?>
@@ -59,4 +75,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="/">Home Page</a>
 </body>
 </html>
-

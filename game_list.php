@@ -1,0 +1,64 @@
+<?php
+// Establish a database connection
+$conn = new mysqli("localhost", "bytelord", "Chickennuggets#11269", "bytelore");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Retrieve page titles from the database in alphabetical order
+$sql = "SELECT title, id FROM user_pages ORDER BY title ASC";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $pages = $result->fetch_all(MYSQLI_ASSOC);
+} else {
+    $pages = array();
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Pages</title>
+    <link rel="stylesheet" href="/home_page.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #67b3b5;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Pages (Alphabetical Order)</h1>
+    <ul>
+        <?php foreach ($pages as $page): ?>
+            <li><a href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <a href="/">Home Page</a>
+</body>
+</html>
