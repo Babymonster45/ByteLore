@@ -24,19 +24,20 @@ $conn->close();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Games List</title>
-    <link rel="stylesheet" href="/games_list.css">
+    <link rel="stylesheet" href="/home_page.css">
 </head>
 <body>
     <header>
         <h1>Games List</h1>
     </header>
-    <ul>
-        <?php foreach ($pages as $page): ?>
-            <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
-        <?php endforeach; ?>
-    </ul>
-    <a href="/">Home Page</a>
+    <div class="games-list">
+        <ul>
+            <?php foreach ($pages as $page): ?>
+                <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 </body>
 </html>
