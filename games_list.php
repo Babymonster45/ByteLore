@@ -26,7 +26,6 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games List</title>
-    <link rel="stylesheet" href="/home_page.css">
     <link rel="stylesheet" href="/games_list.css">
 </head>
 <body>

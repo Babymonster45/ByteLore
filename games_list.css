@@ -9,12 +9,6 @@ body {
     align-items: center;
 }
 
-h1 {
-    background-color: #67b3b5;
-    color: #fff;
-    padding: 20px 0;
-}
-
 ul {
     list-style: none;
     padding: 0;
@@ -35,9 +29,35 @@ li {
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    margin: 10px;
     font-weight: bold;
-}
+ }
 
 .button:hover {
     background-color: #4a8a8c;
-}
+ }
+
+header {
+    background-color: #67b3b5;
+    padding: 20px 0;
+ }
+
+ header h1 {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+ }
+
+ main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ }
+
+ img {
+    max-width: 100%;
+    height: auto;
+ }
