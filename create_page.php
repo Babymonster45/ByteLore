@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($count > 0) {
         // A page with the same title already exists, show an error message
-        echo "A page with the same title already exists. Please choose a different title.";
+        echo "That game already exists. Please look in our games list.";
     } else {
         // Insert data into the database
         $sql = "INSERT INTO user_pages (title, content) VALUES (?, ?)";
