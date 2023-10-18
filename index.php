@@ -17,7 +17,6 @@
 	<h2>Recently Created Pages</h2><br>
   	<?php include('recent_pages.php'); ?>
 	</main>
-
 </body>
 </html>
 
