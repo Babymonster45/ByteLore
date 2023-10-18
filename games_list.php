@@ -25,49 +25,12 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game List</title>
+    <title>Games List</title>
     <link rel="stylesheet" href="/home_page.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        h1 {
-            background-color: #67b3b5;
-            color: #fff;
-            padding: 20px 0;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 10px 0;
-        }
-        
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #67b3b5;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .button:hover {
-            background-color: #4a8a8c;
-        }
-    </style>
+    <link rel="stylesheet" href="/games_list.css">
 </head>
 <body>
-    <h1>Game List</h1>
+    <h1>Games List</h1>
     <ul>
         <?php foreach ($pages as $page): ?>
             <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
