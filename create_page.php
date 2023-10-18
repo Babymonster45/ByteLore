@@ -8,8 +8,8 @@ if ($conn->connect_error) {
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve data from the form
-    $title = $_POST["title"];
+    // Retrieve data from the form and capitalize the title
+    $title = ucwords($_POST["title"]);
     $content = $_POST["content"];
 
     // Check if a page with the same title already exists
