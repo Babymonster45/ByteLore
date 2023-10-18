@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
- }
+}
 
 ul {
     list-style: none;
@@ -13,7 +13,7 @@ ul {
     flex-wrap: wrap;
     justify-content: center;
     margin: 20px;
-    flex-direction: column;
+    flex-direction: row; /* Display horizontally */
     align-items: center;
 }
 
@@ -30,33 +30,34 @@ li {
     border-radius: 5px;
     margin: 10px;
     font-weight: bold;
- }
+}
 
 .button:hover {
     background-color: #4a8a8c;
- }
+}
 
 header {
     background-color: #67b3b5;
     padding: 20px 0;
- }
+}
 
- header h1 {
+header h1 {
     color: #fff;
     font-size: 36px;
     margin: 0;
- }
+}
 
- main {
+main {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- }
+    text-align: center; /* Center the content */
+}
 
- img {
+img {
     max-width: 100%;
     height: auto;
- }
+}
