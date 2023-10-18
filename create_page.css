@@ -20,14 +20,14 @@ body {
         background-color: #fff;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center; /* Center the form content */
+        text-align: center;
     }
 
     label {
         display: block;
         font-weight: bold;
         margin: 10px 0;
-        text-align: center; /* Center the labels */
+        text-align: center;
     }
 
     input[type="text"],
@@ -36,13 +36,13 @@ body {
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        display: block; /* Display them as block elements */
-        margin: 0 auto; /* Center the input elements horizontally */
+        display: block;
+        margin: 0 auto;
     }
 
     input[type="submit"] {
-        display: block; /* Display the submit button as a block element for center alignment */
-        margin: 10px auto; /* Center the submit button horizontally */
+        display: block;
+        margin: 10px auto;
         padding: 10px 20px;
         background-color: #67b3b5;
         color: #fff;
