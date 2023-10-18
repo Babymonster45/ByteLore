@@ -29,7 +29,9 @@ $conn->close();
     <link rel="stylesheet" href="/games_list.css">
 </head>
 <body>
-    <h1>Games List</h1>
+    <header>
+        <h1>Games List</h1>
+    </header>
     <ul>
         <?php foreach ($pages as $page): ?>
             <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
