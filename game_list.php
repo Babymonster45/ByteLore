@@ -25,7 +25,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Pages</title>
+    <title>Game List</title>
     <link rel="stylesheet" href="/home_page.css">
     <style>
         body {
@@ -50,13 +50,27 @@ $conn->close();
         li {
             margin: 10px 0;
         }
+        
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #67b3b5;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #4a8a8c;
+        }
     </style>
 </head>
 <body>
-    <h1>All Pages (Alphabetical Order)</h1>
+    <h1>Game List</h1>
     <ul>
         <?php foreach ($pages as $page): ?>
-            <li><a href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
+            <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
         <?php endforeach; ?>
     </ul>
     <a href="/">Home Page</a>

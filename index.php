@@ -11,15 +11,12 @@
     <header>
         <h1>Welcome to ByteLore</h1>
     </header>
-    <main>
+    <main><br>
+        <h2>View Game List</h2><br>
+        <div><a class="button" href="/game_list.php">Game List</a></div>
         <div><a class="button" href="/create_page">Create Page</a></div><br><br>
-
         <h2>Recently Created Pages</h2><br>
         <?php include('recent_pages.php'); ?>
-
-        <!-- Add a link to the "All Pages" page -->
-        <p>View all pages:</p>
-        <div><a class="button" href="/game_list.php">Game List</a></div>
     </main>
 </body>
 </html>
