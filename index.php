@@ -13,10 +13,10 @@
     </header>
     <main><br>
         <h2>View Game List</h2><br>
-        <div><a class="button" href="/game_list.php">Game List</a></div>
-        <div><a class="button" href="/create_page">Create Page</a></div><br><br>
+        <div><a class="button" href="/games_list.php">Game List</a></div>
         <h2>Recently Created Pages</h2><br>
-        <?php include('recent_pages.php'); ?>
+        <?php include('recent_pages.php'); ?><br><br>
+        <div><a class="button" href="/create_page">Create Page</a></div><br><br>
     </main>
 </body>
 </html>
