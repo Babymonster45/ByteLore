@@ -6,18 +6,37 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve page titles from the database in alphabetical order
-$sql = "SELECT title, id FROM user_pages ORDER BY title ASC";
-$result = $conn->query($sql);
+// Check if the search form is submitted
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $searchTerm = $_GET['search'];
 
-if ($result->num_rows > 0) {
-    $pages = $result->fetch_all(MYSQLI_ASSOC);
+    // Construct a SQL query to search for titles
+    $sql = "SELECT title, id FROM user_pages WHERE title LIKE ? ORDER BY title ASC";
+    $stmt = $conn->prepare($sql);
+
+    // Use "%" to allow searching for titles that contain the search term
+    $searchTerm = '%' . $searchTerm . '%';
+
+    $stmt->bind_param("s", $searchTerm);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $pages = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        $pages = array();
+    }
 } else {
-    $pages = array();
-}
+    // If no search is performed, show all pages
+    $sql = "SELECT title, id FROM user_pages ORDER BY title ASC";
+    $result = $conn->query($sql);
 
-// Close the database connection
-$conn->close();
+    if ($result->num_rows > 0) {
+        $pages = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        $pages = array();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +51,10 @@ $conn->close();
     <header>
         <h1>Games List</h1>
     </header>
+    <form method="get" action="games_list.php">
+        <input type="text" name="search" placeholder="Search by title">
+        <button type="submit">Search</button>
+    </form>
     <ul>
         <?php foreach ($pages as $page): ?>
             <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
