@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>ByteLore</title>
-    
+    <link rel="stylesheet" href="header.css">
 </head>
 <body>
     <header>
         <h1>Welcome to ByteLore</h1>
-        <link rel="stylesheet" href="/home_page.css">
+        
     </header>
     <nav>
         <ul>
