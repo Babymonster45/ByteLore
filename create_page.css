@@ -71,3 +71,30 @@ body {
     .custom-file-label:hover {
         background-color: #4a8a8c;
     }
+
+    .file-upload {
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 0 auto;
+        width: 80%;
+    }
+    
+    .file-upload input[type="file"] {
+        display: none;
+    }
+    
+    .file-upload .file-upload-text {
+        padding: 10px 20px;
+        background-color: #67b3b5;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    .file-upload .file-upload-text:hover {
+        background-color: #4a8a8c;
+    }
