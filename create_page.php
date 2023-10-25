@@ -20,6 +20,9 @@
         <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
         <p id="file-upload-text" class="file-upload-text">Choose an Image</p>
 
+        <label for="image" class="custom-file-label">Choose an Image</label>
+        <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
+
         <input type="submit" value="Create Page">
     </form>
     <a href="/">Home Page</a>
