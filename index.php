@@ -19,7 +19,7 @@
         <?php include('recent_pages.php'); ?>
     </main><br><main>
         <h2>Create a Page</h2>
-        <div><a class="button" href="/create_page">Create Page</a></div>
+        <div><a class="button" href="/create_page.php">Create Page</a></div>
     </main>
 </body>
 </html>
