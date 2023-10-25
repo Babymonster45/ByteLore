@@ -45,12 +45,29 @@ if (isset($_GET['id'])) {
     body {
         background-color: #67b3b5;
     }
+
+    header {
+    background-color: #67b3b5;
+    padding: 20px 0;
+    }
+ 
+    header h1 {
+       color: #fff;
+       font-size: 36px;
+       margin: 0;
+    }
+
+    .subheader {
+      background-color: #fff;
+      padding: 1px 0;
+         text-align: center;
+    }
     </style>
 </head>
 <body>
-    <main>
-    <?php include('header.php'); ?>
-    </main>
+    <div class="subheader">
+        <?php include('header.php'); ?>
+    </div><br>
     <br><main>
     <h1><?php echo $pageTitle; ?></h1>
     </main><br>

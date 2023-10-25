@@ -37,12 +37,18 @@ li {
 header {
     background-color: #67b3b5;
     padding: 20px 0;
-}
-
-header h1 {
+ }
+ 
+ header h1 {
     color: #fff;
     font-size: 36px;
     margin: 0;
+ }
+
+.subheader {
+    background-color: #fff;
+    padding: 1px 0;
+    text-align: center;
 }
 
 main {
