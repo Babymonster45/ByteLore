@@ -16,6 +16,9 @@ session_start();
 </head>
 <body>
     <main>
+        <header>
+            <h1>Welcome to ByteLore</h1>
+         </header>
         <h2>View Games List</h2>
         <div><a class="button" href="/games_list.php">Game List</a></div>
     </main>

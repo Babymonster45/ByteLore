@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="header.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to ByteLore</h1>
-    </header>
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
