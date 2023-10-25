@@ -9,7 +9,9 @@
     <header>
         <h1>Sign Up</h1>
     </header>
-    <?php include('header.php'); ?>
+    <div class="subheader">
+        <?php include('header.php'); ?>
+    </div>
     <form action="process_signup.php" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required><br>

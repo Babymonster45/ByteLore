@@ -1,11 +1,9 @@
-body, h1, h2, p {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
 
 header {
@@ -21,29 +19,4 @@ header {
     padding: 10px 0;
     text-align: center;
     font-size: 20px;
-}
-
-nav {
-    background-color: #67b3b5;
-    text-align: center;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-}
-
-nav a:hover {
-    color: #4a8a8c;
 }
