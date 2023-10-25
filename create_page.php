@@ -15,7 +15,6 @@
         <input type="text" id="title" name="title" placeholder="Megaman" required>
 
         <label for="image">Upload an Image (Max: 250KB):</label>
-        <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
         <p id="file-upload-text" class="file-upload-text">Choose an Image</p>
         <label for="image" class="custom-file-label">Choose an Image</label>
         <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
