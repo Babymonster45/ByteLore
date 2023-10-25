@@ -92,6 +92,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h1>Create a New Page</h1>
+    <div class="subheader">
+        <?php include('header.php'); ?>
+    </div><br>
     <form action="create_page.php" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" placeholder="Megaman" required>
