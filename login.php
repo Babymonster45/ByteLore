@@ -6,7 +6,12 @@
     <link rel="stylesheet" href="/home_page.css">
 </head>
 <body>
-    <h1>Login</h1>
+    <header>
+        <h1>Login</h1>
+    </header>
+    <head>
+        <?php include('header.php'); ?>
+    </head>
     <form action="process_login.php" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required><br>
