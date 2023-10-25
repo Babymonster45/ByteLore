@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>ByteLore</title>
-    <!-- Add your CSS and other head content here -->
+    
 </head>
 <body>
     <header>
         <h1>Welcome to ByteLore</h1>
+        <link rel="stylesheet" href="/home_page.css">
     </header>
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="games_list.php">Game List</a></li>
-            <!-- Include additional navigation links here -->
+
             <?php
             // Check if the user is logged in and display appropriate buttons
             if (isset($_SESSION["user_id"])) {
