@@ -12,7 +12,7 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="games_list.php">Game List</a></li>
+            <li><a href="games_list.php">Games List</a></li>
 
             <?php
             // Check if the user is logged in and display appropriate buttons
