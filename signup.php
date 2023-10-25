@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="/home_page.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
     <header>
         <h1>Sign Up</h1>
     </header>
-    <head>
-        <?php include('header.php'); ?>
-    </head>
+    <?php include('header.php'); ?>
     <form action="process_signup.php" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required><br>
