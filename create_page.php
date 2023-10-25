@@ -86,10 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="image">Upload an Image (Max: 250KB):</label>
         <input type="file" name="image" id="image" accept="image/*">
-        <input type="submit" value="Create Page">
 
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
+        <input type="submit" value="Create Page">
     </form>
     <a href="/">Home Page</a>
 </body>
