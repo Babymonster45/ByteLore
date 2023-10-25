@@ -6,6 +6,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Initialize variables
+$pageTitle = $pageContent = $imagePath = $pageCreatedAt = '';
+
 // Retrieve the page ID from the URL
 if (isset($_GET['id'])) {
     $pageID = $_GET['id'];
@@ -27,12 +30,12 @@ if (isset($_GET['id'])) {
         echo "Page not found.";
     }
 
-    // Close the prepared statement and database connection
+    // Close the prepared statement
     $stmt->close();
-    $conn->close();
-} else {
-    echo "Invalid page ID.";
 }
+
+// Close the database connection
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,15 +51,18 @@ if (isset($_GET['id'])) {
     </style>
 </head>
 <body>
-    <br><main>
-    <h1><?php echo $pageTitle; ?></h1>
-    </main><br>
     <main>
-    <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
-    <p><?php echo $pageContent; ?></p>
+        <h1><?php echo $pageTitle; ?></h1>
+
+        <?php if (!empty($imagePath) && file_exists($imagePath)) : ?>
+            <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
+        <?php else : ?>
+            <p>Image not found or does not exist.</p>
+        <?php endif; ?>
+
+        <p><?php echo $pageContent; ?></p>
+        <a href="/">Home Page</a>
+        <p>Created at: <?php echo $pageCreatedAt; ?></p>
     </main>
-    <a href="/">Home Page</a>
-    <p>Created at: <?php echo $pageCreatedAt; ?></p>
 </body>
 </html>
-
