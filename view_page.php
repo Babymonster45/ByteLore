@@ -34,7 +34,6 @@ if (isset($_GET['id'])) {
     echo "Invalid page ID.";
 }
 ?>
-<?php include('header.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +48,9 @@ if (isset($_GET['id'])) {
     </style>
 </head>
 <body>
+    <main>
+    <?php include('header.php'); ?>
+    </main>
     <br><main>
     <h1><?php echo $pageTitle; ?></h1>
     </main><br>
