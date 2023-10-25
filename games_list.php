@@ -55,7 +55,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     <div class="search-container">
         <form method="get" action="games_list.php">
             <label for="search">Search by title:</label>
-            <input type="text" id="search" name="search" placeholder="Enter search term">
+            <input type="text" id="search" name="search" placeholder="Search for a game">
             <button type="submit">Search</button>
         </form>
     </div>

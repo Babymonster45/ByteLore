@@ -70,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,8 +86,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="title" name="title" placeholder="Megaman" required>
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
+        
         <label for="image">Upload an Image (Max: 250KB):</label>
-        <input type="file" name="image" id="image" accept="image/*">
+        <div class="file-upload">
+            <input type="file" name="image" id="image" accept="image/*">
+            <span class="file-upload-text">Choose an Image</span>
+        </div>
+        
         <input type="submit" value="Create Page">
     </form>
     <a href="/">Home Page</a>
