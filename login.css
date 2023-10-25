@@ -10,6 +10,12 @@ header {
     background-color: #67b3b5;
     padding: 20px 0;
  }
+ 
+ header h1 {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+ }
 
 .subheader {
     background-color: #fff;

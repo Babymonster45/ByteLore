@@ -11,7 +11,7 @@
     </header>
     <div class="subheader">
         <?php include('header.php'); ?>
-    </div>
+    </div><br>
     <form action="process_signup.php" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required><br>
