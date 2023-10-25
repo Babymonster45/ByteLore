@@ -24,30 +24,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // A page with the same title already exists, show an error message
         echo "That game already exists. Please look in our games list.";
     } else {
-        // Insert data into the database
-        $sql = "INSERT INTO user_pages (title, content) VALUES (?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $title, $content);
+        // Handle image upload
+        $uploadDir = "/var/www/uploads/";
+        $imagePath = $uploadDir . basename($_FILES["image"]["name"]);
+        
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+            // Insert data into the database
+            $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sss", $title, $content, $imagePath);
 
-        if ($stmt->execute()) {
-            // Get the ID of the newly created page
-            $newPageID = $stmt->insert_id;
+            if ($stmt->execute()) {
+                // Get the ID of the newly created page
+                $newPageID = $stmt->insert_id;
+
+                // Close the prepared statement
+                $stmt->close();
+
+                // Close the database connection
+                $conn->close();
+
+                // Redirect the user to their new page
+                header("Location: view_page.php?id=$newPageID");
+                exit();
+            } else {
+                echo "Error: " . $stmt->error;
+            }
 
             // Close the prepared statement
             $stmt->close();
-
-            // Close the database connection
-            $conn->close();
-
-            // Redirect the user to their new page
-            header("Location: view_page.php?id=$newPageID");
-            exit();
         } else {
-            echo "Error: " . $stmt->error;
+            echo "Error uploading image.";
         }
-
-        // Close the prepared statement
-        $stmt->close();
     }
 
     // Close the prepared statement and database connection if an error occurred
@@ -70,6 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="title" name="title" placeholder="Megaman" required>
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
+        <label for="image">Upload an Image:</label>
+        <input type="file" name="image" id="image" accept="image/*">
         <input type="submit" value="Create Page">
     </form>
     <a href="/">Home Page</a>
