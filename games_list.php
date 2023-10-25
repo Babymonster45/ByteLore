@@ -51,10 +51,16 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     <header>
         <h1>Games List</h1>
     </header>
-    <form method="get" action="games_list.php">
-        <input type="text" name="search" placeholder="Search by title">
-        <button type="submit">Search</button>
-    </form>
+
+    <!-- Search Bar Container -->
+    <div class="search-container">
+        <form method="get" action="games_list.php">
+            <label for="search">Search by title:</label>
+            <input type="text" id="search" name="search" placeholder="Enter search term">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
     <ul>
         <?php foreach ($pages as $page): ?>
             <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
