@@ -35,43 +35,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "A page with the same title already exists. Please choose a different title.";
     } else {
         // Handle image upload
-        if (isset($_FILES["image"])) {
-            if ($_FILES["image"]["error"] === UPLOAD_ERR_OK) {
-                $uploadDir = "/var/www/uploads/";
-                $newFileName = $title . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
-                $imagePath = $uploadDir . $newFileName;
-                $urlImagePath = "/uploads/" . $newFileName;
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
+            $uploadDir = "/var/www/uploads/";
+            $newFileName = $title . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            $imagePath = $uploadDir . $newFileName;
+            $urlImagePath = "/uploads/" . $newFileName;
 
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-                    // Insert data into the database
-                    $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("sss", $title, $content, $urlImagePath);
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+                // Insert data into the database
+                $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("sss", $title, $content, $urlImagePath);
 
-                    if ($stmt->execute()) {
-                        // Get the ID of the newly created page
-                        $newPageID = $stmt->insert_id;
-
-                        // Close the prepared statement
-                        $stmt->close();
-
-                        // Close the database connection
-                        $conn->close();
-
-                        // Redirect the user to their new page
-                        header("Location: view_page.php?id=$newPageID");
-                        exit();
-                    } else {
-                        echo "Error: " . $stmt->error;
-                    }
+                if ($stmt->execute()) {
+                    // Get the ID of the newly created page
+                    $newPageID = $stmt->insert_id;
 
                     // Close the prepared statement
                     $stmt->close();
+
+                    // Close the database connection
+                    $conn->close();
+
+                    // Redirect the user to their new page
+                    header("Location: view_page.php?id=$newPageID");
+                    exit();
                 } else {
-                    echo "Error moving the uploaded image to the destination.";
+                    echo "Error: " . $stmt->error;
                 }
+
+                // Close the prepared statement
+                $stmt->close();
             } else {
-                echo "File upload error: " . $_FILES["image"]["error"];
+                echo "Error moving the uploaded image to the destination.";
             }
         } else {
             echo "Please upload an image of the game.";
