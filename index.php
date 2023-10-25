@@ -18,7 +18,6 @@ session_start();
     </header>
     <nav>
         <ul>
-            // Navigation links
             <li><a href="index.php">Home</a></li>
             <li><a href="games_list.php">Game List</a></li>
 
