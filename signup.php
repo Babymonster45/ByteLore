@@ -14,15 +14,15 @@
     </div><br>
     <form action="process_signup.php" method="post">
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required><br>
+        <input type="text" name="username" id="username" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required><br>
+        <input type="email" name="email" id="email" required><br><br>
 
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br>
+        <input type="password" name="password" id="password" required><br><br>
 
-        <input type="submit" value="Sign Up">
+        <input class="button" type="submit" value="Sign Up">
     </form>
     <p>Already have an account? <a href="login.php">Login</a></p>
 </body>
