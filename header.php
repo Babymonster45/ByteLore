@@ -11,7 +11,7 @@
     </header>
     <nav>
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="games_list.php">Game List</a></li>
 
             <?php
