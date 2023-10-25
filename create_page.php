@@ -90,19 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
         <label for="content">Content:</label>
-        <textarea id="content" name "content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
+        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
         <input type="submit" value="Create Page">
     </form>
     <a href="/">Home Page</a>
-
-    <script>
-        // JavaScript to show the selected file name in the "Choose an Image" text
-        const fileInput = document.getElementById("image");
-        const fileUploadText = document.getElementById("file-upload-text");
-
-        fileInput.addEventListener("change", function () {
-            fileUploadText.textContent = this.files[0].name;
-        });
-    </script>
 </body>
 </html>
