@@ -8,7 +8,7 @@ if ($conn->connect_error) {
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve data from the form and capitalize the title
+    // Retrieve data from the form
     $title = ucwords($_POST["title"]);
     $content = $_POST["content"];
 
@@ -23,50 +23,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Remove spaces and special characters from the title
     $title = preg_replace('/[^A-Za-z0-9]/', '', $title);
 
-    // Handle image upload
-    $uploadDir = "/var/www/uploads/";
-    $newFileName = $title . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
-    $imagePath = $uploadDir . $newFileName;
-    $urlImagePath = "/uploads/" . $newFileName;
+    // Check if a page with the same title already exists
+    $checkSql = "SELECT COUNT(*) as count FROM user_pages WHERE title = ?";
+    $checkStmt = $conn->prepare($checkSql);
+    $checkStmt->bind_param("s", $title);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+    $count = $checkResult->fetch_assoc()['count'];
 
-    if (isset($_FILES["image"])) {
-        if ($_FILES["image"]["error"] === UPLOAD_ERR_OK) {
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-                // Insert data into the database
-                $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("sss", $title, $content, $urlImagePath);
+    if ($count > 0) {
+        echo "A page with the same title already exists. Please choose a different title.";
+    } else {
+        // Handle image upload
+        if (isset($_FILES["image"])) {
+            if ($_FILES["image"]["error"] === UPLOAD_ERR_OK) {
+                $uploadDir = "/var/www/uploads/";
+                $newFileName = $title . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+                $imagePath = $uploadDir . $newFileName;
+                $urlImagePath = "/uploads/" . $newFileName;
 
-                if ($stmt->execute()) {
-                    // Get the ID of the newly created page
-                    $newPageID = $stmt->insert_id;
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+                    // Insert data into the database
+                    $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("sss", $title, $content, $urlImagePath);
+
+                    if ($stmt->execute()) {
+                        // Get the ID of the newly created page
+                        $newPageID = $stmt->insert_id;
+
+                        // Close the prepared statement
+                        $stmt->close();
+
+                        // Close the database connection
+                        $conn->close();
+
+                        // Redirect the user to their new page
+                        header("Location: view_page.php?id=$newPageID");
+                        exit();
+                    } else {
+                        echo "Error: " . $stmt->error;
+                    }
 
                     // Close the prepared statement
                     $stmt->close();
-
-                    // Close the database connection
-                    $conn->close();
-
-                    // Redirect the user to their new page
-                    header("Location: view_page.php?id=$newPageID");
-                    exit();
                 } else {
-                    echo "Error: " . $stmt->error;
+                    echo "Error moving the uploaded image to the destination.";
                 }
-
-                // Close the prepared statement
-                $stmt->close();
             } else {
-                echo "Error moving the uploaded image to the destination.";
+                echo "File upload error: " . $_FILES["image"]["error"];
             }
         } else {
-            echo "File upload error: " . $_FILES["image"]["error"];
+            echo "Please upload an image of the game.";
         }
-    } else {
-        echo "Image not uploaded.";
     }
 
-    // Close the database connection
+    // Close the prepared statement and database connection if an error occurred
+    $checkStmt->close();
     $conn->close();
 }
 ?>
