@@ -34,12 +34,6 @@ if (isset($_GET['id'])) {
     $stmt->close();
 }
 
-// Debugging: Output variables to help identify issues
-echo "Page Title: " . $pageTitle . "<br>";
-echo "Image Path: " . $imagePath . "<br>";
-echo "Content: " . $pageContent . "<br>";
-echo "Created At: " . $pageCreatedAt . "<br>";
-
 // Close the database connection
 $conn->close();
 ?>
