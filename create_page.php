@@ -9,7 +9,7 @@ if ($conn->connect_error) {
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve data from the form and capitalize the title
-    $title = ucwords($_POST["title"]);
+    $title = $_POST["title"];
     $content = $_POST["content"];
 
     // Define the maximum file size (250KB)
@@ -20,8 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Remove spaces and special characters from the title
-    $title = preg_replace('/[^A-Za-z0-9]/', '', $title);
+    $title = preg_replace('/[^\w-]/', '', $title);
 
     // Handle image upload
     $uploadDir = "/var/www/uploads/";
