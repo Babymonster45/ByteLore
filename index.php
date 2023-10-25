@@ -16,7 +16,6 @@ session_start();
 </head>
 <body>
     <main>
-        <br>
         <h2>View Games List</h2>
         <div><a class="button" href="/games_list.php">Game List</a></div>
     </main>
@@ -28,7 +27,6 @@ session_start();
     <br>
     <main>
         <h2>Create a Page</h2>
-
         <?php
         // Check if the user is logged in
         if (isset($_SESSION["user_id"])) {
