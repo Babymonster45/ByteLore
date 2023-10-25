@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
         $row = $result->fetch_assoc();
         $pageTitle = $row['title'];
         $pageContent = nl2br($row['content']); // Convert newline characters to HTML line breaks
-        $imagePath = $row['image_path']; // Retrieve the image path from the database
+        $imagePath = $row['image_path']; // Retrieve the image path from the database (already in /uploads/)
         $pageCreatedAt = $row['created_at'];
     } else {
         echo "Page not found.";
