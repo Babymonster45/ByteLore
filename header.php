@@ -8,7 +8,6 @@
 <body>
     <header>
         <h1>Welcome to ByteLore</h1>
-        
     </header>
     <nav>
         <ul>
