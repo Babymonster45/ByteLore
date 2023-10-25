@@ -25,40 +25,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "That game already exists. Please look in our games list.";
     } else {
         // Handle image upload
-        $uploadDir = "/var/www/uploads/"; // Ensure the directory exists and has correct permissions
+        $uploadDir = "/var/www/uploads/";
         $imagePath = $uploadDir . basename($_FILES["image"]["name"]);
         
-        if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-                // Insert data into the database
-                $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("sss", $title, $content, $imagePath);
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+            // Insert data into the database
+            $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sss", $title, $content, $imagePath);
 
-                if ($stmt->execute()) {
-                    // Get the ID of the newly created page
-                    $newPageID = $stmt->insert_id;
-
-                    // Close the prepared statement
-                    $stmt->close();
-
-                    // Close the database connection
-                    $conn->close();
-
-                    // Redirect the user to their new page
-                    header("Location: view_page.php?id=$newPageID");
-                    exit();
-                } else {
-                    echo "Error inserting data into the database: " . $stmt->error;
-                }
+            if ($stmt->execute()) {
+                // Get the ID of the newly created page
+                $newPageID = $stmt->insert_id;
 
                 // Close the prepared statement
                 $stmt->close();
+
+                // Close the database connection
+                $conn->close();
+
+                // Redirect the user to their new page
+                header("Location: view_page.php?id=$newPageID");
+                exit();
             } else {
-                echo "Error uploading image.";
+                echo "Error: " . $stmt->error;
             }
+
+            // Close the prepared statement
+            $stmt->close();
         } else {
-            echo "File upload error: " . $_FILES["image"]["error"];
+            echo "Error uploading image.";
         }
     }
 
@@ -77,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h1>Create a New Page</h1>
-    <form action="create_page.php" method="POST">
+    <form action="create_page.php" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" placeholder="Megaman" required>
         <label for="content">Content:</label>
