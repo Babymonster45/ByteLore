@@ -108,6 +108,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
         <input type="submit" value="Create Page">
     </form>
-    <a href="/">Home Page</a>
 </body>
 </html>
