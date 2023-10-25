@@ -17,12 +17,11 @@
         <label for="image">Upload an Image (Max: 250KB):</label>
         <div class="file-upload">
             <input type="file" name="image" id="image" accept="image/*">
-            <span class="file-upload-text" id="file-upload-text">Choose an Image</span>
         </div>
+        <p id="file-upload-text" class="file-upload-text">Choose an Image</p>
 
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-        
         <input type="submit" value="Create Page">
     </form>
     <a href="/">Home Page</a>
