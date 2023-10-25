@@ -52,7 +52,7 @@ if (isset($_GET['id'])) {
     <h1><?php echo $pageTitle; ?></h1>
     </main><br>
     <main>
-    <img src="/uploads/intro-1642722833.jpg" alt="Uploaded Image">
+    <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
     <p><?php echo $pageContent; ?></p>
     </main>
     <a href="/">Home Page</a>
