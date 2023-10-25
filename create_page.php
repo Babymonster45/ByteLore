@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $uploadDir = "/var/www/uploads/";
     $publicImageDir = "/uploads/";
 
-    $imagePath = $publicImagePath . basename($_FILES["image"]["name"]);
+    $imagePath = "/uploads/" . basename($_FILES["image"]["name"]);
     $publicImagePath = $publicImageDir . basename($_FILES["image"]["name"]);
 
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
