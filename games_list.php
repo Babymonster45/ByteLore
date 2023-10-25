@@ -51,7 +51,9 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     <header>
         <h1>Games List</h1>
     </header>
+    <main>
     <?php include('header.php'); ?>
+    </main>
     <div class="search-container">
         <form method="get" action="games_list.php">
             <label for="search">Search by title:</label>
@@ -60,11 +62,12 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
         </form>
     </div>
 
-    <ul>
-        <?php foreach ($pages as $page): ?>
-            <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
-        <?php endforeach; ?>
-    </ul>
-    <a href="/">Home Page</a>
+    <main>
+        <ul>
+            <?php foreach ($pages as $page): ?>
+              <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
+         <?php endforeach; ?>
+     </ul>
+    </main>
 </body>
 </html>
