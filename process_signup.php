@@ -8,34 +8,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    // Perform server-side validation, e.g., check if username or email is already in use
-
     // Establish a database connection
     $conn = new mysqli("localhost", "bytelord", "Chickennuggets#11269", "bytelore");
 
-    if ($db->connect_error) {
-        die("Connection failed: " . $db->connect_error);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
     // Hash the password before storing it in the database
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert the user into the database
-    $query = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
-    $stmt = $db->prepare($query);
-    $stmt->bind_param("sss", $username, $email, $password_hash);
+    // Check if the username or email is already in use
+    $checkQuery = "SELECT id FROM users WHERE username = ? OR email = ?";
+    $checkStmt = $conn->prepare($checkQuery);
+    $checkStmt->bind_param("ss", $username, $email);
+    $checkStmt->execute();
+    $checkStmt->store_result();
 
-    if ($stmt->execute()) {
-        // Registration was successful
-        $_SESSION["user_id"] = $stmt->insert_id; // Set a session variable to indicate the user is logged in
-        header("Location: index.php"); // Redirect to the homepage or another page
-    } else {
-        // Registration failed
+    if ($checkStmt->num_rows > 0) {
+        // Username or email is already in use
         header("Location: signup.php?error=1"); // Redirect back to the signup page with an error message
+        exit();
     }
 
-    // Close database connection
-    $stmt->close();
-    $db->close();
+    // Insert the user into the database
+    $insertQuery = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
+    $insertStmt = $conn->prepare($insertQuery);
+    $insertStmt->bind_param("sss", $username, $email, $password_hash);
+
+    if ($insertStmt->execute()) {
+        // Registration was successful
+        $_SESSION["user_id"] = $insertStmt->insert_id; // Set a session variable to indicate the user is logged in
+        header("Location: /"); // Redirect to the homepage or another page
+    } else {
+        // Registration failed
+        $error_message = "Registration failed: " . $insertStmt->error;
+        header("Location: signup.php?error=" . urlencode($error_message));
+    }
+
+    // Close database connections
+    $insertStmt->close();
+    $checkStmt->close();
+    $conn->close();
 }
-?>
