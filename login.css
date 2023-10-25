@@ -8,11 +8,8 @@ body {
 
 header {
     background-color: #67b3b5;
-    color: #fff;
     padding: 20px 0;
-    text-align: center;
-    font-size: 28px;
-}
+ }
 
 .subheader {
     background-color: #fff;
