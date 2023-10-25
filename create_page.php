@@ -1,4 +1,7 @@
 <?php
+// Includes the authentication script to check if the user is logged in
+include('authentication.php');
+
 // Establish a database connection
 $conn = new mysqli("localhost", "bytelord", "Chickennuggets#11269", "bytelore");
 

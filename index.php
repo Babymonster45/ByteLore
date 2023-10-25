@@ -1,3 +1,8 @@
+<?php
+// Start a session to manage user login state
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +16,47 @@
     <header>
         <h1>Welcome to ByteLore</h1>
     </header>
-    <main><br>
+    <nav>
+        <ul>
+            // Navigation links
+            <li><a href="index.php">Home</a></li>
+            <li><a href="games_list.php">Game List</a></li>
+
+            <?php
+            // Check if the user is logged in and display appropriate buttons
+            if (isset($_SESSION["user_id"])) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+            } else {
+                echo '<li><a href="login.php">Login</a></li>';
+                echo '<li><a href="signup.php">Sign Up</a></li>';
+            }
+            ?>
+
+        </ul>
+    </nav>
+
+    <main>
+        <br>
         <h2>View Games List</h2>
         <div><a class="button" href="/games_list.php">Game List</a></div>
-    </main><br><main>
+    </main>
+    <br>
+    <main>
         <h2>Recently Created Pages</h2>
         <?php include('recent_pages.php'); ?>
-    </main><br><main>
+    </main>
+    <br>
+    <main>
         <h2>Create a Page</h2>
-        <div><a class="button" href="/create_page.php">Create Page</a></div>
+
+        <?php
+        // Check if the user is logged in
+        if (isset($_SESSION["user_id"])) {
+            echo '<div><a class="button" href="/create_page.php">Create Page</a></div>';
+        } else {
+            echo '<p>You must be logged in to create a page. Please <a href="login.php">log in</a>.</p>';
+        }
+        ?>
     </main>
 </body>
 </html>
