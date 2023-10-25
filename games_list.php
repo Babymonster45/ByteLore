@@ -67,7 +67,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
             <?php foreach ($pages as $page): ?>
               <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
          <?php endforeach; ?>
-     </ul>
+        </ul>
     </main>
 </body>
 </html>

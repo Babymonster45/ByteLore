@@ -5,7 +5,6 @@
     <title>ByteLore</title>
     <link rel="stylesheet" href="header.css">
 </head>
-<body>
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
@@ -22,5 +21,4 @@
             ?>
         </ul>
     </nav>
-</body>
 </html>
