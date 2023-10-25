@@ -51,7 +51,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     <header>
         <h1>Games List</h1>
     </header>
-
+    <?php include('header.php'); ?>
     <div class="search-container">
         <form method="get" action="games_list.php">
             <label for="search">Search by title:</label>
