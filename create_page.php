@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "That game already exists. Please look in our games list.";
     } else {
         // Handle image upload
-        $uploadDir = "/var/www/uploads/";
+        $uploadDir = "/uploads/";
         $imagePath = $uploadDir . basename($_FILES["image"]["name"]);
 
         if (isset($_FILES["image"])) {
