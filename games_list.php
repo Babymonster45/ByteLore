@@ -52,7 +52,6 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
         <h1>Games List</h1>
     </header>
 
-    <!-- Search Bar Container -->
     <div class="search-container">
         <form method="get" action="games_list.php">
             <label for="search">Search by title:</label>
