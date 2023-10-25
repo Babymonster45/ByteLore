@@ -1,4 +1,7 @@
 <?php
+// Start a session to manage user login state
+session_start();
+
 // Establish a database connection
 $conn = new mysqli("localhost", "bytelord", "Chickennuggets#11269", "bytelore");
 
