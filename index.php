@@ -15,9 +15,6 @@ session_start();
     <link rel="icon" href="/favicon.ico">
 </head>
 <body>
-    <header>
-        <h1>Welcome to ByteLore</h1>
-    </header>
     <main>
         <br>
         <h2>View Games List</h2>
