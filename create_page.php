@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Handle image upload
         $uploadDir = "/var/www/uploads/";
         $imagePath = $uploadDir . basename($_FILES["image"]["name"]);
+        $urlImagePath = "/uploads/" . basename($_FILES["image"]["name"]);
 
         if (isset($_FILES["image"])) {
             if ($_FILES["image"]["error"] === UPLOAD_ERR_OK) {
@@ -34,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Insert data into the database
                     $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("sss", $title, $content, "/uploads/");
+                    $stmt->bind_param("sss", $title, $content, $urlImagePath);
 
                     if ($stmt->execute()) {
                         // Get the ID of the newly created page
