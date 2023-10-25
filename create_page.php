@@ -13,13 +13,12 @@
     <form action="create_page.php" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" placeholder="Megaman" required>
+        <label for="content">Content:</label>
+        <textarea id="content" name "content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
 
         <label for="image">Upload an Image (Max: 250KB):</label>
         <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
-        <p id="file-upload-text" class="file-upload-text">Choose an Image</p>
-
-        <label for="content">Content:</label>
-        <textarea id="content" name "content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
+        <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
         <input type="submit" value="Create Page">
     </form>
