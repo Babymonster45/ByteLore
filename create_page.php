@@ -13,21 +13,19 @@
     <form action="create_page.php" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" placeholder="Megaman" required>
+        <label for="content">Content:</label>
+        <textarea id="content" name "content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
 
         <label for="image">Upload an Image (Max: 250KB):</label>
-        <div class="file-upload">
-            <input type="file" name="image" id="image" accept="image/*">
-        </div>
+        <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
         <p id="file-upload-text" class="file-upload-text">Choose an Image</p>
 
-        <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
         <input type="submit" value="Create Page">
     </form>
     <a href="/">Home Page</a>
 
     <script>
-        // JavaScript to show the selected file name in the "Choose an Image" button
+        // JavaScript to show the selected file name in the "Choose an Image" text
         const fileInput = document.getElementById("image");
         const fileUploadText = document.getElementById("file-upload-text");
 
