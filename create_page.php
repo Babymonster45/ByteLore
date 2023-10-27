@@ -9,6 +9,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$imageUploaded = false; // Variable to track whether the image has been successfully uploaded
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve data from the form
@@ -48,35 +50,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $urlImagePath = "/uploads/" . $newFileName;
 
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-                // Insert data into the database
-                $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("sss", $title, $content, $urlImagePath);
-
-                if ($stmt->execute()) {
-                    // Get the ID of the newly created page
-                    $newPageID = $stmt->insert_id;
-
-                    // Close the prepared statement
-                    $stmt->close();
-
-                    // Close the database connection
-                    $conn->close();
-
-                    // Redirect the user to their new page
-                    header("Location: view_page.php?id=$newPageID");
-                    exit();
-                } else {
-                    echo "Error: " . $stmt->error;
-                }
-
-                // Close the prepared statement
-                $stmt->close();
+                $imageUploaded = true;
             } else {
                 echo "Error moving the uploaded image to the destination.";
             }
         } else {
             echo "Please upload an image of the game.";
+        }
+
+        if ($imageUploaded) {
+            // Insert data into the database
+            $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sss", $title, $content, $urlImagePath);
+
+            if ($stmt->execute()) {
+                // Get the ID of the newly created page
+                $newPageID = $stmt->insert_id;
+
+                // Redirect the user to their new page
+                header("Location: view_page.php?id=$newPageID");
+                exit();
+            } else {
+                echo "Error: " . $stmt->error;
+            }
         }
     }
 
