@@ -15,6 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = ucwords($_POST["title"]);
     $content = $_POST["content"];
 
+    // Checks if the title contains only ASCII characters in the range 33-126
+    if (!preg_match('/^[\x21-\x7E]+$/', $title)) {
+        echo "Title contains invalid characters. Please use only ASCII characters in the range 33-126.";
+        exit();
+    }
+
     // Define the maximum file size (250KB)
     $maxFileSize = 250 * 1024; // 250KB
 
@@ -22,9 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "File size exceeds the limit of 250KB.";
         exit();
     }
-
-    // Remove spaces and special characters from the title
-    $title = preg_replace('/[^A-Za-z0-9]/', '', $title);
 
     // Check if a page with the same title already exists
     $checkSql = "SELECT COUNT(*) as count FROM user_pages WHERE title = ?";
