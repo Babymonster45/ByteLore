@@ -1,26 +1,27 @@
 <?php
-// Title ascii test
-
 use PHPUnit\Framework\TestCase;
 
 class CreatePageTest extends TestCase
 {
-    public function testPageTitleContainsOnlyAsciiCharactersInRange()
+    public function testTitleContainsOnlyAsciiCharactersInRange()
     {
-        // Valid title with ASCII characters in the range 33-126
-        $validTitle = 'Megaman Rocks!';
+        // Valid titles with ASCII characters in the range 33-126
+        $validTitles = ['Megaman Rocks!', 'Hello123', 'ASCII123'];
 
-        // Invalid title with non-ASCII character
-        $invalidTitle = 'Mega❌man';
+        // Invalid titles with non-ASCII characters
+        $invalidTitles = ['Mega❌man', 'Hello✓', 'Test٩(͡๏̯͡๏)۶'];
 
-        $this->assertTrue($this->isValidTitle($validTitle));
-        $this->assertFalse($this->isValidTitle($invalidTitle));
+        foreach ($validTitles as $title) {
+            $this->assertTrue($this->isValidTitle($title), "Title '$title' should be valid.");
+        }
+
+        foreach ($invalidTitles as $title) {
+            $this->assertFalse($this->isValidTitle($title), "Title '$title' should be invalid.");
+        }
     }
 
     private function isValidTitle($title)
     {
-        return preg_match('/^[\x21-\x7E]+$/', $title) === 1;
+        return preg_match('/^[\x20-\x7E]+$/', $title) === 1;
     }
 }
-
-?>

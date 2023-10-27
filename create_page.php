@@ -3,7 +3,8 @@
 include('authentication.php');
 
 // Establish a database connection
-$conn = new mysqli("localhost", "bytelord", "Chickennuggets#11269", "bytelore");
+include('/secure_config/config.php');
+
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -17,11 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = ucwords($_POST["title"]);
     $content = $_POST["content"];
 
-    // Checks if the title contains only ASCII characters in the range 33-126
-    if (!preg_match('/^[\x21-\x7E]+$/', $title)) {
-        echo "Title contains invalid characters. Please use only ASCII characters in the range 33-126.";
+    // Checks if the title contains only ASCII characters in the range 32-126
+    if (!preg_match('/^[\x20-\x7E]+$/', $title)) {
+        echo "Title contains invalid characters. Please use only ASCII characters in the range 32-126.";
         exit();
     }
+    
 
     // Define the maximum file size (250KB)
     $maxFileSize = 250 * 1024; // 250KB

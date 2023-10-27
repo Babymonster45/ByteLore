@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     // Establish a database connection
-    $conn = new mysqli("localhost", "bytelord", "Chickennuggets#11269", "bytelore");
+    include('/secure_config/config.php');
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
