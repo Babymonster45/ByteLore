@@ -24,7 +24,7 @@ class CreatePasswordTest extends TestCase {
 
     private function isValidPassword($password) {
 
-        if (mb_strlen($password, 'UTF-8') > 7 ){
+        if (strlen($password) > 7 ){
             if (!preg_match('/^[A-Z]+$/', $password) && !preg_match('/^[0-9]+$/', $password) && !preg_match('/^[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]+$/', $password)){
                 return preg_match('/^[\x21\x23\x24\x26\x28-\x2B\x2D\x30-\x39\x3D\x3F-\x5B\x5D-\x7A\x7E]+$/', $password) === 1;
                 

@@ -15,6 +15,18 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" href="login.css">
+    <script>
+        // JavaScript to display password error messages if any
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorMessage = urlParams.get("messages");
+            if (errorMessage) {
+                const errorDiv = document.querySelector(".error-message");
+                errorDiv.innerHTML = errorMessage;
+                errorDiv.style.color = "red";
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -28,18 +40,12 @@ if (isset($_SESSION["user_id"])) {
         <input type="text" name="username" id="username" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required><br><br>
-
-        <?php
-        // Check for notifications and display them to the user
-        if (isset($_SESSION["notification"])) {
-           echo "<div class='notification'>" . $_SESSION["notification"] . "</div>";
-           unset($_SESSION["notification"]); // Clear the notification after displaying it
-        }
-        ?>
+        <input type="email" name "email" id="email" required><br><br>
 
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br><br>
+        <input type="password" name="password" id="password" required><br>
+        <div class="error-message"></div>
+        <br>
 
         <input class="button" type="submit" value="Sign Up">
     </form>

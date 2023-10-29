@@ -7,16 +7,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
+    
+    // Initialize an array to store password error messages
+    $errorMessages = array();
 
     // Validate password
-    if (
-        strlen($password) < 8 &&                 // Minimum length of 8 characters
-        !preg_match('/[0-9]/', $password) &&     // At least 1 number
-        !preg_match('/[A-Z]/', $password) &&     // At least 1 uppercase character
-        !preg_match('/[a-z]/', $password) &&     // At least 1 lowercase character
-        !preg_match('/[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]/', $password) // At least 1 special character
-    ) {
-        header("Location: signup.php?error=2"); // Redirect back to the signup page with a password error message
+    if (strlen($password) < 8) {
+        $errorMessages[] = "Password must be at least 8 characters long.";
+    }
+
+    if (!preg_match('/[0-9]/', $password)) {
+        $errorMessages[] = "Password must contain at least 1 number.";
+    }
+
+    if (!preg_match('/[A-Z]/', $password)) {
+        $errorMessages[] = "Password must contain at least 1 uppercase character.";
+    }
+
+    if (!preg_match('/[a-z]/', $password)) {
+        $errorMessages[] = "Password must contain at least 1 lowercase character.";
+    }
+
+    if (!preg_match('/[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]/', $password)) {
+        $errorMessages[] = "Password must contain at least 1 special character.";
+    }
+
+    // If there are password error messages, redirect back to signup.php with the messages
+    if (!empty($errorMessages)) {
+        $message = implode("<br>", $errorMessages);
+        header("Location: signup.php?messages=" . urlencode($message));
         exit();
     }
 
