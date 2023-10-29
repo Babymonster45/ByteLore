@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
     
-    // Initialize an array to store password error messages
+    // Initialize an array to store error messages
     $errorMessages = array();
 
     // Validate password
@@ -32,13 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMessages[] = "Password must contain at least 1 special character.";
     }
 
-    // If there are password error messages, redirect back to signup.php with the messages
-    if (!empty($errorMessages)) {
-        $message = implode("<br>", $errorMessages);
-        header("Location: signup.php?messages=" . urlencode($message));
-        exit();
-    }
-
     // Establish a database connection
     include('/secure_config/config.php');
 
@@ -46,21 +39,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Hash the password before storing it in the database
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+    // Check if the username is already in use
+    $checkUsernameQuery = "SELECT id FROM users WHERE username = ?";
+    $checkUsernameStmt = $conn->prepare($checkUsernameQuery);
+    $checkUsernameStmt->bind_param("s", $username);
+    $checkUsernameStmt->execute();
+    $checkUsernameStmt->store_result();
 
-    // Check if the username or email is already in use
-    $checkQuery = "SELECT id FROM users WHERE username = ? OR email = ?";
-    $checkStmt = $conn->prepare($checkQuery);
-    $checkStmt->bind_param("ss", $username, $email);
-    $checkStmt->execute();
-    $checkStmt->store_result();
+    if ($checkUsernameStmt->num_rows > 0) {
+        $errorMessages[] = "Username is already in use.";
+    }
 
-    if ($checkStmt->num_rows > 0) {
-        // Username or email is already in use
-        header("Location: signup.php?error=1"); // Redirect back to the signup page with an error message
+    // Check if the email is already in use
+    $checkEmailQuery = "SELECT id FROM users WHERE email = ?";
+    $checkEmailStmt = $conn->prepare($checkEmailQuery);
+    $checkEmailStmt->bind_param("s", $email);
+    $checkEmailStmt->execute();
+    $checkEmailStmt->store_result();
+
+    if ($checkEmailStmt->num_rows > 0) {
+        $errorMessages[] = "Email is already in use.";
+    }
+
+    // If there are error messages, redirect back to signup.php with the messages
+    if (!empty($errorMessages)) {
+        $message = implode("<br>", $errorMessages);
+        header("Location: signup.php?messages=" . urlencode($message));
         exit();
     }
+
+    // Hash the password before storing it in the database
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert the user into the database
     $insertQuery = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
@@ -79,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Close database connections
     $insertStmt->close();
-    $checkStmt->close();
+    $checkUsernameStmt->close();
+    $checkEmailStmt->close();
     $conn->close();
 }
