@@ -15,8 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // Verify that the password is at least 8 characters
     if (mb_strlen($password, 'UTF-8') > 7) {
-        if (!preg_match('/^[A-Z]+$/', $password) && !preg_match('/^[a-z]+$/', $password) && !preg_match('/^[0-9]+$/', $password) && !preg_match('/^[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]+$/', $password)) {
+        // Verify that the password has at least 1 lowercase, 1 uppercase, 1 number, and 1 special character
+        if (preg_match('/[a-z]/', $password) && preg_match('/[A-Z]/', $password) && preg_match('/[0-9]/', $password) && preg_match('/[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]/', $password)) {
             // Hash the password before storing it in the database
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -47,11 +49,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error_message = "Registration failed: " . $insertStmt->error;
                 header("Location: signup.php?error=" . urlencode($error_message));
             }
+
+            // Close the prepared statements
+            $insertStmt->close();
+            $checkStmt->close();
+        } else {
+            // Password does not meet the requirements
+            header("Location: signup.php?error=2");
+            exit();
         }
+    } else {
+        // Password is too short
+        header("Location: signup.php?error=3");
+        exit();
     }
 
-    // Close database connections
-    $insertStmt->close();
-    $checkStmt->close();
+    // Close the database connection
     $conn->close();
 }
