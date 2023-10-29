@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate password
     if (
-        mb_strlen($password, 'UTF-8' < 8 &&      // Minimum length of 8 characters
+        mb_strlen($password, 'UTF-8') < 8 &&     // Minimum length of 8 characters
         !preg_match('/[0-9]/', $password) &&     // At least 1 number
         !preg_match('/[A-Z]/', $password) &&     // At least 1 uppercase character
         !preg_match('/[a-z]/', $password) &&     // At least 1 lowercase character
