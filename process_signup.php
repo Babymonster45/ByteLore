@@ -10,10 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate password
     if (
-        strlen($password) < 8 ||                 // Minimum length of 8 characters
-        !preg_match('/[0-9]/', $password) ||     // At least 1 number
-        !preg_match('/[A-Z]/', $password) ||     // At least 1 uppercase character
-        !preg_match('/[a-z]/', $password) ||     // At least 1 lowercase character
+        mb_strlen($password, 'UTF-8' < 8 &&      // Minimum length of 8 characters
+        !preg_match('/[0-9]/', $password) &&     // At least 1 number
+        !preg_match('/[A-Z]/', $password) &&     // At least 1 uppercase character
+        !preg_match('/[a-z]/', $password) &&     // At least 1 lowercase character
         !preg_match('/[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]/', $password) // At least 1 special character
     ) {
         header("Location: signup.php?error=2"); // Redirect back to the signup page with a password error message

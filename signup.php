@@ -30,6 +30,14 @@ if (isset($_SESSION["user_id"])) {
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required><br><br>
 
+        <?php
+        // Check for notifications and display them to the user
+        if (isset($_SESSION["notification"])) {
+           echo "<div class='notification'>" . $_SESSION["notification"] . "</div>";
+           unset($_SESSION["notification"]); // Clear the notification after displaying it
+        }
+        ?>
+
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required><br><br>
 
