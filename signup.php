@@ -1,14 +1,3 @@
-<?php
-// Start a session to manage user login state
-session_start();
-
-// Check if the user is already logged in
-if (isset($_SESSION["user_id"])) {
-    header("Location: /");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +5,29 @@ if (isset($_SESSION["user_id"])) {
     <title>Sign Up</title>
     <link rel="stylesheet" href="login.css">
     <script>
-        // JavaScript to display password error messages if any
+        // JavaScript to display error messages under the corresponding text boxes
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const errorMessage = urlParams.get("messages");
-            if (errorMessage) {
-                const errorDiv = document.querySelector(".error-message");
-                errorDiv.innerHTML = errorMessage;
-                errorDiv.style.color = "red";
+            const usernameError = urlParams.get("usernameError");
+            const emailError = urlParams.get("emailError");
+            const passwordError = urlParams.get("passwordError");
+
+            if (usernameError) {
+                const usernameErrorDiv = document.querySelector(".username-error");
+                usernameErrorDiv.innerHTML = usernameError;
+                usernameErrorDiv.style.color = "red";
+            }
+
+            if (emailError) {
+                const emailErrorDiv = document.querySelector(".email-error");
+                emailErrorDiv.innerHTML = emailError;
+                emailErrorDiv.style.color = "red";
+            }
+
+            if (passwordError) {
+                const passwordErrorDiv = document.querySelector(".password-error");
+                passwordErrorDiv.innerHTML = passwordError;
+                passwordErrorDiv.style.color = "red";
             }
         });
     </script>
@@ -37,14 +41,18 @@ if (isset($_SESSION["user_id"])) {
     </div><br>
     <form action="process_signup.php" method="post">
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required><br><br>
+        <input type="text" name="username" id="username" required><br>
+        <div class="username-error"></div>
+        <br>
 
         <label for="email">Email:</label>
-        <input type="email" name "email" id="email" required><br><br>
+        <input type="email" name="email" id="email" required><br>
+        <div class="email-error"></div>
+        <br>
 
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required><br>
-        <div class="error-message"></div>
+        <div class="password-error"></div>
         <br>
 
         <input class="button" type="submit" value="Sign Up">
