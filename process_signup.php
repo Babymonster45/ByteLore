@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMessages = array();
 
     // Validate password
-    if (mb_strlen($password, 'UTF-8') < 8) {
+    if (strlen($password) < 8) {
         $errorMessages[] = "Password must be at least 8 characters long.";
     }
 
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate username
-    if (mb_strlen($username, 'UTF-8') < 3) {
+    if (strlen($username) < 3) {
         $errorMessages[] = "Username must be at least 3 characters long.";
     } 
     
