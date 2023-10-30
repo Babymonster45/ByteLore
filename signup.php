@@ -21,7 +21,7 @@
             if (emailError) {
                 const emailErrorDiv = document.querySelector(".email-error");
                 emailErrorDiv.innerHTML = emailError;
-                emailErrorDiv.style.color = "red";
+                emailErrorDiv.style color = "red";
             }
 
             if (passwordError) {
