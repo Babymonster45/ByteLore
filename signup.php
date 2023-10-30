@@ -16,7 +16,7 @@
             errorDiv.style.color = "red";
         }
     });
-    </script>
+</script>
 
 </head>
 <body>
