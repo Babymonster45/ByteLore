@@ -5,32 +5,19 @@
     <title>Sign Up</title>
     <link rel="stylesheet" href="login.css">
     <script>
-        // JavaScript to display error messages under the corresponding text boxes
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const usernameError = urlParams.get("usernameError");
-            const emailError = urlParams.get("emailError");
-            const passwordError = urlParams.get("passwordError");
+    // JavaScript to display error messages under the corresponding text boxes
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get("messages");
 
-            if (usernameError) {
-                const usernameErrorDiv = document.querySelector(".username-error");
-                usernameErrorDiv.innerHTML = usernameError;
-                usernameErrorDiv.style.color = "red";
-            }
-
-            if (emailError) {
-                const emailErrorDiv = document.querySelector(".email-error");
-                emailErrorDiv.innerHTML = emailError;
-                emailErrorDiv.style color = "red";
-            }
-
-            if (passwordError) {
-                const passwordErrorDiv = document.querySelector(".password-error");
-                passwordErrorDiv.innerHTML = passwordError;
-                passwordErrorDiv.style.color = "red";
-            }
-        });
+        if (errorMessage) {
+            const errorDiv = document.querySelector(".error-message");
+            errorDiv.innerHTML = errorMessage;
+            errorDiv.style.color = "red";
+        }
+    });
     </script>
+
 </head>
 <body>
     <header>
