@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!preg_match('/[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]/', $password)) {
-        $passwordErrors[] = "Password must contain at least 1 special character.";
+        $passwordErrors[] = "Password must contain at least 1 special character.\n Characters include: ! # $ & ( ) * + , - = ? @ [ ~ ";
     }
 
     // Validate username
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!preg_match('/^[\x20\x23\x2D\x2E\x30-\x39\x41-\x5A\x5F\x61-\x7A]+$/', $username)) {
-        $usernameErrors[] = "Username must contain only ASCII characters.";
+        $usernameErrors[] = "Username must contain only these characters: \n A-Z a-z 0-9 Space # - _ .";
     }
 
     // Establish a database connection
