@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-    
+
     // Initialize separate error arrays for Username, Email, and Password
     $usernameErrors = array();
     $emailErrors = array();
@@ -37,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate username
     if (strlen($username) < 3) {
         $usernameErrors[] = "Username must be at least 3 characters long.";
-    } 
-    
+    }
+
     if (!preg_match('/^[\x20\x23\x2D\x2E\x30-\x39\x41-\x5A\x5F\x61-\x7A]+$/', $username)) {
         $usernameErrors[] = "Username must contain only ASCII characters.";
     }
@@ -73,11 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // If there are errors, redirect back to signup.php with the error messages
-    if (!empty($errorMessages)) {
+    if (!empty($errorMessages) || !empty($usernameErrors) || !empty($emailErrors) || !empty($passwordErrors)) {
         $errorMessages = array(
-            "username-error" => isset($usernameError) ? $usernameError : "",
-            "email-error" => isset($emailError) ? $emailError : "",
-            "password-error" => implode("<br>", $errorMessages),
+            "username-error" => implode("<br>", $usernameErrors),
+            "email-error" => implode("<br>", $emailErrors),
+            "password-error" => implode("<br>", $passwordErrors),
         );
         $errorMessagesString = http_build_query($errorMessages);
         header("Location: signup.php?" . $errorMessagesString);
