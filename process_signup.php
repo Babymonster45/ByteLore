@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMessages = array();
 
     // Validate password
-    if (strlen($password) < 8) {
+    if (mb_strlen($password, 'UTF-8') < 8) {
         $errorMessages[] = "Password must be at least 8 characters long.";
     }
 
@@ -30,6 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!preg_match('/[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]/', $password)) {
         $errorMessages[] = "Password must contain at least 1 special character.";
+    }
+
+    // Validate username
+    if (mb_strlen($username, 'UTF-8') < 3) {
+        $errorMessages[] = "Username must be at least 3 characters long.";
+    } 
+    
+    if (!preg_match('/^[\x20\x23\x2D\x2E\x30-\x39\x41-\x5A\x5F\x61-\x7A]+$/', $username)) {
+        $errorMessages[] = "Username must contain only ASCII characters.";
     }
 
     // Establish a database connection
