@@ -73,10 +73,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // If there are errors, redirect back to signup.php with the error messages
-    if (!empty($usernameErrors) || !empty($emailErrors) || !empty($passwordErrors)) {
-        $errorMessages = array_merge($usernameErrors, $emailErrors, $passwordErrors);
-        $message = implode("<br>", $errorMessages);
-        header("Location: signup.php?messages=" . urlencode($message));
+    if (!empty($errorMessages)) {
+        $errorMessages = array(
+            "username-error" => isset($usernameError) ? $usernameError : "",
+            "email-error" => isset($emailError) ? $emailError : "",
+            "password-error" => implode("<br>", $errorMessages),
+        );
+        $errorMessagesString = http_build_query($errorMessages);
+        header("Location: signup.php?" . $errorMessagesString);
         exit();
     }
 

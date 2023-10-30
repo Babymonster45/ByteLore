@@ -8,16 +8,26 @@
         // JavaScript to display error messages under the corresponding text boxes
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const errorMessage = urlParams.get("messages");
+            const usernameError = urlParams.get("username-error");
+            const emailError = urlParams.get("email-error");
+            const passwordError = urlParams.get("password-error");
 
-            if (errorMessage) {
-                const errorMessages = errorMessage.split("<br>");
-                for (const errorMsg of errorMessages) {
-                    const [field, message] = errorMsg.split(": ");
-                    const errorDiv = document.querySelector(`.${field}-error`);
-                    errorDiv.innerHTML = message;
-                    errorDiv.style.color = "red";
-                }
+            if (usernameError) {
+                const usernameErrorDiv = document.querySelector(".username-error");
+                usernameErrorDiv.innerHTML = usernameError;
+                usernameErrorDiv.style.color = "red";
+            }
+
+            if (emailError) {
+                const emailErrorDiv = document.querySelector(".email-error");
+                emailErrorDiv.innerHTML = emailError;
+                emailErrorDiv.style.color = "red";
+            }
+
+            if (passwordError) {
+                const passwordErrorDiv = document.querySelector(".password-error");
+                passwordErrorDiv.innerHTML = passwordError;
+                passwordErrorDiv.style.color = "red";
             }
         });
     </script>
