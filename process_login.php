@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $remember_me = isset($_POST["remember_me"]);
 
     // Initialize separate error arrays for Username, Email, and Password
-    $errorMessages = null;
+    $errorMessages = array();
 
     // Establish a database connection
     include('/secure_config/config.php');
@@ -42,20 +42,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: /"); // Redirect to the homepage or another page
         } else {
             // Password is incorrect
-            $errorMessages = "Username and/or password is incorrect.";
+            $errorMessages[0] = "Username and/or password is incorrect.";
+            header("Location: login.php?error=1"); // Redirect back to the login page with an error message
         }
     } else {
         // User not found
-        $errorMessages = "Username and/or password is incorrect.";
+        $errorMessages[0] = "Username and/or password is incorrect.";
+        header("Location: login.php?error=2"); // Redirect back to the login page with an error message
+    }
+
+    // If there are errors, redirect back to signup.php with the error messages
+    if (!empty($errorMessages)) {
+        $errorMessagesString = http_build_query(array("error" => implode("<br>", $errorMessages)));
+        header("Location: login.php?" . $errorMessagesString);
+        exit();
     }
 
     // Close database connection
     $stmt->close();
     $conn->close();
-
-    if ($error_message) {
-        // Pass the error message to the login page
-        header("Location: login.php?error=" . urlencode($error_message));
-    }
 }
 ?>
