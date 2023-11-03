@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!preg_match('/[\x21\x23\x24\x26\x28-\x2B\x2D\x3D\x3F\x40\x5B\x7E]/', $password)) {
-        $passwordErrors[] = "Password must contain at least 1 special character.<br> Characters include: ! # $ & ( ) * + , - = ? @ [ ~ ";
+        $passwordErrors[] = "Password must contain at least 1 special character.<br> Characters include: ! # $ & ( ) * + - = ? @ [ ~ ";
     }
 
     // Validate username
