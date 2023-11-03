@@ -7,50 +7,6 @@ if (isset($_SESSION["user_id"])) {
     header("Location: /");
     exit();
 }
-
-// Initialize an error message variable
-$error_message = '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get user input from the login form
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-
-    // Establish a database connection
-    include('/secure_config/config.php');
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Query the database to find the user
-    $query = "SELECT id, username, password_hash FROM users WHERE username = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->bind_result($user_id, $db_username, $db_password_hash);
-
-    // Check if a user was found
-    if ($stmt->fetch()) {
-        // Verify the user's password
-        if (password_verify($password, $db_password_hash)) {
-            // Password is correct
-            $_SESSION["user_id"] = $user_id; // Set a session variable to indicate the user is logged in
-
-            header("Location: /"); // Redirect to the homepage or another page
-        } else {
-            // Password is incorrect
-            $error_message = "Incorrect username and/or password.";
-        }
-    } else {
-        // User not found
-        $error_message = "Incorrect username and/or password.";
-    }
-
-    // Close database connection
-    $stmt->close();
-    $conn->close();
-}
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +15,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="login.css">   
+    <script>
+        // JavaScript to display error messages in red under the password box
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorMessage = urlParams.get("error");
+            const errorDiv = document.querySelector(".error-message");
+
+            if (errorMessage) {
+                errorDiv.innerHTML = errorMessage;
+                errorDiv.style.color = "red";
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -74,10 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required><br>
         
-        <!-- Display the error message in red text -->
-        <?php if (!empty($error_message)) : ?>
-            <div style="color: red;"><?php echo $error_message; ?></div>
-        <?php endif; ?>
+        <!-- Display the error message in red -->
+        <div class="error-message"></div>
 
         <input class="button" type="submit" value="Login">
     </form>
