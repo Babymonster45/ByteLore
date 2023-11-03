@@ -42,7 +42,11 @@ if (isset($_SESSION["user_id"])) {
 
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required><br>
-        
+
+        <!-- Add the "Remember Me" checkbox -->
+        <label for="remember_me">Remember Me:</label>
+        <input type="checkbox" name="remember_me" id="remember_me">
+
         <!-- Display the error message in red -->
         <div class="error-message"></div>
 
