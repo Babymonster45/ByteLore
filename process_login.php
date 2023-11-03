@@ -56,13 +56,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Close database connection
+    $stmt->close();
+    $conn->close();
+
     if ($error_message) {
         // Pass the error message to the login page
         header("Location: login.php?error=" . urlencode($error_message));
     }
-
-    // Close database connection
-    $stmt->close();
-    $conn->close();
 }
 ?>
