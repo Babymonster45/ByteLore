@@ -45,7 +45,7 @@ if (isset($_SESSION["user_id"])) {
 
         <!-- Remember me checkbox -->
         <label for="remember_me">Remember Me:</label>
-        <input type="checkbox" name="remember_me" id="remember_me">
+        <input type="checkbox" name="remember_me" id="remember_me"> (30 days)</input>
 
         <!-- Display the error message in red -->
         <div class="error-message"></div>
