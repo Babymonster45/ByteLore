@@ -49,13 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMessages = "Username and/or password is incorrect.";
     }
 
-    // If there are errors, redirect back to signup.php with the error messages
-    if (!empty($errorMessages)) {
-        $errorMessagesString = http_build_query(array("error" => implode("<br>", $errorMessages)));
-        header("Location: login.php?" . $errorMessagesString);
-        exit();
-    }
-
     // Close database connection
     $stmt->close();
     $conn->close();
