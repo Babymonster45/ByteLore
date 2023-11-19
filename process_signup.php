@@ -72,6 +72,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $emailErrors[] = "Email is already in use.";
     }
 
+    if ($insertStmt->execute()) {
+        // Registration was successful
+        $to = $email;
+        $verificationLink = "https://bytelore.cheeseindustries.de/verify.php?token=$verificationToken"; // Replace with your actual URL and endpoint
+        $success = sendVerificationEmail($to, $verificationLink);
+    
+        if ($success) {
+            // Email sent successfully
+            header("Location: /verification_sent.php"); // Redirect to a page saying a verification email has been sent
+            exit();
+        } else {
+            // Email sending failed
+            // Handle failure scenario (e.g., show an error message)
+        }
+    } else {
+        // Registration failed
+        $error_message = "Registration failed: " . $insertStmt->error;
+        header("Location: signup.php?error=" . urlencode($error_message));
+    }
+
     // If there are errors, redirect back to signup.php with the error messages
     if (!empty($errorMessages) || !empty($usernameErrors) || !empty($emailErrors) || !empty($passwordErrors)) {
         $errorMessages = array(
@@ -84,13 +104,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Generate a unique verification token
+    $verificationToken = bin2hex(random_bytes(32)); // Change 32 to your desired token length
+
     // Hash the password before storing it in the database
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert the user into the database
-    $insertQuery = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
+    // Insert user data and verification token into the database
+    $insertQuery = "INSERT INTO users (username, email, password_hash, verification_token) VALUES (?, ?, ?, ?)";
     $insertStmt = $conn->prepare($insertQuery);
-    $insertStmt->bind_param("sss", $username, $email, $password_hash);
+    $insertStmt->bind_param("ssss", $username, $email, $password_hash, $verificationToken);
 
     if ($insertStmt->execute()) {
         // Registration was successful
@@ -108,3 +131,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $checkEmailStmt->close();
     $conn->close();
 }
+?>
