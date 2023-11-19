@@ -82,59 +82,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMessagesString = http_build_query($errorMessages);
         header("Location: signup.php?" . $errorMessagesString);
         exit();
-    } else {
-        // Generate a unique verification token
-        $verificationToken = bin2hex(random_bytes(32)); // Change 32 to your desired token length
-
-        // Hash the password before storing it in the database
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-        // Insert user data and verification token into the database
-        $insertQuery = "INSERT INTO users (username, email, password_hash, verification_token) VALUES (?, ?, ?, ?)";
-        $insertStmt = $conn->prepare($insertQuery);
-        $insertStmt->bind_param("ssss", $username, $email, $password_hash, $verificationToken);
-
-        if ($insertStmt->execute()) {
-            // Registration was successful, send verification email
-            require_once('email_functions.php'); // Include your email functions
-
-            // Construct verification link with verification token
-            $verificationLink = "https://bytelore.cheeseindustries.de/verify.php?token=$verificationToken"; // Replace with your actual URL and endpoint
-
-            // Send verification email using PHPMailer
-            require 'vendor/autoload.php'; // Include PHPMailer autoloader
-
-            // Create PHPMailer instance
-            $mail = new PHPMailer\PHPMailer\PHPMailer();
-            // Configure mail settings (SMTP, sender, recipient, etc.)
-
-            $mail->setFrom('byteloreemail@gmail.com', 'Bytelore Email');
-            $mail->addAddress($email);
-            $mail->Subject = 'Verify your email';
-            $mail->Body = "Please click the following link to verify your email: $verificationLink";
-
-            if ($mail->send()) {
-                header("Location: verification_sent.php"); // Redirect to a page saying a verification email has been sent
-                exit();
-            }
-        }
-         // Close database connections
-         $insertStmt->close();
-         $checkUsernameStmt->close();
-         $checkEmailStmt->close();
-         $conn->close();
     }
 
-   // if ($insertStmt->execute()) {
-        // Registration was successful
-     //   $_SESSION["user_id"] = $insertStmt->insert_id; // Set a session variable to indicate the user is logged in
-    //    header("Location: /"); // Redirect to the homepage or another page
-   // } else {
-        // Registration failed
-   //     $error_message = "Registration failed: " . $insertStmt->error;
-   //     header("Location: signup.php?error=" . urlencode($error_message));
-   // }
+    // Hash the password before storing it in the database
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    
+    // Insert the user into the database
+    $insertQuery = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
+    $insertStmt = $conn->prepare($insertQuery);
+    $insertStmt->bind_param("sss", $username, $email, $password_hash);
+
+    if ($insertStmt->execute()) {
+        // Registration was successful
+        $_SESSION["user_id"] = $insertStmt->insert_id; // Set a session variable to indicate the user is logged in
+        header("Location: /"); // Redirect to the homepage or another page
+    } else {
+        // Registration failed
+        $error_message = "Registration failed: " . $insertStmt->error;
+        header("Location: signup.php?error=" . urlencode($error_message));
+    }
+
+    // Close database connections
+    $insertStmt->close();
+    $checkUsernameStmt->close();
+    $checkEmailStmt->close();
+    $conn->close();
 }
-?>
