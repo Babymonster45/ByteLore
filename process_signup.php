@@ -72,26 +72,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $emailErrors[] = "Email is already in use.";
     }
 
-    if ($insertStmt->execute()) {
-        // Registration was successful
-        $to = $email;
-        $verificationLink = "https://bytelore.cheeseindustries.de/verify.php?token=$verificationToken"; // Replace with your actual URL and endpoint
-        $success = sendVerificationEmail($to, $verificationLink);
-    
-        if ($success) {
-            // Email sent successfully
-            header("Location: /verification_sent.php"); // Redirect to a page saying a verification email has been sent
-            exit();
-        } else {
-            // Email sending failed
-            $emailErrors[] = "Email sending failed";
-        }
-    } else {
-        // Registration failed
-        $emailErrors[] = "Registration failed";
-        header("Location: signup.php?error=" . urlencode($error_message));
-    }
-
     // If there are errors, redirect back to signup.php with the error messages
     if (!empty($errorMessages) || !empty($usernameErrors) || !empty($emailErrors) || !empty($passwordErrors)) {
         $errorMessages = array(
@@ -102,18 +82,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMessagesString = http_build_query($errorMessages);
         header("Location: signup.php?" . $errorMessagesString);
         exit();
+    } else {
+        // Generate a unique verification token
+        $verificationToken = bin2hex(random_bytes(32)); // Change 32 to your desired token length
+
+        // Hash the password before storing it in the database
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert user data and verification token into the database
+        $insertQuery = "INSERT INTO users (username, email, password_hash, verification_token) VALUES (?, ?, ?, ?)";
+        $insertStmt = $conn->prepare($insertQuery);
+        $insertStmt->bind_param("ssss", $username, $email, $password_hash, $verificationToken);
+
+        if ($insertStmt->execute()) {
+            // Registration was successful, send verification email
+            require_once('email_functions.php'); // Include your email functions
+
+            // Construct verification link with verification token
+            $verificationLink = "https://bytelore.cheeseindustries.de/verify.php?token=$verificationToken"; // Replace with your actual URL and endpoint
+
+            // Send verification email using PHPMailer
+            require 'vendor/autoload.php'; // Include PHPMailer autoloader
+
+            // Create PHPMailer instance
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
+            // Configure mail settings (SMTP, sender, recipient, etc.)
+
+            $mail->setFrom('byteloreemail@gmail.com', 'Bytelore Email');
+            $mail->addAddress($email);
+            $mail->Subject = 'Verify your email';
+            $mail->Body = "Please click the following link to verify your email: $verificationLink";
+
+            if ($mail->send()) {
+                header("Location: verification_sent.php"); // Redirect to a page saying a verification email has been sent
+                exit();
+            }
+        }
     }
-
-    // Generate a unique verification token
-    $verificationToken = bin2hex(random_bytes(32)); // Change 32 to your desired token length
-
-    // Hash the password before storing it in the database
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // Insert user data and verification token into the database
-    $insertQuery = "INSERT INTO users (username, email, password_hash, verification_token) VALUES (?, ?, ?, ?)";
-    $insertStmt = $conn->prepare($insertQuery);
-    $insertStmt->bind_param("ssss", $username, $email, $password_hash, $verificationToken);
 
     if ($insertStmt->execute()) {
         // Registration was successful
