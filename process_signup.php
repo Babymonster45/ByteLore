@@ -118,22 +118,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
         }
+         // Close database connections
+         $insertStmt->close();
+         $checkUsernameStmt->close();
+         $checkEmailStmt->close();
+         $conn->close();
     }
 
-    if ($insertStmt->execute()) {
+   // if ($insertStmt->execute()) {
         // Registration was successful
-        $_SESSION["user_id"] = $insertStmt->insert_id; // Set a session variable to indicate the user is logged in
-        header("Location: /"); // Redirect to the homepage or another page
-    } else {
+     //   $_SESSION["user_id"] = $insertStmt->insert_id; // Set a session variable to indicate the user is logged in
+    //    header("Location: /"); // Redirect to the homepage or another page
+   // } else {
         // Registration failed
-        $error_message = "Registration failed: " . $insertStmt->error;
-        header("Location: signup.php?error=" . urlencode($error_message));
-    }
+   //     $error_message = "Registration failed: " . $insertStmt->error;
+   //     header("Location: signup.php?error=" . urlencode($error_message));
+   // }
 
-    // Close database connections
-    $insertStmt->close();
-    $checkUsernameStmt->close();
-    $checkEmailStmt->close();
-    $conn->close();
+    
 }
 ?>
