@@ -84,11 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Email sending failed
-            // Handle failure scenario (e.g., show an error message)
+            $emailErrors[] = "Email sending failed";
         }
     } else {
         // Registration failed
-        $error_message = "Registration failed: " . $insertStmt->error;
+        $emailErrors[] = "Registration failed";
         header("Location: signup.php?error=" . urlencode($error_message));
     }
 

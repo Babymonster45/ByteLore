@@ -21,7 +21,7 @@ function sendVerificationEmail($to, $verificationLink) {
         $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
         $mail->SMTPAuth = true;
         $mail->Username = 'byteloreemail@gmail.com'; // Your Gmail address
-        $mail->Password = 'your_gmail_password'; // Your Gmail password or App Password
+        $mail->Password = 'Chickennuggets#11269'; // Your Gmail password or App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
         $mail->Port = 587; // TCP port to connect to
 
@@ -40,3 +40,4 @@ function sendVerificationEmail($to, $verificationLink) {
         return false;
     }
 }
+?>
