@@ -91,14 +91,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Generate a unique verification token
-    $verification_token = bin2hex(random_bytes(32));
-
     if (empty($errorMessages) || empty($usernameErrors) || empty($emailErrors) || empty($passwordErrors)) {
+        // Generate a unique verification token
+        $verification_token = bin2hex(random_bytes(32));
         // Send verification email
-    $verification_link = 'https://bytelore.cheeseindustries.de/verify.php?email=' . urlencode($email);
+        $verification_link = 'https://bytelore.cheeseindustries.de/verify.php?email=' . urlencode($email);
         $verification_message = "Thank you for registering! Please click the following link to verify your account: <a href='$verification_link'>Verify Account</a>";
-    
+
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
@@ -108,19 +107,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Password = getenv('EMAIL_PASSWORD'); // Gmail app password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port = 465;
-    
+
             $mail->setFrom('byteloreemail@gmail.com', 'Bytelore');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Account Verification';
             $mail->Body = $verification_message;
-    
+
             $mail->send();
             // Redirect to verification message page
             header("Location: verification_sent.php");
             exit();
         } catch (Exception $e) {
-            $emailErrors[] = "Failure to send email.";
+            // Registration failed
+            $error_message = "Failed to send email: " . $insertStmt->error;
+            header("Location: signup.php?error=" . urlencode($error_message));
         }
     } else {
         // Registration failed
