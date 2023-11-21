@@ -101,44 +101,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($insertUnverifiedStmt->execute()) {
         // Send verification email
-        $verification_link = 'https://bytelore.cheeseindustries.de/verify.php?email=' . urlencode($email);
-            $verification_message = "Thank you for registering! Please click the following link to verify your account: <a href='$verification_link'>Verify Account</a>";
-    
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'byteloreemail@gmail.com'; // Gmail
-                $mail->Password = getenv('EMAIL_PASSWORD'); // Gmail app password
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->Port = 465;
-    
-                $mail->setFrom('byteloreemail@gmail.com', 'Bytelore');
-                $mail->addAddress($email);
-                $mail->isHTML(true);
-                $mail->Subject = 'Account Verification';
-                $mail->Body = $verification_message;
-    
-                $mail->send();
-                // Redirect to verification message page
-                header("Location: verification_sent.php");
-                exit();
-            } catch (Exception $e) {
-                // Registration failed
-                $error_message = "Failed to send email: " . $insertUnverifiedStmt->error;
-                header("Location: signup.php?error=" . urlencode($error_message));
-            }
-        } else {
+        $verification_link = 'https://bytelore.cheeseindustries.de/verify.php?email=' . $email . '&token=' . $verification_token;
+        $verification_message = "Thank you for registering! Please click the following link to verify your account: <a href='$verification_link'>Verify Account</a>";
+
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'byteloreemail@gmail.com'; // Gmail
+            $mail->Password = getenv('EMAIL_PASSWORD'); // Gmail app password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465;
+
+            $mail->setFrom('byteloreemail@gmail.com', 'Bytelore');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Account Verification';
+            $mail->Body = $verification_message;
+
+            $mail->send();
+            // Redirect to verification message page
+            header("Location: verification_sent.php");
+            exit();
+        } catch (Exception $e) {
             // Registration failed
-            $error_message = "Registration failed: " . $insertUnverifiedStmt->error;
+            $error_message = "Failed to send email: " . $insertUnverifiedStmt->error;
             header("Location: signup.php?error=" . urlencode($error_message));
         }
-    
-        // Close database connections
-        $insertUnverifiedStmt->close();
-        $checkUsernameStmt->close();
-        $checkEmailStmt->close();
-        $conn->close();
+    } else {
+        // Registration failed
+        $error_message = "Registration failed: " . $insertUnverifiedStmt->error;
+        header("Location: signup.php?error=" . urlencode($error_message));
     }
-    ?>
+
+    // Close database connections
+    $insertUnverifiedStmt->close();
+    $checkUsernameStmt->close();
+    $checkEmailStmt->close();
+    $conn->close();
+}
+?>
