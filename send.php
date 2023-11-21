@@ -15,8 +15,8 @@ if(isset($_POST["send"])){
     $mail->SMTPAuth = true;
     $mail->Username = 'byteloreemail@gmail.com'; // Gmail
     $mail->Password = 'riabpdilrrimkykx'; // Gmail app password
-    $mail->SMTPSecure = 'ssl'
-    $mail->Port = 465;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port       = 465;  
 
     $mail->setFrom('byteloreemail@gmail.com');
     $mail->addAddress($_POST["email"]);
