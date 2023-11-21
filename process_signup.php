@@ -99,10 +99,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Generate a unique verification token
     $verification_token = bin2hex(random_bytes(32));
 
+    // Hash the password before storing it in the database
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
     // Insert data into the unverified table
-    $insertUnverifiedQuery = "INSERT INTO unverified (email, verification_token) VALUES (?, ?) ON DUPLICATE KEY UPDATE verification_token = VALUES(verification_token)";
+    $insertUnverifiedQuery = "INSERT INTO unverified (username, email, password_hash, verification_token) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE
+        username = VALUES(username),
+        password_hash = VALUES(password_hash),
+        verification_token = VALUES(verification_token);";
     $insertUnverifiedStmt = $conn->prepare($insertUnverifiedQuery);
-    $insertUnverifiedStmt->bind_param("ss", $email, $verification_token);
+    $insertUnverifiedStmt->bind_param("ssss", $username, $email, $password_hash, $verification_token);
 
     if ($insertUnverifiedStmt->execute()) {
         // Send verification email

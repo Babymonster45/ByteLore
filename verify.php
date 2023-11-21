@@ -17,36 +17,30 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
 
     if ($result->num_rows === 1) {
         // Move the user from unverified table to verified users table
-        $insertUserQuery = "INSERT INTO users (email) SELECT email FROM unverified WHERE email = ?";
-        $insertUserStmt = $conn->prepare($insertUserQuery);
-        $insertUserStmt->bind_param("s", $email);
-        $insertUserStmt->execute();
+        $moveUserQuery = "INSERT INTO users (username, email, password_hash) SELECT username, email, password_hash FROM unverified WHERE email = ?";
+        $moveUserStmt = $conn->prepare($moveUserQuery);
+        $moveUserStmt->bind_param("s", $email);
+        $moveUserStmt->execute();
 
-        // Hash the password before storing it in the database
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        if ($moveUserStmt->affected_rows > 0) {
+            // Remove the user from unverified table based on email
+            $deleteFromUnverifiedQuery = "DELETE FROM unverified WHERE email = ?";
+            $deleteFromUnverifiedStmt = $conn->prepare($deleteFromUnverifiedQuery);
+            $deleteFromUnverifiedStmt->bind_param("s", $email);
+            $deleteFromUnverifiedStmt->execute();
 
-        // Insert the user into the users database
-        $insertUserQuery = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
-        $insertUserStmt = $conn->prepare($insertQuery);
-        $insertUserStmt->bind_param("sss", $username, $email, $password_hash);
-        
-        // Remove the user from unverified table after verification
-        $deleteFromUnverifiedQuery = "DELETE FROM unverified WHERE email = ? AND verification_token = ?";
-        $deleteFromUnverifiedStmt = $conn->prepare($deleteFromUnverifiedQuery);
-        $deleteFromUnverifiedStmt->bind_param("ss", $email, $verification_token);
-        $deleteFromUnverifiedStmt->execute();
-
-        // Redirect to verification success page or homepage
-        header("Location: /");
-        exit();
+            $_SESSION["user_id"] = $conn->insert_id; // Set a session variable to indicate the user is logged in
+            header("Location: /"); // Redirect to homepage
+            exit();
+        } else {
+            // Error moving user to the users table
+            header("Location: verification_failure.php");
+            exit();
+        }
     } else {
-        // Invalid verification link
+        // Invalid verification link or email not found in unverified table
         header("Location: verification_failure.php");
         exit();
     }
-} else {
-    // Handle invalid verification requests
-    header("Location: verification_failure.php");
-    exit();
 }
 ?>
