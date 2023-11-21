@@ -40,5 +40,10 @@ session_start();
         }
         ?>
     </main>
+    <br>
+    <main>
+        <h2>Email Test</h2>
+        <?php include('emailTest.html'); ?>
+    </main>
 </body>
 </html>

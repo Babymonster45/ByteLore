@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($checkUsernameStmt->num_rows > 0) {
         $usernameErrors[] = "Username is already in use.";
     }
-
+    
     // Check if the email is already in use
     $checkEmailQuery = "SELECT id FROM users WHERE email = ?";
     $checkEmailStmt = $conn->prepare($checkEmailQuery);
@@ -71,6 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($checkEmailStmt->num_rows > 0) {
         $emailErrors[] = "Email is already in use.";
     }
+
+
 
     // If there are errors, redirect back to signup.php with the error messages
     if (!empty($errorMessages) || !empty($usernameErrors) || !empty($emailErrors) || !empty($passwordErrors)) {
