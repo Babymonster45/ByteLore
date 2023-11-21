@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $verification_token = bin2hex(random_bytes(32));
 
     // Insert data into the unverified table
-    $insertUnverifiedQuery = "INSERT INTO unverified (email, verification_token) VALUES (?, ?)";
+    $insertUnverifiedQuery = "INSERT INTO unverified (email, verification_token) VALUES (?, ?) ON DUPLICATE KEY UPDATE verification_token = VALUES(verification_token)";
     $insertUnverifiedStmt = $conn->prepare($insertUnverifiedQuery);
     $insertUnverifiedStmt->bind_param("ss", $email, $verification_token);
 
