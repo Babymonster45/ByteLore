@@ -16,14 +16,21 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
     $result = $checkTokenStmt->get_result();
 
     if ($result->num_rows === 1) {
-        // If email and token match, create the user account and mark it as verified
-        $updateQuery = "INSERT INTO users (username, email, password_hash, is_verified) VALUES (?, ?, ?, 1)";
+        // Fetch the user details
+        $userDetails = $result->fetch_assoc();
+
+        // Extract username and password hash
+        $username = $userDetails['username'];
+        $password_hash = $userDetails['password_hash'];
+
+        // Update the user's verification status to mark it as verified
+        $updateQuery = "UPDATE users SET is_verified = 1 WHERE email = ?";
         $updateStmt = $conn->prepare($updateQuery);
-        $updateStmt->bind_param("sss", $username, $email, $password_hash); // Use values from the sign-up process
+        $updateStmt->bind_param("s", $email);
         $updateStmt->execute();
 
-        $_SESSION["user_id"] = $insertStmt->insert_id; // Set a session variable to indicate the user is logged in
-        header("Location: verification_sent.php");
+        $_SESSION["user_id"] = $userDetails["id"]; // Set a session variable to indicate the user is logged in
+        header("Location: /");
         exit();
     } else {
         // Invalid verification link
