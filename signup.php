@@ -19,7 +19,7 @@ if (isset($_SESSION["user_id"])) {
         .error-message {
             color: red;
             margin-top: 5px;
-        }
+        } 
     </style>
     <script>
         // JavaScript to display error messages under the corresponding text boxes
@@ -60,7 +60,7 @@ if (isset($_SESSION["user_id"])) {
         <br>
 
         <label for="email">Email:</label>
-        <input type="email" name="email" value="" required><br>
+        <input type="text" name="email" value="" required><br>
         <div class="email-error error-message"></div>
         <br>
 
