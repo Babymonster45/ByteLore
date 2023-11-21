@@ -60,7 +60,7 @@ if (isset($_SESSION["user_id"])) {
         <br>
 
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required><br>
+        <input type="email" name="email" value="" required><br>
         <div class="email-error error-message"></div>
         <br>
 
