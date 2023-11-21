@@ -14,7 +14,7 @@ if(isset($_POST["send"])){
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
     $mail->Username = 'byteloreemail@gmail.com'; // Gmail
-    $mail->Password = 'riabpdilrrimkykx'; // Gmail app password
+    $mail->Password = getenv('EMAIL_PASSWORD'); // Gmail app password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port       = 465;  
 
