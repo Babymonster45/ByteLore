@@ -126,17 +126,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             } catch (Exception $e) {
                 // Registration failed
-                $error_message = "Failed to send email: " . $insertStmt->error;
+                $error_message = "Failed to send email: " . $insertUnverifiedStmt->error;
                 header("Location: signup.php?error=" . urlencode($error_message));
             }
         } else {
             // Registration failed
-            $error_message = "Registration failed: " . $insertStmt->error;
+            $error_message = "Registration failed: " . $insertUnverifiedStmt->error;
             header("Location: signup.php?error=" . urlencode($error_message));
         }
     
         // Close database connections
-        $insertStmt->close();
+        $insertUnverifiedStmt->close();
         $checkUsernameStmt->close();
         $checkEmailStmt->close();
         $conn->close();

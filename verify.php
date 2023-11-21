@@ -26,10 +26,10 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the user into the users database
-        $insertQuery = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
-        $insertStmt = $conn->prepare($insertQuery);
-        $insertStmt->bind_param("sss", $username, $email, $password_hash);
-
+        $insertUserQuery = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
+        $insertUserStmt = $conn->prepare($insertQuery);
+        $insertUserStmt->bind_param("sss", $username, $email, $password_hash);
+        
         // Remove the user from unverified table after verification
         $deleteFromUnverifiedQuery = "DELETE FROM unverified WHERE email = ? AND verification_token = ?";
         $deleteFromUnverifiedStmt = $conn->prepare($deleteFromUnverifiedQuery);
