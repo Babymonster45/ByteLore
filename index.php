@@ -43,7 +43,7 @@ session_start();
     <br>
     <main>
         <h2>Email Test</h2>
-        <?php include('emailTest.html'); ?>
+        <div><a class="button" href="/emailTest.html">Game List</a></div>
     </main>
 </body>
 </html>
