@@ -46,6 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usernameErrors[] = "Username must be at least 3 characters long.";
     }
 
+    // Validate email
+    if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+        $emailErrors[] = "Not a valid email address.";
+    }
+
     if (!preg_match('/^[\x20\x23\x2D\x2E\x30-\x39\x41-\x5A\x5F\x61-\x7A]+$/', $username)) {
         $usernameErrors[] = "Username must contain only these characters: <br> A-Z a-z 0-9 Space # - _ .";
     }
