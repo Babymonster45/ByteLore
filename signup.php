@@ -16,14 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input from the signup form
     $username = isset($_POST["username"]) ? $_POST["username"] : "";
     $email = isset($_POST["email"]) ? $_POST["email"] : "";
-    // Don't store the password for security reasons; only store it in the form if needed
-    // $password = isset($_POST["password"]) ? $_POST["password"] : "";
 }
+
+// Check for validation errors and populate the error messages
+$usernameError = isset($_GET["username-error"]) ? $_GET["username-error"] : "";
+$emailError = isset($_GET["email-error"]) ? $_GET["email-error"] : "";
+$passwordError = isset($_GET["password-error"]) ? $_GET["password-error"] : "";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
@@ -36,11 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
     <script>
         // JavaScript to display error messages under the corresponding text boxes
-        document.addEventListener("DOMContentLoaded", function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const usernameError = urlParams.get("username-error");
-            const emailError = urlParams.get("email-error");
-            const passwordError = urlParams.get("password-error");
+        document.addEventListener("DOMContentLoaded", function() {
+            const usernameError = "<?php echo htmlspecialchars($usernameError); ?>";
+            const emailError = "<?php echo htmlspecialchars($emailError); ?>";
+            const passwordError = "<?php echo htmlspecialchars($passwordError); ?>";
 
             if (usernameError) {
                 const usernameErrorDiv = document.querySelector(".username-error");
@@ -59,13 +60,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         });
 
         // JavaScript to retain user input in form fields after form submission
-        window.onload = function () {
+        window.onload = function() {
             document.getElementById("username").value = "<?php echo htmlspecialchars($username); ?>";
             document.getElementById("email").value = "<?php echo htmlspecialchars($email); ?>";
+            // Clear the password field to maintain security
+            document.getElementById("password").value = "";
         };
     </script>
 </head>
-
 <body>
     <header>
         <h1>Sign Up</h1>
@@ -93,5 +95,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
     <p>Already have an account? <a href="login.php">Login</a></p>
 </body>
-
 </html>
