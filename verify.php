@@ -15,6 +15,9 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
     $checkTokenStmt->execute();
     $result = $checkTokenStmt->get_result();
 
+    header("Location: /");
+    exit();
+
     if ($result->num_rows === 1) {
         // Move the user from unverified table to verified users table
         $insertUserQuery = "INSERT INTO users (email) SELECT email FROM unverified WHERE email = ?";
