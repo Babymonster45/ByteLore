@@ -2,6 +2,13 @@
 // Start a session to manage user login state
 session_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input from the signup form
     $username = $_POST["username"];
@@ -43,6 +50,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usernameErrors[] = "Username must contain only these characters: <br> A-Z a-z 0-9 Space # - _ .";
     }
 
+    // Send verification email
+    $verification_link = 'https://bytelore.cheeseindustries.de/verify.php?email=' . urlencode($email);
+    $verification_message = "Thank you for registering! Please click the following link to verify your account: <a href='$verification_link'>Verify Account</a>";
+
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'byteloreemail@gmail.com'; // Gmail
+        $mail->Password = getenv('EMAIL_PASSWORD'); // Gmail app password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port = 465;
+
+        $mail->setFrom('byteloreemail@gmail.com', 'Bytelore');
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Account Verification';
+        $mail->Body = $verification_message;
+
+        $mail->send();
+        // Redirect to verification message page
+        header("Location: verification_sent.php");
+        exit();
+    } catch (Exception $e) {
+        $emailErrors[] = "Failure to send email.";
+    }
+
     // Establish a database connection
     include('/secure_config/config.php');
 
@@ -60,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($checkUsernameStmt->num_rows > 0) {
         $usernameErrors[] = "Username is already in use.";
     }
-    
+
     // Check if the email is already in use
     $checkEmailQuery = "SELECT id FROM users WHERE email = ?";
     $checkEmailStmt = $conn->prepare($checkEmailQuery);
@@ -71,8 +106,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($checkEmailStmt->num_rows > 0) {
         $emailErrors[] = "Email is already in use.";
     }
-
-
 
     // If there are errors, redirect back to signup.php with the error messages
     if (!empty($errorMessages) || !empty($usernameErrors) || !empty($emailErrors) || !empty($passwordErrors)) {
@@ -89,15 +122,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash the password before storing it in the database
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert the user into the database
-    $insertQuery = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
+    // Generate a unique verification token for the user
+    $verification_token = bin2hex(random_bytes(32)); // Generating a random token
+
+    // Insert the user into the database with a verification status as 'pending' and store the token
+    $insertQuery = "INSERT INTO users (username, email, password_hash, verification_token, is_verified) VALUES (?, ?, ?, ?, 0)"; 
     $insertStmt = $conn->prepare($insertQuery);
-    $insertStmt->bind_param("sss", $username, $email, $password_hash);
+    $insertStmt->bind_param("ssss", $username, $email, $password_hash, $verification_token);
 
     if ($insertStmt->execute()) {
         // Registration was successful
         $_SESSION["user_id"] = $insertStmt->insert_id; // Set a session variable to indicate the user is logged in
-        header("Location: /"); // Redirect to the homepage or another page
+        header("Location: verification_sent.php"); // Redirect to the homepage or another page
     } else {
         // Registration failed
         $error_message = "Registration failed: " . $insertStmt->error;
