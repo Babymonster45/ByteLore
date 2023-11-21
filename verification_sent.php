@@ -9,6 +9,9 @@
         <h1>Verification Email Sent</h1>
     </header>
     <main>
+    <div class="subheader">
+        <?php include('header.php'); ?>
+    </div><br>
         <p>A verification email has been sent to your provided email address.</p>
         <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
         <p>Click the link in the email to verify your account.</p>

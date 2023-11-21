@@ -9,6 +9,9 @@
         <h1>Verification Failed</h1>
     </header>
     <main>
+    <div class="subheader">
+        <?php include('header.php'); ?>
+    </div><br>
         <p>We're sorry, but the verification process failed.</p>
         <p>This could be due to an invalid or expired verification link.</p>
     </main>
