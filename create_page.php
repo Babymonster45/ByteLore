@@ -91,6 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Page</title>
     <link rel="stylesheet" href="/create_page.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('image');
+            const fileText = document.getElementById('file-upload-text');
+
+            fileInput.addEventListener('change', (event) => {
+                const filename = event.target.files[0].name;
+                fileText.textContent = filename;
+            });
+        });
+    </script>
 </head>
 <body>
     <h1>Create a New Page</h1>
@@ -102,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="title" name="title" placeholder="Megaman" required>
 
         <label for="image">Upload an Image (Max: 250KB):</label>
-        <p id="file-upload-text" class="file-upload-text">Choose an Image</p>
+        <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
         <label for="image" class="custom-file-label">Choose an Image</label>
         <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
