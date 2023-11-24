@@ -70,5 +70,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close database connection
     $stmt->close();
     $conn->close();
+}else {
+    // Check if remember me cookie exists and log in user
+    if (isset($_COOKIE["remember_me_cookie"])) {
+        list($stored_username, $stored_password_hash) = explode("|", base64_decode($_COOKIE["remember_me_cookie"]));
+        
+        include('/secure_config/config.php');
+        
+        $query = "SELECT id, username FROM users WHERE username = ? AND password_hash = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ss", $stored_username, $stored_password_hash);
+        $stmt->execute();
+        $stmt->bind_result($user_id, $db_username);
+        
+        if ($stmt->fetch()) {
+            $_SESSION["user_id"] = $user_id;
+            header("Location: /");
+            exit();
+        }
+        
+        $stmt->close();
+        $conn->close();
+    }
 }
 ?>
