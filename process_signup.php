@@ -4,12 +4,10 @@ session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-use SMTPValidateEmail\Validator as SmtpEmailValidator;
 
 require 'phpmailer/src/Exception.php';
 require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
-require 'vendor/autoload.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -54,10 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate email
-    $sender    = 'no-reply@platron.ru';
-    $validator = new SmtpEmailValidator($email, $sender);
-
-    if (filter_var($email, FILTER_VALIDATE_EMAIL) === false || $validator->validate()) {
+    if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
         $emailErrors[] = "Not a valid email address.";
     }
 

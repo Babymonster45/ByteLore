@@ -40,10 +40,5 @@ session_start();
         }
         ?>
     </main>
-    <br>
-    <main>
-        <h2>Email Test</h2>
-        <div><a class="button" href="/emailTest.html">Email Test</a></div>
-    </main>
 </body>
 </html>
