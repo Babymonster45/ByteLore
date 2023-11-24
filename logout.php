@@ -1,4 +1,7 @@
 <?php
+// Includes the authentication script to make sure the user is not logged in
+include('not_logged_in_check.php');
+
 // Start a session to manage user login state
 session_start();
 
@@ -6,5 +9,5 @@ session_start();
 session_destroy();
 
 // Redirect to the homepage or another page after logging out
-header("Location: index.php");
+header("Location: /");
 ?>

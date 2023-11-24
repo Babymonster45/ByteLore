@@ -2,6 +2,12 @@
 // Start a session to manage user login state
 session_start();
 
+// Check if the user is already logged in
+if (isset($_SESSION["user_id"])) {
+    header("Location: /");
+    exit();
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 

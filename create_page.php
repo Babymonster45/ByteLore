@@ -1,6 +1,6 @@
 <?php
-// Includes the authentication script to check if the user is logged in
-include('authentication.php');
+// Includes the authentication script to make sure the user is not logged in
+include('not_logged_in_check.php');
 
 // Establish a database connection
 include('/secure_config/config.php');
