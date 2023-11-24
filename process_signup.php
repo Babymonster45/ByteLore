@@ -4,10 +4,13 @@ session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use SMTPValidateEmail\Validator as SmtpEmailValidator;
 
 require 'phpmailer/src/Exception.php';
 require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
+require 'vendor/autoload.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input from the signup form
@@ -46,14 +49,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usernameErrors[] = "Username must be at least 3 characters long.";
     }
 
-    // Validate email
-    if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-        $emailErrors[] = "Not a valid email address.";
-    }
-
     if (!preg_match('/^[\x20\x23\x2D\x2E\x30-\x39\x41-\x5A\x5F\x61-\x7A]+$/', $username)) {
         $usernameErrors[] = "Username must contain only these characters: <br> A-Z a-z 0-9 Space # - _ .";
     }
+
+    // Validate email
+    $sender    = 'byteloreemail@gmail.com';
+    $validator = new SmtpEmailValidator($email, $sender);
+
+    if (filter_var($email, FILTER_VALIDATE_EMAIL) === false && $validator->validate() != true) {
+        $emailErrors[] = "Not a valid email address.";
+    }
+
+    
 
     // Establish a database connection
     include('/secure_config/config.php');
