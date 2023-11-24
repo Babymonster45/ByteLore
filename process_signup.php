@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate email
     $sender    = 'byteloreemail@gmail.com';
-    $validator = new SmtpEmailValidator($email, $sender);
+    $validator = new SmtpEmailValidator($email); //, $sender
 
     if (filter_var($email, FILTER_VALIDATE_EMAIL) === false || $validator->validate()) {
         $emailErrors[] = "Not a valid email address.";
