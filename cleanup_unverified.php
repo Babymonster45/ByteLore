@@ -18,13 +18,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Calculate the timestamp 24 hours ago
-$twentyFourHoursAgo = time() - (24 * 60 * 60);
+// Define the time interval for which records should be kept (30 minutes)
+$timeInterval = strtotime('-30 minutes');
 
-// Prepare and execute the SQL query to delete records older than 24 hours
+// Prepare and execute the SQL query to delete records older than the defined interval
 $deleteQuery = "DELETE FROM unverified WHERE timestamp_column < ?";
 $deleteStmt = $conn->prepare($deleteQuery);
-$deleteStmt->bind_param("i", $twentyFourHoursAgo);
+$deleteStmt->bind_param("s", date('Y-m-d H:i:s', $timeInterval));
 $deleteStmt->execute();
 
 $deleteStmt->close();
