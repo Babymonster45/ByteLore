@@ -50,13 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Password is incorrect
             $errorMessages[0] = "Username and/or password is incorrect.";
-            header("Location: login.php?error=1"); // Redirect back to the login page with an error message
             exit();
         }
     } else {
         // User not found
         $errorMessages[0] = "Username and/or password is incorrect.";
-        header("Location: login.php?error=2"); // Redirect back to the login page with an error message
         exit();
     }
 
