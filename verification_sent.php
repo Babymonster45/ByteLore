@@ -21,7 +21,7 @@ if (isset($_SESSION["user_id"])) {
         <h1>Verification Email Sent</h1>
     </header>
     <main>
-    <div class="subheader">
+    <div>
         <?php include('header.php'); ?>
     </div><br>
         <form><h4>
