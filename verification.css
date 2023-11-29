@@ -31,13 +31,12 @@ h4 {
 
 div {
     max-width: 800px;
-    margin: 10px auto;
-    padding: 5px;
+    margin: 0 auto;
+    padding: 1px;
     background-color: #fff;
-    border-bottom-left-radius: 400px 200px;
-    border-bottom-right-radius: 400px 200px;
-    overflow: hidden;
-    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .subheader h4 {
