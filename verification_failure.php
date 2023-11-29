@@ -21,9 +21,9 @@ if (isset($_SESSION["user_id"])) {
         <h1>Verification Failed</h1>
     </header>
     <main><br>
-    <div>
+    <header class="subheader">
         <?php include('header.php'); ?>
-    </div><br>
+    </header><br>
         <form><h4>
          <p>We're sorry, but the verification process failed.</p>
          <p>This could be due to an invalid or expired verification link.</p>
