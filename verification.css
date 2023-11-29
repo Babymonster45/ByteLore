@@ -6,19 +6,17 @@ body {
     text-align: center;
 }
 
-.header-oval {
+.header-square {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     background-color: #67b3b5;
-    border-top-left-radius: 50% 200px;
-    border-top-right-radius: 50% 200px;
-    overflow: hidden;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.header-oval h1 {
+.header-square h1 {
     color: #fff;
     font-size: 36px;
     margin: 0;
@@ -29,9 +27,7 @@ body {
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
-    border-bottom-left-radius: 50% 50px;
-    border-bottom-right-radius: 50% 50px;
-    overflow: hidden;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }

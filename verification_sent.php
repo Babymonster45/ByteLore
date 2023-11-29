@@ -17,7 +17,7 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" href="verification.css">   
 </head>
 <body>
-    <header class="header-oval">
+    <header class="header-square">
         <h1>Verification Email Sent</h1>
     </header>
     <main>
@@ -34,3 +34,4 @@ if (isset($_SESSION["user_id"])) {
     </main>
 </body>
 </html>
+
