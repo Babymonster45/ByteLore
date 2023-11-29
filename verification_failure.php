@@ -14,6 +14,7 @@ if (isset($_SESSION["user_id"])) {
 <head>
     <meta charset="UTF-8">
     <title>Verification Failed</title>
+    <link rel="stylesheet" href="login.css">   
 </head>
 <body>
     <header>
