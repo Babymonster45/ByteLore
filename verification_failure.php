@@ -14,7 +14,7 @@ if (isset($_SESSION["user_id"])) {
 <head>
     <meta charset="UTF-8">
     <title>Verification Failed</title>
-    <link rel="stylesheet" href="login.css">   
+    <link rel="stylesheet" href="verification.css">   
 </head>
 <body>
     <header>
@@ -23,9 +23,10 @@ if (isset($_SESSION["user_id"])) {
     <main>
     <div class="subheader">
         <?php include('header.php'); ?>
-    </div><br>
+    </div><br><h4>
         <p>We're sorry, but the verification process failed.</p>
         <p>This could be due to an invalid or expired verification link.</p>
+    </h4>
     </main>
 </body>
 </html>
