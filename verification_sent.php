@@ -21,9 +21,9 @@ if (isset($_SESSION["user_id"])) {
         <h1>Verification Email Sent</h1>
     </header>
     <main>
-    <form>
+    <div class="subheader">
         <?php include('header.php'); ?>
-    </form><br>
+    </div><br>
         <form><h4>
          <p>A verification email has been sent to your provided email address.</p>
          <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
