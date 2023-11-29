@@ -6,24 +6,32 @@ body {
     text-align: center;
 }
 
-.header-square {
+header {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
     background-color: #67b3b5;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-.header-square h1 {
+ }
+ 
+header h1 {
     color: #fff;
     font-size: 36px;
     margin: 0;
-}
+ }
 
-.subheader {
+ h4 {
+    color: #000000;
+    font-size: 16px;
+    margin: 0;
+    
+ }
+
+ .subheader {
     max-width: 800px;
+    max-height: 30px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -32,15 +40,9 @@ body {
     text-align: center;
 }
 
-.subheader h4 {
-    color: #000000;
-    font-size: 16px;
-    margin: 0;
-}
-
 form {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
