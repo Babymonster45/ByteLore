@@ -30,7 +30,7 @@ header h1 {
  }
 
  .subheader {
-    max-width: 800px;
+    width: 800px;
     margin: 0 auto;
     background-color: #fff;
     border-radius: 5px;
