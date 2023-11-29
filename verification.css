@@ -34,8 +34,8 @@ h4 {
     margin: 10px auto;
     padding: 5px;
     background-color: #fff;
-    border-bottom-left-radius: 50% 50px;
-    border-bottom-right-radius: 50% 50px;
+    border-bottom-left-radius: 400px 200px;
+    border-bottom-right-radius: 400px 200px;
     overflow: hidden;
     position: relative;
 }
