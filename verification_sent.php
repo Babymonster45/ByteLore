@@ -2,7 +2,7 @@
 // Start a session to manage user login state
 session_start();
 
-// Check if the user is already logged in 
+// Check if the user is already logged in
 if (isset($_SESSION["user_id"])) {
     header("Location: /");
     exit();
@@ -22,7 +22,7 @@ if (isset($_SESSION["user_id"])) {
     </header>
     <main>
     <div class="subheader">
-        test
+        <?php include('header.php'); ?>
     </div><br>
         <form><h4>
          <p>A verification email has been sent to your provided email address.</p>
