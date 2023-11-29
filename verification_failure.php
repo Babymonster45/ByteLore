@@ -20,7 +20,7 @@ if (isset($_SESSION["user_id"])) {
     <header>
         <h1>Verification Failed</h1>
     </header>
-    <main><br>
+    <main>
     <header class="subheader">
         <?php include('header.php'); ?>
     </header><br>
