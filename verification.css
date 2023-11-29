@@ -5,15 +5,6 @@ body {
     padding: 0;
     text-align: center;
 }
-
-header {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #67b3b5;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
- }
  
  .title {
     max-width: 800px;
