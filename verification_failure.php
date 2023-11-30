@@ -11,24 +11,28 @@ if (isset($_SESSION["user_id"])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Verification Failed</title>
-    <link rel="stylesheet" href="verification.css">   
+    <link rel="stylesheet" href="verification.css">
 </head>
+
 <body><br>
     <header>
         <h1>Verification Failed</h1>
     </header>
-    <main>
-    <header class="subheader">
+    <div class="subheader">
         <?php include('header.php'); ?>
-    </header><br>
-        <form><h4>
-         <p>We're sorry, but the verification process failed.</p>
-         <p>This could be due to an invalid or expired verification link.</p>
-         </h4>
+    </div><br>
+    <main>
+        <form>
+            <h4>
+                <p>We're sorry, but the verification process failed.</p>
+                <p>This could be due to an invalid or expired verification link.</p>
+            </h4>
         </form>
     </main>
 </body>
+
 </html>
