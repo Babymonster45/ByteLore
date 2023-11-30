@@ -17,13 +17,13 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" href="verification.css">   
 </head>
 <body><br>
-    <header class="title">
+    <header>
         <h1>Verification Email Sent</h1>
     </header>
-    <header class="subheader">
-        <?php include('header.php'); ?>
-    </header><br>
     <main>
+    <div class="subheader">
+        <?php include('header.php'); ?>
+    </div><br>
         <form><h4>
          <p>A verification email has been sent to your provided email address.</p>
          <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
