@@ -14,22 +14,22 @@ header {
     background-color: #67b3b5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
- }
- 
+}
+
 header h1 {
     color: #fff;
     font-size: 36px;
     margin: 0;
- }
+}
 
- h4 {
+h4 {
     color: #000000;
     font-size: 16px;
     margin: 0;
-    
- }
 
- .subheader {
+}
+
+div {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
