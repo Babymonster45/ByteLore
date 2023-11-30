@@ -6,7 +6,6 @@ body {
     text-align: center;
 }
 
-
 header {
     max-width: 800px;
     margin: 0 auto;
@@ -27,16 +26,25 @@ h4 {
     color: #000000;
     font-size: 16px;
     margin: 0;
+}
 
+div {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .subheader {
     background-color: #fff;
     padding: 1px 0;
     text-align: center;
- }
+}
 
- form {
+form {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
