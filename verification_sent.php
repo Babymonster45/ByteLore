@@ -11,25 +11,29 @@ if (isset($_SESSION["user_id"])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Verification Email Sent</title>
-    <link rel="stylesheet" href="verification.css">   
+    <link rel="stylesheet" href="verification.css">
 </head>
+
 <body><br>
     <header>
         <h1>Verification Email Sent</h1>
     </header>
     <main>
-    <form class="subheader">
-        <?php include('header.php'); ?>
-</form><br>
-        <form><h4>
-         <p>A verification email has been sent to your provided email address.</p>
-         <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
-         <p>Click the link in the email to verify your account.</p>
-         </h4>
+        <div class="subheader">
+            <?php include('header.php'); ?>
+        </div><br>
+        <form>
+            <h4>
+                <p>A verification email has been sent to your provided email address.</p>
+                <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
+                <p>Click the link in the email to verify your account.</p>
+            </h4>
         </form>
     </main>
 </body>
+
 </html>

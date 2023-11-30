@@ -29,15 +29,11 @@ h4 {
 
 }
 
-form .subheader {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+.subheader {
     background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 1px 0;
     text-align: center;
-}
+ }
 
 form {
     max-width: 800px;
