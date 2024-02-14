@@ -15,7 +15,6 @@ require 'phpmailer/src/Exception.php';
 require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input from the signup form
     $username = $_POST["username"];
@@ -120,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($insertUnverifiedStmt->execute()) {
         // Send verification email
         $verification_link = 'https://bytelore.cheeseindustries.de/verify.php?email=' . $email . '&token=' . $verification_token;
-        $verification_message = "Thank you for registering! Please click the following link to verify your account: <a href='$verification_link'>Verify Account</a>";
+        $verification_message = "Thank you for registering! Please click the following link to verify your account: <a href='$verification_link'>$verification_link</a>";
 
         $mail = new PHPMailer(true);
         try {

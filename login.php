@@ -11,13 +11,14 @@ if (isset($_SESSION["user_id"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="login.css">   
+    <link rel="stylesheet" href="login.css">
     <script>
         // JavaScript to display error messages in red under the password box
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const urlParams = new URLSearchParams(window.location.search);
             const errorMessage = urlParams.get("error");
             const errorDiv = document.querySelector(".error-message");
@@ -29,6 +30,7 @@ if (isset($_SESSION["user_id"])) {
         });
     </script>
 </head>
+
 <body>
     <header>
         <h1>Login</h1>
@@ -52,6 +54,8 @@ if (isset($_SESSION["user_id"])) {
 
         <input class="button" type="submit" value="Login">
     </form>
+    <p>Forgot Password? <a href="forgot_password.php">Reset it here</a></p><br>
     <p>Don't have an account? <a href="signup.php">Sign up</a></p>
 </body>
+
 </html>
