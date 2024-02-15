@@ -45,8 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // User found, generate a unique reset token
         $resetToken = bin2hex(random_bytes(32)); // Token length
 
+        // Bind the result to variables
+        $checkEmailStmt->bind_result($userId, $username);
+        $checkEmailStmt->fetch();
+
         // Store the reset token in the database
-        $userId = $checkEmailStmt->fetch_assoc()['id']; // Use fetch_assoc() instead of fetch()
         $storeTokenQuery = "UPDATE users SET reset_token = ? WHERE id = ?";
         $storeTokenStmt = $conn->prepare($storeTokenQuery);
         $storeTokenStmt->bind_param("si", $resetToken, $userId);
