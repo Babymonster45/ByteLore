@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
             <div class="subheader">
                 <?php include('header.php'); ?>
             </div><br>
-            <form action="process_reset_password.php?token=<?php echo htmlspecialchars($token); ?>" method="post">
+            <form action="https://bytelore.cheeseindustries.de/process_reset_password.php?token=<?php echo htmlspecialchars($token); ?>" method="post">
                 <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
                 <label for="password">New Password:</label>
                 <input type="password" name="password" id="password" required><br>
