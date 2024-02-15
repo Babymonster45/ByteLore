@@ -37,13 +37,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // If there are errors, redirect back to signup.php with the error messages
-    if (!empty($errorMessages) || !empty($passwordErrors)) {
+    // Check if the token is valid and not expired
+    $checkTokenQuery = "SELECT id FROM users WHERE reset_token = ? AND reset_token_expiration > NOW()";
+    $checkTokenStmt = $conn->prepare($checkTokenQuery);
+    $checkTokenStmt->bind_param("s", $token);
+    $checkTokenStmt->execute();
+    $checkTokenStmt->store_result();
+
+    if ($checkTokenStmt->num_rows === 0) {
+        // Token is either invalid or expired
+        header("Location: reset_password.php?token=$token&error=invalid-token");
+        exit();
+    }
+
+    // If there are errors, redirect back to reset_password.php with the error messages
+    if (!empty($passwordErrors)) {
         $errorMessages = array(
             "password-error" => implode("<br>", $passwordErrors)
         );
         $errorMessagesString = http_build_query($errorMessages);
-        header("Location: reset_password.php?token=$token" . $errorMessagesString);
+        header("Location: reset_password.php?token=$token&" . $errorMessagesString);
         exit();
     }
 
@@ -67,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Close database connection
     $updatePasswordStmt->close();
+    $checkTokenStmt->close();
     $conn->close();
 } else {
     // Redirect to the login page or another page

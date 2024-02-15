@@ -25,6 +25,24 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
             <meta charset="UTF-8">
             <title>Reset Password</title>
             <link rel="stylesheet" href="login.css">
+            <style>
+                .error-message {
+                    color: red;
+                    margin-top: 5px;
+                }
+            </style>
+            <script>
+                // JavaScript to display error messages under the corresponding text box
+                document.addEventListener("DOMContentLoaded", function () {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const passwordError = urlParams.get("password-error");
+
+                    if (passwordError) {
+                        const passwordErrorDiv = document.querySelector(".password-error");
+                        passwordErrorDiv.innerHTML = passwordError;
+                    }
+                });
+            </script>
         </head>
 
         <body>
@@ -38,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
                 <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
                 <label for="password">New Password:</label>
                 <input type="password" name="password" id="password" required><br>
+                <div class="password-error error-message"></div>
 
                 <input class="button" type="submit" value="Reset Password">
             </form>
