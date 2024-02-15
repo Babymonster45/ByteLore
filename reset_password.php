@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
 
                     if (passwordError) {
                         const passwordErrorDiv = document.querySelector(".password-error");
-                        passwordErrorDiv.innerHTML = passwordError;
+                        passwordErrorDiv.innerHTML = decodeURIComponent(passwordError);
                     }
                 });
             </script>
