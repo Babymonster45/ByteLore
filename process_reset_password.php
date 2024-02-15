@@ -5,9 +5,15 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $token = $_POST["token"];
     $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"];
 
     // Initialize separate error arrays for password
     $passwordErrors = array();
+
+    // Check if passwords match
+    if ($password !== $confirm_password) {
+        $passwordErrors[] = "Passwords do not match.";
+    }
 
     // Validate password
     if (strlen($password) < 8) {

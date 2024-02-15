@@ -20,7 +20,7 @@ if (isset($_SESSION["user_id"])) {
 
 <body><br>
     <header>
-        <h1>Verification Email Sent</h1>
+        <h1>Password Reset Email Sent</h1>
     </header>
     <div>
         <?php include('header.php'); ?>
