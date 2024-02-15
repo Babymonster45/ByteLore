@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // If there are errors, redirect back to signup.php with the error messages
-    if (!empty($errorMessages) || !empty($usernameErrors) || !empty($emailErrors) || !empty($passwordErrors)) {
+    if (!empty($errorMessages) || !empty($emailErrors)) {
         $errorMessages = array(
             "email-error" => implode("<br>", $emailErrors)
         );

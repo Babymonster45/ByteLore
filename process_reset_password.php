@@ -37,6 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // If there are errors, redirect back to signup.php with the error messages
+    if (!empty($errorMessages) || !empty($passwordErrors)) {
+        $errorMessages = array(
+            "password-error" => implode("<br>", $passwordErrors)
+        );
+        $errorMessagesString = http_build_query($errorMessages);
+        header("Location: reset_password.php?token=$token" . $errorMessagesString);
+        exit();
+    }
+
     // Hash the new password before updating it in the database
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
