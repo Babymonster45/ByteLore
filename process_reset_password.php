@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "password-error" => implode("<br>", $passwordErrors)
         );
         $errorMessagesString = http_build_query($errorMessages);
-        header("Location: reset_password.php?token=$token");
+        header("Location: reset_password.php?token=$token" . $errorMessagesString);
         exit();
     }
 
@@ -74,8 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         // Password reset failed
-        header("Location: reset_password.php?token=$token&error=reset-failed");
-        exit();
+        //header("Location: reset_password.php?token=$token&error=reset-failed");
+        //exit();
     }
 
     // Close database connection
