@@ -56,6 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
                 <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
                 <label for="password">New Password:</label>
                 <input type="password" name="password" id="password" required><br>
+                <label for="confirm_password">Confirm New Password:</label>
+                <input type="password" name="confirm_password" id="confirm_password" required><br>
                 <div class="password-error error-message"></div>
 
                 <input class="button" type="submit" value="Reset Password">
