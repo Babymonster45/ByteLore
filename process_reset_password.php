@@ -51,12 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // If there are errors, redirect back to reset_password.php with the error messages
-    if (!empty($errorMessages) || !empty($passwordErrors)) {
+    if (!empty($passwordErrors)) {
         $errorMessages = array(
             "password-error" => implode("<br>", $passwordErrors)
         );
         $errorMessagesString = http_build_query($errorMessages);
-        header("Location: reset_password.php?token=$token&$errorMessagesString");
+        header("Location: reset_password.php?token=$token");
         exit();
     }
 
