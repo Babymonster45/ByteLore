@@ -16,6 +16,18 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <title>Forgot Username</title>
     <link rel="stylesheet" href="login.css">
+    <script>
+        // JavaScript to display error messages in red
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const emailError = urlParams.get("email-error");
+
+            if (emailError) {
+                const emailErrorDiv = document.querySelector(".email-error");
+                emailErrorDiv.innerHTML = emailError;
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -31,6 +43,7 @@ if (isset($_SESSION["user_id"])) {
         <label for="email">Enter your email:</label>
         <input type="email" name="email" required>
         <input type="submit" value="Reset Username">
+        <div class="email-error error-message"></div>
     </form>
 </body>
 
