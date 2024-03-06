@@ -31,6 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // Check if the username is already in use
+    $checkUsernameQuery = "SELECT id FROM users WHERE username = ?";
+    $checkUsernameStmt = $conn->prepare($checkUsernameQuery);
+    $checkUsernameStmt->bind_param("s", $username);
+    $checkUsernameStmt->execute();
+    $checkUsernameStmt->store_result();
+
+    if ($checkUsernameStmt->num_rows > 0) {
+        $usernameErrors[] = "Username is already in use.";
+    }
+
     // If there are errors, redirect back to reset_username.php with the error messages
     if (!empty($usernameErrors)) {
         $errorMessages = array(
