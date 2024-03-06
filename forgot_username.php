@@ -16,6 +16,12 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <title>Forgot Username</title>
     <link rel="stylesheet" href="login.css">
+    <style>
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        } 
+    </style>
     <script>
         // JavaScript to display error messages in red
         document.addEventListener("DOMContentLoaded", function() {
