@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Update the user's username and reset token in the database
-    $updateUsernameQuery = "UPDATE users SET username = ?, reset_token = NULL WHERE reset_token = ?";
+    $updateUsernameQuery = "UPDATE users SET username = ?, reset_token = NULL, reset_token_created_at = NULL WHERE reset_token = ?";
     $updateUsernameStmt = $conn->prepare($updateUsernameQuery);
     $updateUsernameStmt->bind_param("ss", $username, $token);
 

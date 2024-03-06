@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     // Update the user's password and reset token in the database
-    $updatePasswordQuery = "UPDATE users SET password_hash = ?, reset_token = NULL WHERE reset_token = ?";
+    $updatePasswordQuery = "UPDATE users SET password_hash = ?, reset_token = NULL, reset_token_created_at = NULL WHERE reset_token = ?";
     $updatePasswordStmt = $conn->prepare($updatePasswordQuery);
     $updatePasswordStmt->bind_param("ss", $password_hash, $token);
 
