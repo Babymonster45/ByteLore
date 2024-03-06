@@ -32,14 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check if the username is already in use
-    $checkUsernameQuery = "SELECT id FROM users WHERE username = ?";
+    $checkUsernameQuery = "SELECT id, username FROM users WHERE reset_token = ?";
     $checkUsernameStmt = $conn->prepare($checkUsernameQuery);
-    $checkUsernameStmt->bind_param("s", $username);
+    $checkUsernameStmt->bind_param("s", $token);
     $checkUsernameStmt->execute();
     $checkUsernameStmt->store_result();
+    $checkUsernameStmt->bind_result($userId, $currentUsername);
 
     if ($checkUsernameStmt->num_rows > 0) {
-        $usernameErrors[] = "Username is already in use.";
+        $checkUsernameStmt->fetch();
+        if ($username === $currentUsername) {
+            $usernameErrors[] = "This is already your username.";
+        }
     }
 
     // If there are errors, redirect back to reset_username.php with the error messages
@@ -68,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Close database connection
+    $checkUsernameStmt->close();
     $updateUsernameStmt->close();
     $conn->close();
 } else {
