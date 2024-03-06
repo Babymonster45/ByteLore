@@ -50,10 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $checkEmailStmt->fetch();
 
         // Store the reset token in the database
-        $storeTokenQuery = "UPDATE users SET reset_token = ? WHERE id = ?";
+        $storeTokenQuery = "UPDATE users SET reset_token = ?, reset_token_created_at = NOW() WHERE id = ?";
         $storeTokenStmt = $conn->prepare($storeTokenQuery);
         $storeTokenStmt->bind_param("si", $resetToken, $userId);
         $storeTokenStmt->execute();
+
 
         // Send an email with the reset link
         $resetLink = "https://bytelore.cheeseindustries.net/reset_password.php?token=$resetToken";
