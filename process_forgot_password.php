@@ -55,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $storeTokenStmt->bind_param("si", $resetToken, $userId);
         $storeTokenStmt->execute();
 
-
         // Send an email with the reset link
         $resetLink = "https://bytelore.cheeseindustries.net/reset_password.php?token=$resetToken";
         $verification_message = "Here is your password reset link! Please click the following link to verify your account: <a href='$resetLink'>$resetLink</a>";
@@ -83,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } catch (Exception $e) {
             // Registration failed
             $error_message = "Failed to send email: " . $insertUnverifiedStmt->error;
-            header("Location: signup.php?error=" . urlencode($error_message));
+            header("Location: forgot_password.php?error=" . urlencode($error_message));
         }
 
     } else {
@@ -91,13 +90,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $emailErrors[] = "User not found.";
     }
 
-    // If there are errors, redirect back to signup.php with the error messages
+    // If there are errors, redirect back to forgot_password.php with the error messages
     if (!empty($errorMessages) || !empty($emailErrors)) {
         $errorMessages = array(
             "email-error" => implode("<br>", $emailErrors)
         );
         $errorMessagesString = http_build_query($errorMessages);
-        header("Location: signup.php?" . $errorMessagesString);
+        header("Location: forgot_password.php?" . $errorMessagesString);
         exit();
     }
 

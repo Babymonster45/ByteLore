@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } catch (Exception $e) {
             // Registration failed
             $error_message = "Failed to send email: " . $insertUnverifiedStmt->error;
-            header("Location: signup.php?error=" . urlencode($error_message));
+            header("Location: forgot_username.php?error=" . urlencode($error_message));
         }
 
     } else {
@@ -90,13 +90,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $emailErrors[] = "User not found.";
     }
 
-    // If there are errors, redirect back to signup.php with the error messages
+    // If there are errors, redirect back to forgot_username.php with the error messages
     if (!empty($errorMessages) || !empty($emailErrors)) {
         $errorMessages = array(
             "email-error" => implode("<br>", $emailErrors)
         );
         $errorMessagesString = http_build_query($errorMessages);
-        header("Location: signup.php?" . $errorMessagesString);
+        header("Location: forgot_username.php?" . $errorMessagesString);
         exit();
     }
 
