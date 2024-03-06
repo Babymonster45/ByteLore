@@ -56,6 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
                 <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
                 <label for="username">New Username:</label>
                 <input type="text" name="username" id="username" required><br>
+                <label for="confirm_username">Confirm New Username:</label>
+                <input type="username" name="confirm_username" id="confirm_username" required><br>
                 <div class="username-error error-message"></div>
 
                 <input class="button" type="submit" value="Reset Username">
