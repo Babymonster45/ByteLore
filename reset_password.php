@@ -9,13 +9,22 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
     $token = $_GET["token"];
 
     // Check if the token exists in the database
-    $checkTokenQuery = "SELECT id FROM users WHERE reset_token = ?";
+    $checkTokenQuery = "SELECT id, reset_token_created_at, reset_token_expires_at FROM users WHERE reset_token = ?";
     $checkTokenStmt = $conn->prepare($checkTokenQuery);
     $checkTokenStmt->bind_param("s", $token);
     $checkTokenStmt->execute();
     $checkTokenStmt->store_result();
 
-    if ($checkTokenStmt->num_rows > 0) {
+    if ($currentTime > $tokenExpiresAt) {
+        // Token has expired, remove it from the database
+        $removeTokenQuery = "UPDATE users SET reset_token = NULL, reset_token_created_at = NULL, reset_token_expires_at = NULL WHERE id = ?";
+        $removeTokenStmt = $conn->prepare($removeTokenQuery);
+        $removeTokenStmt->bind_param("i", $userData['id']);
+        $removeTokenStmt->execute();
+
+        echo "Reset token has expired.";
+    }
+        else {
         // Token is valid, display the password reset form
         ?>
         <!DOCTYPE html>
@@ -67,11 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
         </html>
         <?php
         exit();
-    } else {
-        // Token is invalid or expired
-        echo "Invalid or expired reset token.";
-    }
-
+    } 
     // Close database connection
     $checkTokenStmt->close();
     $conn->close();

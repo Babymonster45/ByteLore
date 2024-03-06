@@ -45,15 +45,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // User found, generate a unique reset token
         $resetToken = bin2hex(random_bytes(32)); // Token length
 
+        // Calculate expiration time (24 hours)
+        $expirationTime = date('Y-m-d H:i:s', strtotime('+1 minute'));
+
         // Bind the result to variables
         $checkEmailStmt->bind_result($userId, $username);
         $checkEmailStmt->fetch();
 
-        // Store the reset token in the database
-        $storeTokenQuery = "UPDATE users SET reset_token = ? WHERE id = ?";
-        $storeTokenStmt = $conn->prepare($storeTokenQuery);
-        $storeTokenStmt->bind_param("si", $resetToken, $userId);
-        $storeTokenStmt->execute();
+        // Store the reset token and expiration time in the database
+        $insertTokenQuery = "UPDATE users SET reset_token = ?, reset_token_created_at = CURRENT_TIMESTAMP, reset_token_expires_at = ? WHERE email = ?";
+        $insertTokenStmt = $conn->prepare($insertTokenQuery);
+        $insertTokenStmt->bind_param("sss", $resetToken, $expirationTime, $email);
+        $insertTokenStmt->execute();
 
         // Send an email with the reset link
         $resetLink = "https://bytelore.cheeseindustries.de/reset_password.php?token=$resetToken";
