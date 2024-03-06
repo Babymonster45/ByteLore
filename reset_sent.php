@@ -14,7 +14,7 @@ if (isset($_SESSION["user_id"])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Password Reset Email Sent</title>
+    <title>Username/Password Reset Email Sent</title>
     <link rel="stylesheet" href="verification.css">
 </head>
 
