@@ -20,7 +20,7 @@ if (isset($_SESSION["user_id"])) {
 
 <body><br>
     <header>
-        <h1>Password Reset Email Sent</h1>
+        <h1>Username/Password Reset Email Sent</h1>
     </header>
     <div>
         <?php include('header.php'); ?>
@@ -28,7 +28,7 @@ if (isset($_SESSION["user_id"])) {
     <main>
         <form>
             <h4>
-                <p>A password reset email has been sent to your provided email address.</p>
+                <p>A Username/Password reset email has been sent to your provided email address.</p>
                 <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
                 <p>Click the link in the email to verify your account.</p>
             </h4>

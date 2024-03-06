@@ -54,7 +54,8 @@ if (isset($_SESSION["user_id"])) {
 
         <input class="button" type="submit" value="Login">
     </form>
-    <p>Forgot Password? <a href="forgot_password.php">Reset it here</a></p><br>
+    <p>Forgot Username? <a href="forgot_username.php">Reset it here</a></p>
+    <p>Forgot Password? <a href="forgot_password.php">Reset it here</a></p>
     <p>Don't have an account? <a href="signup.php">Sign up</a></p>
 </body>
 
