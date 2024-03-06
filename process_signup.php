@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($insertUnverifiedStmt->execute()) {
         // Send verification email
-        $verification_link = 'https://bytelore.cheeseindustries.de/verify.php?email=' . $email . '&token=' . $verification_token;
+        $verification_link = 'https://bytelore.cheeseindustries.net/verify.php?email=' . $email . '&token=' . $verification_token;
         $verification_message = "Thank you for registering! Please click the following link to verify your account: <a href='$verification_link'>$verification_link</a>";
 
         $mail = new PHPMailer(true);

@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $storeTokenStmt->execute();
 
         // Send an email with the reset link
-        $resetLink = "https://bytelore.cheeseindustries.de/reset_password.php?token=$resetToken";
+        $resetLink = "https://bytelore.cheeseindustries.net/reset_password.php?token=$resetToken";
         $verification_message = "Here is your password reset link! Please click the following link to verify your account: <a href='$resetLink'>$resetLink</a>";
 
         $mail = new PHPMailer(true);
