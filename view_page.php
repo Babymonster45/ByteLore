@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     $pageID = $_GET['id'];
 
     // Retrieve the page from the database using the ID
-    $sql = "SELECT * FROM user_pages WHERE id = ?";
+    $sql = "SELECT user_pages.*, users.username FROM user_pages JOIN users ON user_pages.created_by = users.id WHERE user_pages.id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $pageID);
     $stmt->execute();
@@ -26,6 +26,7 @@ if (isset($_GET['id'])) {
         $pageContent = nl2br($row['content']); // Convert newline characters to HTML line breaks
         $imagePath = $row['image_path']; // Retrieve the image path from the database (already in /uploads/)
         $pageCreatedAt = $row['created_at'];
+        $createdBy = $row['username']; // Retrieve the username of the user who created the page
     } else {
         echo "Page not found.";
     }
@@ -39,46 +40,58 @@ if (isset($_GET['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle; ?></title>
+    <title>
+        <?php echo $pageTitle; ?>
+    </title>
     <link rel="stylesheet" href="/home_page.css">
     <style>
-    body {
-        background-color: #67b3b5;
-    }
+        body {
+            background-color: #67b3b5;
+        }
 
-    header {
-    background-color: #67b3b5;
-    padding: 20px 0;
-    }
- 
-    header h1 {
-       color: #fff;
-       font-size: 36px;
-       margin: 0;
-    }
+        header {
+            background-color: #67b3b5;
+            padding: 20px 0;
+        }
 
-    .subheader {
-      background-color: #fff;
-      padding: 1px 0;
-         text-align: center;
-    }
+        header h1 {
+            color: #fff;
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .subheader {
+            background-color: #fff;
+            padding: 1px 0;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
     <div class="subheader">
         <?php include('header.php'); ?>
     </div><br>
-    <br><main>
-    <h1><?php echo $pageTitle; ?></h1>
+    <br>
+    <main>
+        <h1>
+            <?php echo $pageTitle; ?>
+        </h1>
     </main><br>
     <main>
-    <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
-    <p><?php echo $pageContent; ?></p>
+        <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
+        <p>
+            <?php echo $pageContent; ?>
+        </p>
     </main>
-    <p>Created at: <?php echo $pageCreatedAt; ?></p>
+    <p>Created at:
+        <?php echo $pageCreatedAt; ?> by
+        <?php echo $createdBy; ?>
+    </p>
 </body>
-</html>
 
+</html>
