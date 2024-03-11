@@ -5,6 +5,8 @@ include('not_logged_in_check.php');
 // Establish a database connection
 include('/secure_config/config.php');
 
+// Assuming you have a way to get the current user's id
+$current_user_id = $_SESSION['user_id']; // replace this with your actual code to get the current user's id
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -23,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Title contains invalid characters. Please use only ASCII characters in the range 32-126.";
         exit();
     }
-    
 
     // Define the maximum file size (250KB)
     $maxFileSize = 250 * 1024; // 250KB
@@ -62,9 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($imageUploaded) {
             // Insert data into the database
-            $sql = "INSERT INTO user_pages (title, content, image_path) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO user_pages (title, content, image_path, created_by) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sss", $title, $content, $urlImagePath);
+            $stmt->bind_param("sssi", $title, $content, $urlImagePath, $current_user_id);
 
             if ($stmt->execute()) {
                 // Get the ID of the newly created page
