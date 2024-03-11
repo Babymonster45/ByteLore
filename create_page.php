@@ -5,8 +5,8 @@ include('not_logged_in_check.php');
 // Establish a database connection
 include('/secure_config/config.php');
 
-// Assuming you have a way to get the current user's id
-$current_user_id = $_SESSION['user_id']; // replace this with your actual code to get the current user's id
+// Assuming you have a way to get the current user's username
+$current_username = $_SESSION['username']; // replace this with your actual code to get the current user's username
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Insert data into the database
             $sql = "INSERT INTO user_pages (title, content, image_path, created_by) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssi", $title, $content, $urlImagePath, $current_user_id);
+            $stmt->bind_param("ssss", $title, $content, $urlImagePath, $current_username);
 
             if ($stmt->execute()) {
                 // Get the ID of the newly created page
@@ -85,7 +85,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,10 +96,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.addEventListener('DOMContentLoaded', () => {
             const fileInput = document.getElementById('image');
             const fileText = document.getElementById('file-upload-text');
+            const errorText = document.getElementById('error');
 
             fileInput.addEventListener('change', (event) => {
                 const filename = event.target.files[0].name;
-                fileText.textContent = filename;
+                const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
+                const maxSize = 0.25; // 250KB in MB
+
+                if (fileSize > maxSize) {
+                    errorText.textContent = 'File size exceeds the limit of 250KB.';
+                    fileInput.value = ''; // clear the input
+                } else {
+                    errorText.textContent = '';
+                    fileText.textContent = filename;
+                }
             });
         });
     </script>
@@ -116,6 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="image">Upload an Image (Max: 250KB):</label>
         <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
+        <p id="error" style="color: red;"></p>
         <label for="image" class="custom-file-label">Choose an Image</label>
         <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
