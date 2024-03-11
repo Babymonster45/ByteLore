@@ -5,8 +5,8 @@ include('not_logged_in_check.php');
 // Establish a database connection
 include('/secure_config/config.php');
 
-// Assuming you have a way to get the current user's username
-$current_username = $_SESSION['username']; // replace this with your actual code to get the current user's username
+// Assuming you have a way to get the current user's id
+$current_user_id = $_SESSION['user_id']; // replace this with your actual code to get the current user's id
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Insert data into the database
             $sql = "INSERT INTO user_pages (title, content, image_path, created_by) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssss", $title, $content, $urlImagePath, $current_username);
+            $stmt->bind_param("sssi", $title, $content, $urlImagePath, $current_user_id);
 
             if ($stmt->execute()) {
                 // Get the ID of the newly created page
