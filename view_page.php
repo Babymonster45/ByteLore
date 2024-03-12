@@ -88,7 +88,7 @@ if (isset($_GET['id'])) {
             <?php echo $pageContent; ?>
         </p>
     </main>
-    <p>Created by:
+    <p>Created by
         <?php echo $createdBy; ?> at
         <?php echo $pageCreatedAt; ?> 
     </p>

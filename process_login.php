@@ -32,11 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Password is correct
             $_SESSION["user_id"] = $user_id; // Set a session variable to indicate the user is logged in
 
-            // If "Remember Me" is checked, create a cookie to remember the user's login
             if ($remember_me) {
-                $cookie_name = "remember_me_cookie";
-                $cookie_value = base64_encode($username . "|" . $db_password_hash);
-                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 30 days
+                $token = bin2hex(random_bytes(16)); // Generate a random token
+                $expires = new DateTime('NOW');
+                $expires->add(new DateInterval('P30D')); // Token expires after 30 days
+            
+                // Store the token in the database
+                $stmt = $conn->prepare("INSERT INTO remember_me_tokens (user_id, token, expires) VALUES (?, ?, ?)");
+                $stmt->bind_param("iss", $user_id, $token, $expires->format('Y-m-d H:i:s'));
+                $stmt->execute();
+            
+                // Store the token in a cookie
+                setcookie("remember_me_token", $token, $expires->getTimestamp(), "/", "", true, true);
             }
 
             header("Location: /"); // Redirect to the homepage or another page
