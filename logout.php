@@ -1,5 +1,5 @@
 <?php
-// Includes the authentication script to make sure the user is not logged in
+// Includes the authentication script to make sure the user is logged in
 include('not_logged_in_check.php');
 
 // Start a session to manage user login state

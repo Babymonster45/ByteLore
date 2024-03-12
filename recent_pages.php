@@ -1,4 +1,7 @@
 <?php
+// Checks if the user tagged remember me
+include('remember_me.php');
+
 // Establish a database connection
 include('/secure_config/config.php');
 

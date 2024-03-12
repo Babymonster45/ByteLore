@@ -1,4 +1,7 @@
 <?php
+// Checks if the user tagged remember me
+include('remember_me.php');
+
 // Start a session to manage user login state
 session_start();
 
