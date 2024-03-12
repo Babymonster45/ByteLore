@@ -36,12 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $token = bin2hex(random_bytes(16)); // Generate a random token
                 $expires = new DateTime('NOW');
                 $expires->add(new DateInterval('P30D')); // Token expires after 30 days
-            
+
+                // Close the previous statement
+                $stmt->close();
+
                 // Store the token in the database
                 $stmt = $conn->prepare("INSERT INTO remember_me_tokens (user_id, token, expires) VALUES (?, ?, ?)");
                 $stmt->bind_param("iss", $user_id, $token, $expires->format('Y-m-d H:i:s'));
                 $stmt->execute();
-            
+
                 // Store the token in a cookie
                 setcookie("remember_me_token", $token, $expires->getTimestamp(), "/", "", true, true);
             }
