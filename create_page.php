@@ -1,4 +1,7 @@
 <?php
+// Checks if the user tagged remember me
+include('remember_me.php');
+
 // Includes the authentication script to make sure the user is not logged in
 include('not_logged_in_check.php');
 
