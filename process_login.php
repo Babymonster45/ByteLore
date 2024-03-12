@@ -43,14 +43,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Close the previous statement
                 $stmt->close();
 
-                // Store the token in the database
-                $stmt = $conn->prepare("INSERT INTO remember_me_tokens (user_id, token, expires) VALUES (?, ?, ?)");
-                $stmt->bind_param("iss", $user_id, $token, $expires->format('Y-m-d H:i:s'));
+                // Check if a token already exists for the user
+                $stmt = $conn->prepare("SELECT 1 FROM remember_me_tokens WHERE user_id = ?");
+                $stmt->bind_param("i", $user_id);
+                $stmt->execute();
+
+                if ($stmt->fetch()) {
+                    // A token exists, update it
+                    $stmt->close();
+                    $stmt = $conn->prepare("UPDATE remember_me_tokens SET token = ?, expires = ? WHERE user_id = ?");
+                    $stmt->bind_param("ssi", $token, $expires->format('Y-m-d H:i:s'), $user_id);
+                } else {
+                    // No token exists, insert a new one
+                    $stmt->close();
+                    $stmt = $conn->prepare("INSERT INTO remember_me_tokens (user_id, token, expires) VALUES (?, ?, ?)");
+                    $stmt->bind_param("iss", $user_id, $token, $expires->format('Y-m-d H:i:s'));
+                }
                 $stmt->execute();
 
                 // Store the token in a cookie
                 setcookie("remember_me_token", $token, $expires->getTimestamp(), "/", "", true, true);
             }
+
 
             header("Location: /"); // Redirect to the homepage or another page
         } else {
