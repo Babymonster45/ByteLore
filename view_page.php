@@ -91,9 +91,17 @@ if (isset($_GET['id'])) {
             <?php echo $pageContent; ?>
         </p>
     </main>
+    <main>
+        <?php
+        // Show the Edit button only to the creator of the page
+        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['created_by']) {
+            echo '<a href="edit_page.php?id=' . $pageID . '">Edit</a>';
+        }
+        ?>
+    </main>
     <p>Created by
         <?php echo $createdBy; ?> at
-        <?php echo $pageCreatedAt; ?> 
+        <?php echo $pageCreatedAt; ?>
     </p>
 </body>
 
