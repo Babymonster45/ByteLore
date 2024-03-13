@@ -1,6 +1,8 @@
 <?php
 // Start a session to manage user login state
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $token = $_POST["token"];

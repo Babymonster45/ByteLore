@@ -3,7 +3,10 @@
 include('remember_me.php');
 
 // Start a session to manage user login state
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 ?>
 
 <!DOCTYPE html>

@@ -1,6 +1,8 @@
 <?php
 // Start a session to manage user login state
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Include your database connection script
 include('/secure_config/config.php');
