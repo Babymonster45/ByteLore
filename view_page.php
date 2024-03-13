@@ -98,11 +98,11 @@ if (isset($_GET['id'])) {
             echo '<div><a class="button" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
         }
         ?>
+        <p>Created by
+            <?php echo $createdBy; ?> at
+            <?php echo $pageCreatedAt; ?>
+        </p>
     </main>
-    <p>Created by
-        <?php echo $createdBy; ?> at
-        <?php echo $pageCreatedAt; ?>
-    </p>
 </body>
 
 </html>
