@@ -42,11 +42,11 @@ if (isset($_GET['id'])) {
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve data from the form
-    $title = ucwords($_POST["title"]);
-    $content = $_POST["content"];
+    $newTitle = ucwords($_POST["title"]);
+    $newContent = $_POST["content"];
 
     // Checks if the title contains only ASCII characters in the range 32-126
-    if (!preg_match('/^[\x20-\x7E]+$/', $title)) {
+    if (!preg_match('/^[\x20-\x7E]+$/', $newTitle)) {
         echo "Title contains invalid characters. Please use only ASCII characters in the range 32-126.";
         exit();
     }
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if a page with the same title already exists
     $checkSql = "SELECT COUNT(*) as count FROM user_pages WHERE title = ? AND id != ?";
     $checkStmt = $conn->prepare($checkSql);
-    $checkStmt->bind_param("si", $title, $pageID);
+    $checkStmt->bind_param("si", $newTitle, $pageID);
     $checkStmt->execute();
     $checkResult = $checkStmt->get_result();
     $count = $checkResult->fetch_assoc()['count'];
@@ -72,25 +72,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Handle image upload
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
+            // Delete the old image
+            unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath);
+
             $uploadDir = "/var/www/uploads/";
-            $newFileName = $title . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
-            $imagePath = $uploadDir . $newFileName;
+            $newFileName = $newTitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            $newImagePath = $uploadDir . $newFileName;
             $urlImagePath = "/uploads/" . $newFileName;
 
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $newImagePath)) {
                 $imageUploaded = true;
             } else {
                 echo "Error moving the uploaded image to the destination.";
             }
         } else {
-            echo "Please upload an image of the game.";
+            // If no new image is uploaded, use the old image path and rename the image file
+            $oldFileName = basename($imagePath);
+            $oldExtension = pathinfo($oldFileName, PATHINFO_EXTENSION);
+            $newFileName = $newTitle . "_" . time() . "." . $oldExtension;
+            $newImagePath = str_replace($oldFileName, $newFileName, $imagePath);
+            rename($_SERVER['DOCUMENT_ROOT'] . $imagePath, $_SERVER['DOCUMENT_ROOT'] . $newImagePath);
+            $urlImagePath = $newImagePath;
         }
 
-        if ($imageUploaded) {
+        if ($imageUploaded || $newTitle != $title || $newContent != $content) {
             // Update data in the database
             $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=? AND created_by=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssii", $title, $content, $urlImagePath, $pageID, $current_user_id);
+            $stmt->bind_param("sssii", $newTitle, $newContent, $urlImagePath, $pageID, $current_user_id);
 
             if ($stmt->execute()) {
                 // Redirect the user to their updated page
@@ -99,6 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "Error: " . $stmt->error;
             }
+        } else {
+            echo "No changes were made.";
         }
     }
 
