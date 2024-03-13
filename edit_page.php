@@ -59,7 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($count > 0) {
         echo "A page with the same title already exists. Please choose a different title.";
     } else {
-        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
+        // Check if a new image is uploaded
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
             // A new image is uploaded
             unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath);
 
