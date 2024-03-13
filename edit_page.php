@@ -95,3 +95,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Page</title>
+</head>
+
+<body>
+    <form action="edit_page.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="page_id" value="<?php echo $pageID; ?>">
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" value="<?php echo $title; ?>"><br>
+
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content"><?php echo $content; ?></textarea><br>
+
+        <label for="image">Image:</label><br>
+        <input type="file" id="image" name="image"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
