@@ -96,26 +96,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Page</title>
+    <link rel="stylesheet" href="/create_page.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('image');
+            const fileText = document.getElementById('file-upload-text');
+            const errorText = document.getElementById('error');
+
+            fileInput.addEventListener('change', (event) => {
+                const filename = event.target.files[0].name;
+                const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
+                const maxSize = 0.25; // 250KB in MB
+
+                if (fileSize > maxSize) {
+                    errorText.textContent = 'File size exceeds the limit of 250KB.';
+                    fileInput.value = ''; // clear the input
+                } else {
+                    errorText.textContent = '';
+                    fileText.textContent = filename;
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
-    <form action="edit_page.php" method="post" enctype="multipart/form-data">
+    <h1>Edit Page</h1>
+    <div class="subheader">
+        <?php include('header.php'); ?>
+    </div><br>
+    <form action="edit_page.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="page_id" value="<?php echo $pageID; ?>">
 
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="<?php echo $title; ?>"><br>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="<?php echo $title; ?>" required>
 
-        <label for="content">Content:</label><br>
-        <textarea id="content" name="content"><?php echo $content; ?></textarea><br>
+        <label for="image">Upload an Image (Max: 250KB):</label>
+        <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
+        <p id="error" style="color: red;"></p>
+        <label for="image" class="custom-file-label">Choose an Image</label>
+        <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
-        <label for="image">Image:</label><br>
-        <input type="file" id="image" name="image"><br>
-
-        <input type="submit" value="Submit">
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" rows="10" cols="50" required><?php echo $content; ?></textarea>
+        <input type="submit" value="Update Page">
     </form>
 </body>
 
