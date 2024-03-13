@@ -60,31 +60,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "A page with the same title already exists. Please choose a different title.";
     } else {
         // Check if a new image is uploaded
-        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
-            // A new image is uploaded (or an empty file is selected)
-            if ($_FILES["image"]["size"] > 0) {
-                // Handle new image upload logic (as existing)
-                unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath);
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
+            // A new image is uploaded
+            unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath);
 
-                $uploadDir = "/var/www/uploads/";
-                $newFileName = $newTitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
-                $newImagePath = $uploadDir . $newFileName;
-                $urlImagePath = "/uploads/" . $newFileName;
+            $uploadDir = "/var/www/uploads/";
+            $newFileName = $newTitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            $newImagePath = $uploadDir . $newFileName;
+            $urlImagePath = "/uploads/" . $newFileName;
 
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], $newImagePath)) {
-                    $imageUploaded = true;
-                } else {
-                    echo "Error moving the uploaded image to the destination.";
-                }
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $newImagePath)) {
+                $imageUploaded = true;
             } else {
-                // Empty file upload, keep the current image
-                $urlImagePath = $imagePath;
+                echo "Error moving the uploaded image to the destination.";
             }
         } else {
-            // No image uploaded, keep the current image (optional)
+            // No new image is uploaded, keep the current image
             $urlImagePath = $imagePath;
-            // Set $imageUploaded to true (optional, for update query logic)
-            $imageUploaded = true;
+            $imageUploaded = true; // Set $imageUploaded to true
         }
 
         if ($imageUploaded || $newTitle != $title || $newContent != $content) {
