@@ -90,8 +90,8 @@ if (isset($_GET['id'])) {
         <p>
             <?php echo $pageContent; ?>
         </p>
-    </main>
-    <main><br>
+    </main><br>
+    <main>
         <?php
         // Show the Edit button only to the creator of the page
         if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['created_by']) {
