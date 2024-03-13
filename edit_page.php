@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // No new image is uploaded, keep the current image
-            $urlImagePath = $imagePath;
+            $urlImagePath = "/uploads/" . basename($imagePath);
             $imageUploaded = true; // Set $imageUploaded to true
         }
 
