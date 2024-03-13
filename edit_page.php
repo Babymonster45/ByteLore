@@ -101,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,12 +117,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             fileInput.addEventListener('change', (event) => {
                 const filename = event.target.files[0].name;
-                const fileSize = event.target.files[0].size / 1024 / 1024; // in MB
-                const maxSize = 0.25; // 250KB in MB
+                const fileSize = event.target.files[0].size / 1024 / 1024;
+                const maxSize = 0.25;
 
                 if (fileSize > maxSize) {
                     errorText.textContent = 'File size exceeds the limit of 250KB.';
-                    fileInput.value = ''; // clear the input
+                    fileInput.value = '';
                 } else {
                     errorText.textContent = '';
                     fileText.textContent = filename;
@@ -144,7 +143,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" value="<?php echo $title; ?>" required>
 
-        <label for="image">Upload an Image (Max: 250KB):</label>
+        <label for="image">Current Image:</label><br>
+        <img src="<?php echo $imagePath; ?>" alt="Current Image"><br>
+
+        <label for="image">Upload a New Image (Max: 250KB):</label>
         <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
         <p id="error" style="color: red;"></p>
         <label for="image" class="custom-file-label">Choose an Image</label>
