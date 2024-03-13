@@ -1,27 +1,21 @@
 <?php
-// Checks if the user tagged remember me
 include('remember_me.php');
 
-// Includes the authentication script to make sure the user is not logged in
 include('not_logged_in_check.php');
 
-// Establish a database connection
 include('/secure_config/config.php');
 
-// Assuming you have a way to get the current user's id
-$current_user_id = $_SESSION['user_id']; // replace this with your actual code to get the current user's id
+$current_user_id = $_SESSION['user_id'];
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$imageUploaded = false; // Variable to track whether the image has been successfully uploaded
+$imageUploaded = false;
 
-// Retrieve the page ID from the URL
 if (isset($_GET['id'])) {
     $pageID = $_GET['id'];
 
-    // Retrieve the page from the database using the ID
     $sql = "SELECT * FROM user_pages WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $pageID);
@@ -30,7 +24,6 @@ if (isset($_GET['id'])) {
 
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        // Pre-fill the form with the current page data
         $title = $row['title'];
         $content = $row['content'];
         $imagePath = $row['image_path'];
@@ -39,27 +32,23 @@ if (isset($_GET['id'])) {
     }
 }
 
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve data from the form
     $newTitle = ucwords($_POST["title"]);
     $newContent = $_POST["content"];
+    $pageID = $_POST["page_id"]; // Retrieve the page ID from the form data
 
-    // Checks if the title contains only ASCII characters in the range 32-126
     if (!preg_match('/^[\x20-\x7E]+$/', $newTitle)) {
         echo "Title contains invalid characters. Please use only ASCII characters in the range 32-126.";
         exit();
     }
 
-    // Define the maximum file size (250KB)
-    $maxFileSize = 250 * 1024; // 250KB
+    $maxFileSize = 250 * 1024;
 
     if ($_FILES["image"]["size"] > $maxFileSize) {
         echo "File size exceeds the limit of 250KB.";
         exit();
     }
 
-    // Check if a page with the same title already exists
     $checkSql = "SELECT COUNT(*) as count FROM user_pages WHERE title = ? AND id != ?";
     $checkStmt = $conn->prepare($checkSql);
     $checkStmt->bind_param("si", $newTitle, $pageID);
@@ -70,9 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($count > 0) {
         echo "A page with the same title already exists. Please choose a different title.";
     } else {
-        // Handle image upload
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
-            // Delete the old image
             unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath);
 
             $uploadDir = "/var/www/uploads/";
@@ -86,7 +73,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error moving the uploaded image to the destination.";
             }
         } else {
-            // If no new image is uploaded, use the old image path and rename the image file
             $oldFileName = basename($imagePath);
             $oldExtension = pathinfo($oldFileName, PATHINFO_EXTENSION);
             $newFileName = $newTitle . "_" . time() . "." . $oldExtension;
@@ -96,13 +82,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($imageUploaded || $newTitle != $title || $newContent != $content) {
-            // Update data in the database
             $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=? AND created_by=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssii", $newTitle, $newContent, $urlImagePath, $pageID, $current_user_id);
 
             if ($stmt->execute()) {
-                // Redirect the user to their updated page
                 header("Location: view_page.php?id=$pageID");
                 exit();
             } else {
@@ -112,12 +96,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "No changes were made.";
         }
     }
-
-    // Close the prepared statement and database connection if an error occurred
     $stmt->close();
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
