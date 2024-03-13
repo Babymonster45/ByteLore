@@ -60,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "A page with the same title already exists. Please choose a different title.";
     } else {
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
+            // A new image is uploaded
             unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath);
 
             $uploadDir = "/var/www/uploads/";
@@ -73,12 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error moving the uploaded image to the destination.";
             }
         } else {
-            $oldFileName = basename($imagePath);
-            $oldExtension = pathinfo($oldFileName, PATHINFO_EXTENSION);
-            $newFileName = $newTitle . "_" . time() . "." . $oldExtension;
-            $newImagePath = str_replace($oldFileName, $newFileName, $imagePath);
-            rename($_SERVER['DOCUMENT_ROOT'] . $imagePath, $_SERVER['DOCUMENT_ROOT'] . $newImagePath);
-            $urlImagePath = $newImagePath;
+            // No new image is uploaded, keep the current image
+            $urlImagePath = $imagePath;
         }
 
         if ($imageUploaded || $newTitle != $title || $newContent != $content) {
