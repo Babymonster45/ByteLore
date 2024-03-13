@@ -22,9 +22,9 @@ if (isset($_GET['id'])) {
     $pageID = $_GET['id'];
 
     // Retrieve the page from the database using the ID
-    $sql = "SELECT * FROM user_pages WHERE id = ? AND created_by = ?";
+    $sql = "SELECT * FROM user_pages WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ii", $pageID, $current_user_id);
+    $stmt->bind_param("i", $pageID);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -59,34 +59,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Handle image upload
-    if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
-        $uploadDir = "/var/www/uploads/";
-        $newFileName = $title . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
-        $imagePath = $uploadDir . $newFileName;
-        $urlImagePath = "/uploads/" . $newFileName;
+    // Check if a page with the same title already exists
+    $checkSql = "SELECT COUNT(*) as count FROM user_pages WHERE title = ? AND id != ?";
+    $checkStmt = $conn->prepare($checkSql);
+    $checkStmt->bind_param("si", $title, $pageID);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+    $count = $checkResult->fetch_assoc()['count'];
 
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-            $imageUploaded = true;
-        } else {
-            echo "Error moving the uploaded image to the destination.";
-        }
+    if ($count > 0) {
+        echo "A page with the same title already exists. Please choose a different title.";
     } else {
-        echo "Please upload an image of the game.";
-    }
+        // Handle image upload
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
+            $uploadDir = "/var/www/uploads/";
+            $newFileName = $title . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            $imagePath = $uploadDir . $newFileName;
+            $urlImagePath = "/uploads/" . $newFileName;
 
-    if ($imageUploaded) {
-        // Update data in the database
-        $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=? AND created_by=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssii", $title, $content, $urlImagePath, $pageID, $current_user_id);
-
-        if ($stmt->execute()) {
-            // Redirect the user to their updated page
-            header("Location: view_page.php?id=$pageID");
-            exit();
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+                $imageUploaded = true;
+            } else {
+                echo "Error moving the uploaded image to the destination.";
+            }
         } else {
-            echo "Error: " . $stmt->error;
+            echo "Please upload an image of the game.";
+        }
+
+        if ($imageUploaded) {
+            // Update data in the database
+            $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=? AND created_by=?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sssii", $title, $content, $urlImagePath, $pageID, $current_user_id);
+
+            if ($stmt->execute()) {
+                // Redirect the user to their updated page
+                header("Location: view_page.php?id=$pageID");
+                exit();
+            } else {
+                echo "Error: " . $stmt->error;
+            }
         }
     }
 
@@ -95,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
