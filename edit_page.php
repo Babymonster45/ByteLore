@@ -74,10 +74,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "Error moving the uploaded image to the destination.";
             }
+        }
+
+        if ($imageUploaded) {
+            // If a new image is uploaded, update the image path
+            $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=? AND created_by=?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sssii", $newTitle, $newContent, $urlImagePath, $pageID, $current_user_id);
         } else {
-            // No new image is uploaded, keep the current image
-            $urlImagePath = $imagePath;
-            $imageUploaded = true; // Set $imageUploaded to true
+            // If no new image is uploaded, do not update the image path
+            $sql = "UPDATE user_pages SET title=?, content=? WHERE id=? AND created_by=?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssii", $newTitle, $newContent, $pageID, $current_user_id);
+        }
+
+        if ($stmt->execute()) {
+            header("Location: view_page.php?id=$pageID");
+            exit();
+        } else {
+            echo "Error: " . $stmt->error;
         }
 
         if ($imageUploaded || $newTitle != $title || $newContent != $content) {
