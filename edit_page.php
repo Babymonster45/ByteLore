@@ -1,19 +1,19 @@
 <?php
-include('remember_me.php');
+include ('remember_me.php');
 
-include('not_logged_in_check.php');
+include ('not_logged_in_check.php');
 
-include('/secure_config/config.php');
+include ('/secure_config/config.php');
 
 $current_user_id = $_SESSION['user_id'];
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die ("Connection failed: " . $conn->connect_error);
 }
 
 $imageUploaded = false;
 
-if (isset($_GET['id'])) {
+if (isset ($_GET['id'])) {
     $pageID = $_GET['id'];
 
     $sql = "SELECT * FROM user_pages WHERE id = ?";
@@ -60,20 +60,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "A page with the same title already exists. Please choose a different title.";
     } else {
         // Check if a new image is uploaded
-        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
+        if (isset ($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
             // A new image is uploaded
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
-                if (!unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
-                    echo "Error deleting the old image.";
+            $oldImagePath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
+            if (file_exists($oldImagePath)) {
+                if (!unlink($oldImagePath)) {
+                    $error = error_get_last();
+                    echo "Error deleting the old image: " . $error['message'];
                     exit();
                 }
+            } else {
+                echo "The old image file does not exist at the specified path: " . $oldImagePath;
+                exit();
             }
-        
+
             $uploadDir = "/var/www/uploads/";
             $newFileName = $newTitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
             $newImagePath = $uploadDir . $newFileName;
             $urlImagePath = "/uploads/" . $newFileName;
-        
+
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $newImagePath)) {
                 $imageUploaded = true;
             } else {
@@ -155,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h1>Edit Page</h1>
     <div class="subheader">
-        <?php include('header.php'); ?>
+        <?php include ('header.php'); ?>
     </div><br>
     <form action="edit_page.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="page_id" value="<?php echo $pageID; ?>">
