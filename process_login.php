@@ -41,28 +41,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $token = bin2hex(random_bytes(16)); // Generate a random token
                 $expires = new DateTime('NOW');
                 $expires->add(new DateInterval('P30D')); // Token expires after 30 days
-
+            
                 // Close the previous statement
                 $stmt->close();
-
-                // Check if a token already exists for the user
-                $stmt = $conn->prepare("SELECT 1 FROM remember_me_tokens WHERE user_id = ?");
+            
+                // Check how many tokens the user already has
+                $stmt = $conn->prepare("SELECT COUNT(*) FROM remember_me_tokens WHERE user_id = ?");
                 $stmt->bind_param("i", $user_id);
                 $stmt->execute();
-
-                if ($stmt->fetch()) {
-                    // A token exists, update it
+                $stmt->bind_result($token_count);
+                $stmt->fetch();
+                $stmt->close();
+            
+                // If the user has 5 or more tokens, delete the oldest one
+                if ($token_count >= 5) {
+                    $stmt = $conn->prepare("DELETE FROM remember_me_tokens WHERE user_id = ? ORDER BY expires ASC LIMIT 1");
+                    $stmt->bind_param("i", $user_id);
+                    $stmt->execute();
                     $stmt->close();
-                    $stmt = $conn->prepare("UPDATE remember_me_tokens SET token = ?, expires = ? WHERE user_id = ?");
-                    $stmt->bind_param("ssi", $token, $expires->format('Y-m-d H:i:s'), $user_id);
-                } else {
-                    // No token exists, insert a new one
-                    $stmt->close();
-                    $stmt = $conn->prepare("INSERT INTO remember_me_tokens (user_id, token, expires) VALUES (?, ?, ?)");
-                    $stmt->bind_param("iss", $user_id, $token, $expires->format('Y-m-d H:i:s'));
                 }
+            
+                // Insert a new token for the user
+                $stmt = $conn->prepare("INSERT INTO remember_me_tokens (user_id, token, expires) VALUES (?, ?, ?)");
+                $stmt->bind_param("iss", $user_id, $token, $expires->format('Y-m-d H:i:s'));
                 $stmt->execute();
-
+            
                 // Store the token in a cookie
                 setcookie("remember_me_token", $token, $expires->getTimestamp(), "/", "", true, true);
             }
