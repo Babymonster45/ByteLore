@@ -62,17 +62,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if a new image is uploaded
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
             // A new image is uploaded
-            unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath);
-
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
+                if (!unlink($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
+                    echo "Error deleting the old image.";
+                    exit();
+                }
+            }
+        
             $uploadDir = "/var/www/uploads/";
             $newFileName = $newTitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
             $newImagePath = $uploadDir . $newFileName;
             $urlImagePath = "/uploads/" . $newFileName;
-
+        
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $newImagePath)) {
                 $imageUploaded = true;
             } else {
                 echo "Error moving the uploaded image to the destination.";
+                exit();
             }
         }
 
