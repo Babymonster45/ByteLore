@@ -37,6 +37,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newContent = $_POST["content"];
     $pageID = $_POST["page_id"]; // Retrieve the page ID from the form data
 
+    // Fetch the old image path from the database
+    $sql = "SELECT image_path FROM user_pages WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $pageID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $imagePath = $row['image_path'];
+    } else {
+        echo "Page not found or you do not have permission to edit this page.";
+        exit();
+    }
+
     if (!preg_match('/^[\x20-\x7E]+$/', $newTitle)) {
         echo "Title contains invalid characters. Please use only ASCII characters in the range 32-126.";
         exit();
