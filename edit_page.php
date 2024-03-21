@@ -77,16 +77,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if a new image is uploaded
         if (isset ($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
             // A new image is uploaded
-            //$oldImagePath = $imagePath; // Assuming $imagePath is retrieved from the database and contains the relative path to the image file
-            echo "Old image path: " . $imagePath; // Add this line to debug the image path
-            if (file_exists($imagePath)) {
-                if (!unlink($imagePath)) {
+            $oldImagePath = "/var/www" . $imagePath; // Prepend the path to the web root directory
+            echo "Old image path: " . $oldImagePath; // Add this line to debug the image path
+            if (file_exists($oldImagePath)) {
+                if (!unlink($oldImagePath)) {
                     $error = error_get_last();
                     echo "Error deleting the old image: " . $error['message'];
                     exit();
                 }
             } else {
-                echo "The old image file does not exist at the specified path: " . $imagePath;
+                echo "The old image file does not exist at the specified path: " . $oldImagePath;
                 exit();
             }
 
