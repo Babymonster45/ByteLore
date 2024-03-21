@@ -63,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
             // A new image is uploaded
             $oldImagePath = $imagePath; // Assuming $imagePath contains the relative path to the image file
+            echo "Old image path: " . $oldImagePath; // Add this line to debug the image path
             if (file_exists($oldImagePath)) {
                 if (!unlink($oldImagePath)) {
                     $error = error_get_last();
