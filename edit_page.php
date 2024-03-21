@@ -60,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "A page with the same title already exists. Please choose a different title.";
     } else {
         // Check if a new image is uploaded
-        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
+        if (isset ($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
             // A new image is uploaded
-            $oldImagePath = $imagePath; // Assuming $imagePath contains the relative path to the image file
+            $oldImagePath = $imagePath; // Assuming $imagePath is retrieved from the database and contains the relative path to the image file
             echo "Old image path: " . $oldImagePath; // Add this line to debug the image path
             if (file_exists($oldImagePath)) {
                 if (!unlink($oldImagePath)) {
@@ -74,12 +74,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "The old image file does not exist at the specified path: " . $oldImagePath;
                 exit();
             }
-        
+
             $uploadDir = "/var/www/uploads/";
             $newFileName = $newTitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
             $newImagePath = $uploadDir . $newFileName;
             $urlImagePath = "/uploads/" . $newFileName;
-        
+
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $newImagePath)) {
                 $imageUploaded = true;
             } else {
@@ -87,7 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
         }
-        
+
+
         if ($imageUploaded) {
             // If a new image is uploaded, update the image path
             $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=? AND created_by=?";
