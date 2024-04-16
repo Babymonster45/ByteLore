@@ -18,6 +18,21 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Fetch the role of the current user from the database
+$sql = "SELECT role FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $_SESSION['user_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    $currentUserRole = $row['role'];
+} else {
+    echo "User not found.";
+    exit();
+}
+
 // Retrieve the page ID from the URL
 if (isset($_GET['id'])) {
     $pageID = $_GET['id'];
