@@ -125,14 +125,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($imageUploaded) {
             // If a new image is uploaded, update the image path
-            $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=? AND created_by=?";
+            $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssii", $newTitle, $newContent, $urlImagePath, $pageID, $current_user_id);
+            $stmt->bind_param("sssi", $newTitle, $newContent, $urlImagePath, $pageID);
         } else {
             // If no new image is uploaded, do not update the image path
-            $sql = "UPDATE user_pages SET title=?, content=? WHERE id=? AND created_by=?";
+            $sql = "UPDATE user_pages SET title=?, content=? WHERE id=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssii", $newTitle, $newContent, $pageID, $current_user_id);
+            $stmt->bind_param("ssi", $newTitle, $newContent, $pageID);
         }
 
         if ($stmt->execute()) {
