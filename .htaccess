@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Redirect direct access to home.php to index.php
+RewriteRule ^home.php$ index.php [L,R=301]
+
+# If the requested filename is not a file that exists
+RewriteCond %{REQUEST_FILENAME} !-f
+# And it's not a directory that exists
+RewriteCond %{REQUEST_FILENAME} !-d
+# Then rewrite the URL to pass the request path to index.php
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+
