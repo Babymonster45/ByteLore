@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Checks if the user tagged remember me
-include('remember_me.php');
+include ('remember_me.php');
 
 // Start a session to manage user login state
 if (session_status() == PHP_SESSION_NONE) {
@@ -12,7 +12,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Establish a database connection
-include('/secure_config/config.php');
+include ('/secure_config/config.php');
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -83,7 +83,7 @@ if (isset($_GET['id'])) {
 
 <body>
     <div class="subheader">
-        <?php include('header.php'); ?>
+        <?php include ('header.php'); ?>
     </div><br>
     <br>
     <main>
@@ -99,8 +99,8 @@ if (isset($_GET['id'])) {
     </main><br>
     <main>
         <?php
-        // Show the Edit button only to the creator of the page
-        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['created_by']) {
+        // Show the Edit button to admins, editors, and the creator of the page
+        if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
             echo '<div><a class="button" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
         }
         ?>
