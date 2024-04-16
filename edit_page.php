@@ -7,8 +7,19 @@ include ('/secure_config/config.php');
 
 $current_user_id = $_SESSION['user_id'];
 
-if ($conn->connect_error) {
-    die ("Connection failed: " . $conn->connect_error);
+// Fetch the role of the current user from the database
+$sql = "SELECT role FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $current_user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    $role = $row['role'];
+} else {
+    echo "User not found.";
+    exit();
 }
 
 $imageUploaded = false;
@@ -16,6 +27,7 @@ $imageUploaded = false;
 if (isset ($_GET['id'])) {
     $pageID = $_GET['id'];
 
+    // Check if the current user is allowed to edit the page
     $sql = "SELECT * FROM user_pages WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $pageID);
@@ -24,11 +36,18 @@ if (isset ($_GET['id'])) {
 
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        $title = $row['title'];
-        $content = $row['content'];
-        $imagePath = $row['image_path'];
+        if ($role >= 1 || $row['created_by'] == $current_user_id) {
+            // The user is an admin/editor or the creator of the page
+            $title = $row['title'];
+            $content = $row['content'];
+            $imagePath = $row['image_path'];
+        } else {
+            echo "You do not have permission to edit this page.";
+            exit();
+        }
     } else {
-        echo "Page not found or you do not have permission to edit this page.";
+        echo "Page not found.";
+        exit();
     }
 }
 
