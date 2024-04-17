@@ -38,7 +38,7 @@ include 'views/header.php';
       <div class="row justify-content-center">
          <div class="col-lg-8">
             <div class="call-action-content text-center">
-               <h2 class="action-title">Anything Missing? Add A Game!</h2>
+               <br><br><h2 class="action-title">Anything Missing? Add A Game!</h2><br>
                <?php
                // Check if the user is logged in
                if (isset($_SESSION["user_id"])) {
@@ -46,7 +46,7 @@ include 'views/header.php';
                } else {
                    echo '<p>You must be logged in to add a game. Please <a href="login.php">log in</a>.</p>';
                }
-               ?>
+               ?><br><br>
             </div>
             <!-- call action content -->
          </div>
@@ -64,7 +64,7 @@ include 'views/header.php';
       <div class="row justify-content-center">
          <div class="col-lg-8">
             <div class="call-action-content text-center">
-               <h2 class="action-title">Recently Created Pages</h2>
+               <br><h2 class="action-title">Recently Added Games</h2>
             </div>
          </div>
          <?php include('recent_pages.php'); // Displays the top 6 most recently created games ?> 
