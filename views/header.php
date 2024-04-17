@@ -10,17 +10,7 @@
                <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne" style="justify-self: center;">
                   <ul class="navbar-nav m-auto">
                      <li class="nav-item">
-                        <a
-                           class="page-scroll active"
-                           href="./"
-                           data-bs-toggle="collapse"
-                           data-bs-target="#sub-nav1"
-                           aria-controls="sub-nav1"
-                           aria-expanded="false"
-                           aria-label="Toggle navigation"
-                           >
-                           Home
-                        </a>
+                        <a href="/">Home</a>
                      </li>
                      <li class="nav-item">
                         <a href="/games_list.php">Game List</a>
