@@ -40,7 +40,7 @@
                      </li>
                   </ul>
                </div>
-               <div class="navbar-btn d-none d-sm-inline-block">
+               <div class="navbar-btn d-none d-sm-inline-block" style="width: 200px;">
                   <ul>
                      <?php
                      // Check if the user is logged in and display appropriate buttons
