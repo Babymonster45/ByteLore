@@ -38,7 +38,7 @@ include 'views/header.php';
       <div class="row justify-content-center">
          <div class="col-lg-8">
             <div class="call-action-content text-center">
-               <br><br><h2 class="action-title">Anything Missing? Add A Game!</h2><br>
+               <br><h2 class="action-title">Anything Missing? Add A Game!</h2><br>
                <?php
                // Check if the user is logged in
                if (isset($_SESSION["user_id"])) {
