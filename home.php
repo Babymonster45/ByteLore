@@ -33,7 +33,7 @@ include 'views/header.php';
 <!--====== CALL TO ACTION FOUR PART ENDS ======-->
 
 <!--====== ADD GAME PART START ======-->
-<section class="call-action-area" style="background-color: black; color: white;">
+<section class="call-action-area call-action-four" style="background-color: black; color: white;">
    <div class="container">
       <div class="row justify-content-center">
          <div class="col-lg-8">
@@ -64,7 +64,7 @@ include 'views/header.php';
       <div class="row justify-content-center">
          <div class="col-lg-8">
             <div class="call-action-content text-center">
-               <br><h2 class="action-title">Recently Added Games</h2>
+               <br><br><h2 class="action-title">Recently Added Games</h2>
             </div>
          </div>
          <?php include('recent_pages.php'); // Displays the top 6 most recently created games ?> 
