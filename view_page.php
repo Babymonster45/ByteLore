@@ -55,6 +55,7 @@ if (isset($_GET['id'])) {
     echo "Invalid page ID.";
 }
 
+include_once 'views/pageBuilder.php';
 include ('views/header.php');
 ?>
 
