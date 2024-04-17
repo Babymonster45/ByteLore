@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($count > 0) {
         echo "A page with the same title already exists. Please choose a different title.";
     } else {
-        // Check if a new image is uploaded
+        // Check if the new image is uploaded
         if (isset ($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK && $_FILES["image"]["size"] > 0) {
             // A new image is uploaded
             $oldImagePath = "/var/www" . $imagePath; // Prepend the path to the web root directory
