@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
         $pageID = $row['id'];
         $imagePath = $row['image_path'];
         $createdAt = $row['created_at'];
-        $recentPages[] = "<div class='col-lg-4 col-md-8 col-sm-10'><div class='single-blog blog-style-one'><div class='blog-image'><a href='view_page.php?id=$pageID'><img src='$imagePath' alt='$pageTitle'></a></div><div class='blog-content'><h5 class='blog-title'><a href='view_page.php?id=$pageID'>$pageTitle</a></h5><span><i class='lni lni-calendar'></i> $createdAt</span></div></div></div>";
+        $recentPages[] = "<div class='col-lg-4 col-md-8 col-sm-10'><div class='single-blog blog-style-one'><div class='blog-image'><a href='view_page.php?id=$pageID'><img src='$imagePath' alt='$pageTitle' style='width: 100%; height: auto;'></a></div><div class='blog-content'><h5 class='blog-title'><a href='view_page.php?id=$pageID'>$pageTitle</a></h5><span><i class='lni lni-calendar'></i> $createdAt</span></div></div></div>";
     }
 }
 
