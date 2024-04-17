@@ -110,7 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             $uploadDir = "/var/www/uploads/";
-            $newFileName = $newTitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            $filetitle = preg_replace('/[^a-zA-Z]/', '', $newTitle);
+            $newFileName = $filetitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
             $newImagePath = $uploadDir . $newFileName;
             $urlImagePath = "/uploads/" . $newFileName;
 

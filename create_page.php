@@ -51,7 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Handle image upload
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
             $uploadDir = "/var/www/uploads/";
-            $newFileName = $title . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            // Remove all non-alphabet characters from the title
+            $filetitle = preg_replace('/[^a-zA-Z]/', '', $title);
+            $newFileName = $filetitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
             $imagePath = $uploadDir . $newFileName;
             $urlImagePath = "/uploads/" . $newFileName;
 
