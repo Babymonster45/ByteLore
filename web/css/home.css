@@ -193,8 +193,5 @@
 .blog-style-one .blog-content .more:hover {
   color: var(--primary-dark);
 }
-.blog-image img {
-  width: 100%;
-  height: auto;
-}
+
 /*# sourceMappingURL=blog-01.css.map */
