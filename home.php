@@ -11,6 +11,14 @@ include 'views/pageBuilder.php';
 include 'views/header.php';
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ByteLore</title>
+</head>
+
 <!--====== CALL TO ACTION FOUR PART START ======-->
 <section class="call-action-area call-action-four">
    <div class="container">
@@ -74,6 +82,7 @@ include 'views/header.php';
    <!-- container -->
 </section>
 <!--====== BLOG PART ENDS ======-->
+</html>
 
 <?php
 include 'views/footer.php';
