@@ -28,9 +28,6 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
     $currentUserRole = $row['role'];
-} else {
-    echo "User not found.";
-    exit();
 }
 
 // Retrieve the page ID from the URL
