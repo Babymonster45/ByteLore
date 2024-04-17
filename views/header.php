@@ -1,5 +1,5 @@
- <!--====== NAVBAR ONE PART START ======-->
- <section class="navbar-area navbar-one">
+<!--====== NAVBAR ONE PART START ======-->
+<section class="navbar-area navbar-one">
    <div class="container">
       <div class="row">
          <div class="col-lg-12">
@@ -42,16 +42,15 @@
                </div>
                <div class="navbar-btn d-none d-sm-inline-block">
                   <ul>
-                     <li>
-                        <a class="btn primary-btn-outline" href="./login.php"
-                           >Sign In</a
-                           >
-                     </li>
-                     <li>
-                        <a class="btn primary-btn" href="./signup.php"
-                           >Sign Up</a
-                           >
-                     </li>
+                     <?php
+                     // Check if the user is logged in and display appropriate buttons
+                     if (isset($_SESSION["user_id"])) {
+                         echo '<li><a class="btn primary-btn-outline" href="logout.php">Logout</a></li>';
+                     } else {
+                         echo '<li><a class="btn primary-btn-outline" href="login.php">Sign In</a></li>';
+                         echo '<li><a class="btn primary-btn" href="signup.php">Sign Up</a></li>';
+                     }
+                     ?>
                   </ul>
                </div>
             </nav>
