@@ -11,11 +11,7 @@ include 'views/pageBuilder.php';
 include 'views/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
     <title>ByteLore</title>
 </head>
 
@@ -82,7 +78,6 @@ include 'views/header.php';
    <!-- container -->
 </section>
 <!--====== BLOG PART ENDS ======-->
-</html>
 
 <?php
 include 'views/footer.php';
