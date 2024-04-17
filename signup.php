@@ -13,6 +13,8 @@ if (isset($_SESSION["user_id"])) {
     exit();
 }
 
+include './views/pageBuilder.php';
+include './views/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -52,31 +54,94 @@ if (isset($_SESSION["user_id"])) {
         });
     </script>
 </head>
-<body>
-    <header>
-        <h1>Sign Up</h1>
-    </header>
-    <div class="subheader">
-        <?php include('header.php'); ?>
-    </div><br>
-    <form action="process_signup.php" method="post">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required><br>
-        <div class="username-error error-message"></div>
-        <br>
-
-        <label for="email">Email:</label>
-        <input type="text" name="email" value="" required><br>
-        <div class="email-error error-message"></div>
-        <br>
-
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br>
-        <div class="password-error error-message"></div>
-        <br>
-
-        <input class="button" type="submit" value="Sign Up">
-    </form>
-    <p>Already have an account? <a href="login.php">Login</a></p>
-</body>
+<!--====== SIGNIN ONE PART START ======-->
+<section class="signin-area signin-one">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-5">
+            <form action="process_signup.php" method="post">
+               <div class="signin-form form-style-two rounded-buttons">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="form-input">
+                           <label>Your account will be under this email</label>
+                           <div class="input-items default">
+                              <input type="text" name="email" placeholder="Email" required />
+                              <i class="lni lni-envelope"></i>
+                           </div>
+                           <div class="email-error error-message"></div>
+                        </div>
+                        <!-- form input -->
+                     </div>
+                     <div class="col-md-12">
+                        <div class="form-input">
+                           <label>
+                           Name will be used to personalize your experience
+                           </label>
+                           <div class="input-items default">
+                              <input type="text" name="username" placeholder="Name" required />
+                              <i class="lni lni-user"></i>
+                           </div>
+                           <div class="username-error error-message"></div>
+                        </div>
+                        <!-- form input -->
+                     </div>
+                     <div class="col-md-12">
+                        <div class="form-input">
+                           <label>Password for your account</label>
+                           <div class="input-items default">
+                              <input type="password" name="password" placeholder="Password" required />
+                              <i class="lni lni-key"></i>
+                           </div>
+                           <div class="password-error error-message"></div>
+                        </div>
+                        <!-- form input -->
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-input rounded-buttons">
+                           <button
+                              class="btn primary-btn rounded-full"
+                              type="submit"
+                              >
+                           Sign Up
+                           </button>
+                        </div>
+                        <!-- form input -->
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-input rounded-buttons">
+                           <button
+                              class="btn primary-btn-outline rounded-full"
+                              type="submit"
+                              >
+                           Sign In!
+                           </button>
+                        </div>
+                        <!-- form input -->
+                     </div>
+                     <div class="col-md-12">
+                        <div class="form-input text-center">
+                           <p class="text">
+                              By signing in you agree with the
+                              <a href="javascript:void(0)">Terms and Conditions</a>
+                              and
+                              <a href="javascript:void(0)">Privacy</a>
+                           </p>
+                        </div>
+                        <!-- form input -->
+                     </div>
+                  </div>
+               </div>
+               <!-- signin form -->
+            </form>
+         </div>
+      </div>
+      <!-- row -->
+   </div>
+   <!-- container -->
+</section>
+<!--====== SIGNIN ONE PART ENDS ======-->
+<?php
+include 'views/footer.php';
+?>
 </html>
