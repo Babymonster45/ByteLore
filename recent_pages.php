@@ -9,6 +9,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+include 'views/pageBuilder.php';
+
 // Retrieve the top 6 most recent pages
 $sql = "SELECT * FROM user_pages ORDER BY created_at DESC LIMIT 6";
 $result = $conn->query($sql);
