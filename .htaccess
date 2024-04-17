@@ -10,4 +10,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # Then rewrite the URL to pass the request path to index.php
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 
-
+AddType image/webp .webp
