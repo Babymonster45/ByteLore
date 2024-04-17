@@ -54,6 +54,8 @@ if (isset($_GET['id'])) {
 } else {
     echo "Invalid page ID.";
 }
+
+include ('views/header.php');
 ?>
 
 <!DOCTYPE html>
@@ -66,8 +68,6 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-    <?php include ('views/header.php'); ?>
-
     <div class="section-title-two">
         <div class="container">
             <div class="row">
