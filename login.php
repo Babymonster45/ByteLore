@@ -12,6 +12,9 @@ if (isset($_SESSION["user_id"])) {
     header("Location: /");
     exit();
 }
+
+include 'views/pageBuilder.php';
+include 'views/header.php';
 ?>
 
 <!DOCTYPE html>
