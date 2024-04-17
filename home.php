@@ -23,6 +23,15 @@ include 'views/header.php';
                discover new games and join the conversation.
                </p>
                <!-- call action form -->
+               <h3 class="action-title">Anything Missing? Add A Game!</h3>
+               <?php
+               // Check if the user is logged in
+               if (isset($_SESSION["user_id"])) {
+                   echo '<div><a class="button" href="/create_page.php">Add Game</a></div>';
+               } else {
+                   echo '<p>You must be logged in to add a game. Please <a href="login.php">log in</a>.</p>';
+               }
+               ?>
             </div>
             <!-- call action content -->
          </div>
@@ -32,6 +41,7 @@ include 'views/header.php';
    <!-- container -->
 </section>
 <!--====== CALL TO ACTION FOUR PART ENDS ======-->
+
 
 <!--====== BLOG PART START ======-->
 <section class="blog-area pb-5">
