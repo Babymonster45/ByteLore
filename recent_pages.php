@@ -20,7 +20,8 @@ if ($result->num_rows > 0) {
         $pageTitle = $row['title'];
         $pageID = $row['id'];
         $imagePath = $row['image_path'];
-        $recentPages[] = "<div><img src='$imagePath' alt='$pageTitle'><a class='button' href='view_page.php?id=$pageID'>$pageTitle</a></div>";
+        $createdAt = $row['created_at'];
+        $recentPages[] = "<div class='col-lg-4 col-md-8 col-sm-10'><div class='single-blog blog-style-one'><div class='blog-image'><a href='view_page.php?id=$pageID'><img src='$imagePath' alt='$pageTitle'></a></div><div class='blog-content'><h5 class='blog-title'><a href='view_page.php?id=$pageID'>$pageTitle</a></h5><span><i class='lni lni-calendar'></i> $createdAt</span></div></div></div>";
     }
 }
 
@@ -28,11 +29,15 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
-<!-- Display the recent pages buttons -->
-<div class="recent-pages">
-    <?php
-    foreach ($recentPages as $button) {
-        echo $button;
-    }
-    ?>
+<!-- Display the recent pages -->
+<div class="blog-area pb-5">
+   <div class="container">
+      <div class="row justify-content-center">
+        <?php
+        foreach ($recentPages as $page) {
+            echo $page;
+        }
+        ?>
+      </div>
+   </div>
 </div>
