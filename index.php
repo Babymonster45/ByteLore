@@ -32,7 +32,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <br>
     <main>
         <h2>Recently Created Pages</h2>
-        <?php include('recent_pages.php'); ?>
+        <?php include('recent_pages.php'); // Displays the top 6 most recently created games ?> 
     </main>
     <br>
     <main>

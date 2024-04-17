@@ -9,8 +9,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve the top 3 most recent pages
-$sql = "SELECT * FROM user_pages ORDER BY created_at DESC LIMIT 3";
+// Retrieve the top 6 most recent pages
+$sql = "SELECT * FROM user_pages ORDER BY created_at DESC LIMIT 6";
 $result = $conn->query($sql);
 
 $recentPages = array();
@@ -19,7 +19,8 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $pageTitle = $row['title'];
         $pageID = $row['id'];
-        $recentPages[] = "<a class='button' href='view_page.php?id=$pageID'>$pageTitle</a>";
+        $imagePath = $row['image_path'];
+        $recentPages[] = "<div><img src='$imagePath' alt='$pageTitle'><a class='button' href='view_page.php?id=$pageID'>$pageTitle</a></div>";
     }
 }
 
@@ -35,4 +36,3 @@ $conn->close();
     }
     ?>
 </div>
-
