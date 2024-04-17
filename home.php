@@ -1,53 +1,62 @@
 <?php
-include 'views/pageBuilder.php';
-include 'views/header.php';
-include 'remember_me.php';
+// Checks if the user tagged remember me
+include('remember_me.php');
 
 // Start a session to manage user login state
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+include 'views/pageBuilder.php';
+include 'views/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ByteLore</title>
-    <link rel="stylesheet" href="/home_page.css">
-    <link rel="icon" href="/favicon.ico">
-</head>
-<body>
-    <header>
-        <h1>Welcome to ByteLore</h1>
-    </header>
-    <div class="subheader">
-        <?php include('header.php'); ?>
-    </div><br>
-    <main>
-        <h2>View Games List</h2>
-        <div><a class="button" href="/games_list.php">Game List</a></div>
-    </main>
-    <br>
-    <main>
-        <h2>Recently Created Pages</h2>
-        <?php include('recent_pages.php'); // Displays the top 6 most recently created games ?> 
-    </main>
-    <br>
-    <main>
-        <h2>Create a Page</h2>
-        <?php
-        // Check if the user is logged in
-        if (isset($_SESSION["user_id"])) {
-            echo '<div><a class="button" href="/create_page.php">Create Page</a></div>';
-        } else {
-            echo '<p>You must be logged in to create a page. Please <a href="login.php">log in</a>.</p>';
-        }
-        ?>
-    </main>
+<!--====== CALL TO ACTION FOUR PART START ======-->
+<section class="call-action-area call-action-four">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-8">
+            <div class="call-action-content text-center">
+               <h2 class="action-title">Welcome to ByteLore!</h2>
+               <p class="text">
+               Dive into your ultimate gaming community hub <br />
+               discover new games and join the conversation.
+               </p>
+               <!-- call action form -->
+            </div>
+            <!-- call action content -->
+         </div>
+      </div>
+      <!-- row -->
+   </div>
+   <!-- container -->
+</section>
+<!--====== CALL TO ACTION FOUR PART ENDS ======-->
+
+<!--====== BLOG PART START ======-->
+<section class="blog-area pb-5">
+   <div class="container">
+      <div class="row justify-content-center">
+         <?php include('recent_pages.php'); // Displays the top 6 most recently created games ?> 
+      </div>
+      <!-- row -->
+   </div>
+   <!-- container -->
+</section>
+<!--====== BLOG PART ENDS ======-->
+
+<main>
+    <h2>Create a Page</h2>
     <?php
-    include 'views/footer.php';
+    // Check if the user is logged in
+    if (isset($_SESSION["user_id"])) {
+        echo '<div><a class="button" href="/create_page.php">Create Page</a></div>';
+    } else {
+        echo '<p>You must be logged in to create a page. Please <a href="login.php">log in</a>.</p>';
+    }
     ?>
-</body>
-</html>
+</main>
+
+<?php
+include 'views/footer.php';
+?>
