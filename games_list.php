@@ -1,9 +1,9 @@
 <?php
 // Checks if the user tagged remember me
-include('remember_me.php');
+include ('remember_me.php');
 
 // Establish a database connection
-include('/secure_config/config.php');
+include ('/secure_config/config.php');
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -47,12 +47,13 @@ include 'views/header.php';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games List</title>
-    <link rel="stylesheet" href="/games_list.css">
 </head>
+
 <body>
     <section class="call-action-area call-action-four">
         <div class="container">
@@ -60,11 +61,14 @@ include 'views/header.php';
                 <div class="col-lg-8">
                     <div class="call-action-content text-center">
                         <h2 class="action-title">Games List</h2>
-                        <div class="search-container">
-                            <form method="get" action="games_list.php">
-                                <label for="search">Search by title:</label>
-                                <input type="text" id="search" name="search" placeholder="Search for a game">
-                                <button type="submit">Search</button>
+                        <div class="call-action-form">
+                            <form action="#">
+                                <input type="text" placeholder="Search for a game" />
+                                <div class="action-btn rounded-buttons">
+                                    <button class="btn primary-btn rounded-full">
+                                        search
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -93,4 +97,5 @@ include 'views/header.php';
 
     <?php include_once 'views/footer.php'; ?>
 </body>
+
 </html>
