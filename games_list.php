@@ -54,8 +54,6 @@ include 'views/header.php';
     <link rel="stylesheet" href="/games_list.css">
 </head>
 <body>
-    <?php include ('views/header.php'); ?>
-
     <section class="call-action-area call-action-four">
         <div class="container">
             <div class="row justify-content-center">
