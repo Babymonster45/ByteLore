@@ -218,7 +218,7 @@ include 'views/header.php';
             an Image</p>
         <p id="error" style="color: red;"></p>
         <label for="image" class="btn primary-btn">Choose an Image</label>
-        <input type="file" name="image" id="image" accept="image/*" class="btn primary-btn">
+        <input type="file" name="image" id="image" accept="image/*" class="btn primary-btn" hidden>
 
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
