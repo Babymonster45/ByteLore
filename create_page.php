@@ -173,6 +173,7 @@ include 'views/header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Page</title>
+    <link rel="stylesheet" href="/create_page.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const fileInput = document.getElementById('image');
