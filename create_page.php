@@ -209,33 +209,21 @@ include 'views/header.php';
             </div>
         </div>
     </section>
-    <section class="blog-area pb-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-8 col-sm-10">
-                    <div class="single-blog blog-style-one">
-                        <div class="blog-image">
-                            <form action="create_page.php" method="POST" enctype="multipart/form-data">
-                                <label for="title">Title:</label>
-                                <input type="text" id="title" name="title" placeholder="Megaman" required>
+    <form action="create_page.php" method="POST" enctype="multipart/form-data">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" placeholder="Megaman" required>
 
-                                <label for="image">Upload an Image (Max: 250KB):</label>
-                                <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
-                                    an Image</p>
-                                <p id="error" style="color: red;"></p>
-                                <label for="image" class="custom-file-label">Choose an Image</label>
-                                <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
+        <label for="image">Upload an Image (Max: 250KB):</label>
+        <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
+            an Image</p>
+        <p id="error" style="color: red;"></p>
+        <label for="image" class="custom-file-label">Choose an Image</label>
+        <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
-                                <label for="content">Content:</label>
-                                <textarea id="content" name="content" rows="10" cols="50"
-                                    placeholder="Enter text here.." required></textarea>
-                                <input type="submit" value="Create Page">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
+        <input type="submit" value="Create Page">
+    </form>
 </body>
 
 </html>
