@@ -161,6 +161,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $conn->close();
 }
+
+include 'views/pageBuilder.php';
+include 'views/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -195,10 +198,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <h1>Edit Page</h1>
-    <div class="subheader">
-        <?php include ('header.php'); ?>
-    </div><br>
+    <section class="call-action-area call-action-four">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="call-action-content text-center">
+                        <h2 class="action-title">Edit Page</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><br>
     <form action="edit_page.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="page_id" value="<?php echo $pageID; ?>">
 
@@ -208,16 +218,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="image">Current Image:</label><br>
         <img src="<?php echo $imagePath; ?>" alt="Current Image"><br>
 
-        <label for="image">Upload a New Image (Max: 250KB):</label>
-        <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
+        <label for="image">Upload an Image (Max: 250KB):</label>
+        <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
+            an Image</p>
         <p id="error" style="color: red;"></p>
-        <label for="image" class="custom-file-label">Choose an Image</label>
-        <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
+        <label for="image" class="btn primary-btn">Choose an Image</label>
+        <input type="file" name="image" id="image" accept="image/*" class="btn primary-btn" hidden>
 
         <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="10" cols="50" required><?php echo $content; ?></textarea>
-        <input type="submit" value="Update Page">
-    </form>
+        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br>
+        <input class="btn primary-btn" type="submit" value="Update Page">
+    </form><br><br>
 </body>
 
 </html>
+
+<?php include_once 'views/footer.php'; ?>
