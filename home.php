@@ -50,7 +50,7 @@ include 'views/header.php';
                     if (isset($_SESSION["user_id"])) {
                         echo '<div class="call-action-form"><div class="action-btn"><a class="primary-btn" href="/create_page.php">Add Game</a></div></div>';
                     } else {
-                        echo '<p>You must be signed in to add a game. Please <a href="login.php">Sign In</a>.</p>';
+                        echo '<p>You must be signed in to add a game. Please <a href="login.php" class="btn primary-btn-outline rounded-full">Sign In</a>.</p>';
                     }
                     ?><br><br>
                 </div>
