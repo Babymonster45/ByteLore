@@ -61,7 +61,7 @@ include 'views/header.php';
                 <div class="col-lg-8">
                     <div class="call-action-content text-center">
                         <h2 class="action-title">Games List</h2>
-                        <div  class="search-container">
+                        <div  class="call-action-form">
                             <form method="get" action="games_list.php">
                                 <input for="search" type="text" placeholder="Search for a game" />
                                 <div class="action-btn rounded-buttons">
