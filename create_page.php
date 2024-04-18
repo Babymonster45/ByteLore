@@ -173,7 +173,6 @@ include 'views/header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Page</title>
-    <link rel="stylesheet" href="/create_page.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const fileInput = document.getElementById('image');
@@ -208,7 +207,7 @@ include 'views/header.php';
                 </div>
             </div>
         </div>
-    </section>
+    </section><br>
     <form action="create_page.php" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" placeholder="Megaman" required>
@@ -217,12 +216,12 @@ include 'views/header.php';
         <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
             an Image</p>
         <p id="error" style="color: red;"></p>
-        <label for="image" class="custom-file-label">Choose an Image</label>
+        <label for="image" class="btn primary-btn">Choose an Image</label>
         <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-        <input type="submit" value="Create Page">
+        <input class="btn primary-btn" type="submit" value="Create Page">
     </form>
 </body>
 
