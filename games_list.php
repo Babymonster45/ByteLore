@@ -2,11 +2,6 @@
 // Checks if the user tagged remember me
 include('remember_me.php');
 
-// Start a session to manage user login state
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Establish a database connection
 include('/secure_config/config.php');
 
@@ -45,6 +40,9 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
         $pages = array();
     }
 }
+
+include 'views/pageBuilder.php';
+include 'views/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -56,26 +54,45 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     <link rel="stylesheet" href="/games_list.css">
 </head>
 <body>
-    <header>
-        <h1>Games List</h1>
-    </header>
-    <div class="subheader">
-        <?php include('header.php'); ?>
-    </div>
-    <div class="search-container">
-        <form method="get" action="games_list.php">
-            <label for="search">Search by title:</label>
-            <input type="text" id="search" name="search" placeholder="Search for a game">
-            <button type="submit">Search</button>
-        </form>
-    </div>
+    <?php include ('views/header.php'); ?>
 
-    <main>
-        <ul>
-            <?php foreach ($pages as $page): ?>
-              <li><a class="button" href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a></li>
-         <?php endforeach; ?>
-        </ul>
-    </main>
+    <section class="call-action-area call-action-four">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="call-action-content text-center">
+                        <h2 class="action-title">Games List</h2>
+                        <div class="search-container">
+                            <form method="get" action="games_list.php">
+                                <label for="search">Search by title:</label>
+                                <input type="text" id="search" name="search" placeholder="Search for a game">
+                                <button type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-area pb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <?php foreach ($pages as $page): ?>
+                    <div class="col-lg-4 col-md-8 col-sm-10">
+                        <div class="single-blog blog-style-one">
+                            <div class="blog-content">
+                                <h5 class="blog-title">
+                                    <a href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+
+    <?php include_once 'views/footer.php'; ?>
 </body>
 </html>

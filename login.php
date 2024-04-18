@@ -22,7 +22,7 @@ include 'views/header.php';
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Sign In</title>
     <link rel="stylesheet" href="login.css">
     <script>
         // JavaScript to display error messages in red under the password box
@@ -68,7 +68,7 @@ include 'views/header.php';
                             <div class="form-check">
                                 <input type="checkbox" name="remember_me" id="remember_me"
                                     class="form-check-input width-auto" />
-                                <label class="form-check-label">Remember me</label>
+                                <label class="form-check-label" for="remember_me">Remember me</label>
                             </div>
                             <a class="lost-user" href="forgot_username.php">
                                 Forgot username?
