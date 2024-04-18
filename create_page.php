@@ -217,12 +217,12 @@ include 'views/header.php';
         <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
             an Image</p>
         <p id="error" style="color: red;"></p>
-        <label for="image" class="btn primary-btn">Choose an Image</label>
+        <label for="image" class="btn primary-btn-outline">Choose an Image</label>
         <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-        <input class="btn primary-btn" type="submit" value="Create Page">
+        <input class="btn primary-btn-outline" type="submit" value="Create Page">
     </form>
 </body>
 
