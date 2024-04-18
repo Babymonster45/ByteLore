@@ -90,9 +90,84 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+<?php
+include('remember_me.php');
+include('not_logged_in_check.php');
+include('/secure_config/config.php');
+
+$current_user_id = $_SESSION['user_id']; 
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$imageUploaded = false; 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = ucwords($_POST["title"]);
+    $content = $_POST["content"];
+
+    if (!preg_match('/^[\x20-\x7E]+$/', $title)) {
+        echo "Title contains invalid characters. Please use only ASCII characters in the range 32-126.";
+        exit();
+    }
+
+    $maxFileSize = 250 * 1024; // 250KB
+
+    if ($_FILES["image"]["size"] > $maxFileSize) {
+        echo "File size exceeds the limit of 250KB.";
+        exit();
+    }
+
+    $checkSql = "SELECT COUNT(*) as count FROM user_pages WHERE title = ?";
+    $checkStmt = $conn->prepare($checkSql);
+    $checkStmt->bind_param("s", $title);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+    $count = $checkResult->fetch_assoc()['count'];
+
+    if ($count > 0) {
+        echo "A page with the same title already exists. Please choose a different title.";
+    } else {
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
+            $uploadDir = "/var/www/uploads/";
+            $filetitle = preg_replace('/[^a-zA-Z]/', '', $title);
+            $newFileName = $filetitle . "_" . time() . "." . pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            $imagePath = $uploadDir . $newFileName;
+            $urlImagePath = "/uploads/" . $newFileName;
+
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+                $imageUploaded = true;
+            } else {
+                echo "Error moving the uploaded image to the destination.";
+            }
+        } else {
+            echo "Please upload an image of the game.";
+        }
+
+        if ($imageUploaded) {
+            $sql = "INSERT INTO user_pages (title, content, image_path, created_by) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sssi", $title, $content, $urlImagePath, $current_user_id);
+
+            if ($stmt->execute()) {
+                $newPageID = $stmt->insert_id;
+                header("Location: view_page.php?id=$newPageID");
+                exit();
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+        }
+    }
+    $checkStmt->close();
+    $conn->close();
+}
+
+include 'views/pageBuilder.php';
+include 'views/header.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,26 +195,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         });
     </script>
 </head>
-
 <body>
-    <h1>Create a New Page</h1>
-    <div class="subheader">
-        <?php include('header.php'); ?>
-    </div><br>
-    <form action="create_page.php" method="POST" enctype="multipart/form-data">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" placeholder="Megaman" required>
+    <section class="call-action-area call-action-four">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="call-action-content text-center">
+                        <h2 class="action-title">Create a New Page</h2>
+                        <form action="create_page.php" method="POST" enctype="multipart/form-data">
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" name="title" placeholder="Megaman" required>
 
-        <label for="image">Upload an Image (Max: 250KB):</label>
-        <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
-        <p id="error" style="color: red;"></p>
-        <label for="image" class="custom-file-label">Choose an Image</label>
-        <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
+                            <label for="image">Upload an Image (Max: 250KB):</label>
+                            <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
+                            <p id="error" style="color: red;"></p>
+                            <label for="image" class="custom-file-label">Choose an Image</label>
+                            <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
 
-        <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-        <input type="submit" value="Create Page">
-    </form>
+                            <label for="content">Content:</label>
+                            <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
+                            <input type="submit" value="Create Page">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
-
 </html>
+
+<?php include_once 'views/footer.php'; ?>
