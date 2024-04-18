@@ -1,12 +1,12 @@
 <?php
 // Checks if the user tagged remember me
-include('remember_me.php');
+include ('remember_me.php');
 
 // Includes the authentication script to make sure the user is not logged in
-include('not_logged_in_check.php');
+include ('not_logged_in_check.php');
 
 // Establish a database connection
-include('/secure_config/config.php');
+include ('/secure_config/config.php');
 
 // Assuming you have a way to get the current user's id
 $current_user_id = $_SESSION['user_id']; // replace this with your actual code to get the current user's id
@@ -91,17 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <?php
-include('remember_me.php');
-include('not_logged_in_check.php');
-include('/secure_config/config.php');
+include ('remember_me.php');
+include ('not_logged_in_check.php');
+include ('/secure_config/config.php');
 
-$current_user_id = $_SESSION['user_id']; 
+$current_user_id = $_SESSION['user_id'];
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$imageUploaded = false; 
+$imageUploaded = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = ucwords($_POST["title"]);
@@ -168,6 +168,7 @@ include 'views/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -195,6 +196,7 @@ include 'views/header.php';
         });
     </script>
 </head>
+
 <body>
     <section class="call-action-area call-action-four">
         <div class="container">
@@ -202,26 +204,40 @@ include 'views/header.php';
                 <div class="col-lg-8">
                     <div class="call-action-content text-center">
                         <h2 class="action-title">Create a New Page</h2>
-                        <form action="create_page.php" method="POST" enctype="multipart/form-data">
-                            <label for="title">Title:</label>
-                            <input type="text" id="title" name="title" placeholder="Megaman" required>
-
-                            <label for="image">Upload an Image (Max: 250KB):</label>
-                            <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
-                            <p id="error" style="color: red;"></p>
-                            <label for="image" class="custom-file-label">Choose an Image</label>
-                            <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
-
-                            <label for="content">Content:</label>
-                            <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-                            <input type="submit" value="Create Page">
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <section class="blog-area pb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-8 col-sm-10">
+                    <div class="single-blog blog-style-one">
+                        <div class="blog-image">
+                            <form action="create_page.php" method="POST" enctype="multipart/form-data">
+                                <label for="title">Title:</label>
+                                <input type="text" id="title" name="title" placeholder="Megaman" required>
+
+                                <label for="image">Upload an Image (Max: 250KB):</label>
+                                <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
+                                    an Image</p>
+                                <p id="error" style="color: red;"></p>
+                                <label for="image" class="custom-file-label">Choose an Image</label>
+                                <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
+
+                                <label for="content">Content:</label>
+                                <textarea id="content" name="content" rows="10" cols="50"
+                                    placeholder="Enter text here.." required></textarea>
+                                <input type="submit" value="Create Page">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
 </body>
+
 </html>
 
 <?php include_once 'views/footer.php'; ?>
