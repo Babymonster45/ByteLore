@@ -222,7 +222,8 @@ include 'views/header.php';
 
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-        <a class="btn primary-btn" type="submit">Create Page</a>
+
+        <a class="btn primary-btn" type="submit" value="Create Page">
     </form>
 </body>
 
