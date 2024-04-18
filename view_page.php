@@ -112,12 +112,6 @@ include ('views/header.php');
         </div>
     </section>
 
-    <?php
-    if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
-        echo '<div><a class="btn primary-btn" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
-    }
-    ?>
-
     <?php include_once 'views/footer.php'; ?>
 </body>
 
