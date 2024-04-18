@@ -111,23 +111,14 @@ include './views/header.php';
                      <div class="col-md-6">
                         <div class="form-input rounded-buttons">
                            <button
+                              href="signup.php"
                               class="btn primary-btn-outline rounded-full"
-                              type="submit"
                               >
                            Sign In!
                            </button>
                         </div>
                         <!-- form input -->
                      </div>
-                     <div class="col-md-12">
-                        <div class="form-input text-center">
-                           <p class="text">
-                              By signing in you agree with the
-                              <a href="javascript:void(0)">Terms and Conditions</a>
-                              and
-                              <a href="javascript:void(0)">Privacy</a>
-                           </p>
-                        </div>
                         <!-- form input -->
                      </div>
                   </div>
