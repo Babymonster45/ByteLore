@@ -60,7 +60,7 @@ include 'views/header.php';
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="call-action-content text-center">
-                        <h2 class="action-title">Games List</h2>
+                        <h2 class="action-title">Game List</h2>
                         <div class="call-action-form">
                             <form method="get" action="games_list.php">
                                 <input type="text" id="search" name="search" placeholder="Search for a game">

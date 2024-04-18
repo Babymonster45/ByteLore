@@ -172,7 +172,7 @@ include 'views/header.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Page</title>
+    <title>Add Game</title>
     <link rel="stylesheet" href="/create_page.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -203,7 +203,7 @@ include 'views/header.php';
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="call-action-content text-center">
-                        <h2 class="action-title">Create a New Page</h2>
+                        <h2 class="action-title">Add a New Game</h2>
                     </div>
                 </div>
             </div>
@@ -222,7 +222,7 @@ include 'views/header.php';
 
         <label for="content">Content:</label>
         <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-        <input class="btn primary-btn" type="submit" value="Create Page">
+        <label type="submit" class="btn primary-btn">Create Page</label>
     </form>
 </body>
 
