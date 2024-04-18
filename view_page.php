@@ -109,7 +109,7 @@ include ('views/header.php');
 
     <?php
     if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
-        echo '<div><a class="button" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
+        echo '<div><a class="btn primary-btn-outline" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
     }
     ?>
 
