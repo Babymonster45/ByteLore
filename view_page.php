@@ -91,7 +91,12 @@ include ('views/header.php');
                                         <p>Created by
                                             <?php echo $createdBy; ?> at
                                             <?php echo $pageCreatedAt; ?>
-                                        </p>
+                                        </p><br>
+                                        <?php
+                                        if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
+                                            echo '<div><a class="btn primary-btn" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
+                                        }
+                                        ?>
                                     </h5>
                                 </div>
                             </div>
@@ -109,7 +114,7 @@ include ('views/header.php');
 
     <?php
     if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
-        echo '<div><a class="btn primary-btn-outline" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
+        echo '<div><a class="btn primary-btn" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
     }
     ?>
 
