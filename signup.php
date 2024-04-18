@@ -111,7 +111,7 @@ include './views/header.php';
                      <div class="col-md-6">
                         <div class="form-input rounded-buttons">
                            <button
-                              href="signup.php"
+                              href="login.php"
                               class="btn primary-btn-outline rounded-full"
                               >
                            Sign In!
