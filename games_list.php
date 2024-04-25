@@ -91,7 +91,7 @@ include 'views/header.php';
                             <div class="single-blog blog-style-one">
                                 <div class="blog-content">
                                     <h5 class="blog-title">
-                                        <?php echo $page['title']; ?>
+                                        <a><?php echo $page['title']; ?></a>
                                     </h5>
                                 </div>
                             </div>
