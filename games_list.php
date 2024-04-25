@@ -76,7 +76,11 @@ include 'views/header.php';
             </div>
         </div>
     </section>
-
+    <style>
+        .blog-link:hover .blog-title {
+            color: blue;
+        }
+    </style>
     <section class="blog-area pb-5">
         <div class="container">
             <div class="row justify-content-center">
