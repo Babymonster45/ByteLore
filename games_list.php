@@ -80,7 +80,12 @@ include 'views/header.php';
         .blog-link:hover .blog-title {
             color: blue;
         }
+
+        .single-blog {
+            min-height: 100px;
+        }
     </style>
+
     <section class="blog-area pb-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -91,7 +96,7 @@ include 'views/header.php';
                             <div class="single-blog blog-style-one">
                                 <div class="blog-content">
                                     <h5 class="blog-title">
-                                        <a><?php echo $page['title']; ?></a>
+                                        <?php echo $page['title']; ?>
                                     </h5>
                                 </div>
                             </div>
