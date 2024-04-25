@@ -81,33 +81,23 @@ include 'views/header.php';
             color: blue;
         }
 
-        .single-blog {
-            min-height: 100px;
-            width: 100%;
-        }
-
-        .col-lg-4,
-        .col-md-8,
-        .col-sm-10 {
-            padding: 0 15px;
+        .blog-link {
+            cursor: pointer;
         }
     </style>
-
     <section class="blog-area pb-5">
         <div class="container">
             <div class="row justify-content-center">
                 <?php foreach ($pages as $page): ?>
                     <div class="col-lg-4 col-md-8 col-sm-10">
-                        <a href="view_page.php?id=<?php echo $page['id']; ?>" class="blog-link"
-                            style="text-decoration: none; color: inherit;">
-                            <div class="single-blog blog-style-one">
-                                <div class="blog-content">
-                                    <h5 class="blog-title">
-                                        <?php echo $page['title']; ?>
-                                    </h5>
-                                </div>
+                        <div onclick="window.location.href='view_page.php?id=<?php echo $page['id']; ?>'"
+                            class="blog-link single-blog blog-style-one">
+                            <div class="blog-content">
+                                <h5 class="blog-title">
+                                    <?php echo $page['title']; ?>
+                                </h5>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
