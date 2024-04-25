@@ -83,9 +83,9 @@ include 'views/header.php';
                 <?php foreach ($pages as $page): ?>
                     <div class="col-lg-4 col-md-8 col-sm-10">
                         <div class="single-blog blog-style-one">
-                            <div class="blog-content">
+                            <div class="blog-content" href="view_page.php?id=<?php echo $page['id']; ?>">
                                 <h5 class="blog-title">
-                                    <a href="view_page.php?id=<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a>
+                                    <a><?php echo $page['title']; ?></a>
                                 </h5>
                             </div>
                         </div>
@@ -94,8 +94,7 @@ include 'views/header.php';
             </div>
         </div>
     </section>
-
-    <?php include_once 'views/footer.php'; ?>
 </body>
 
 </html>
+<?php include_once 'views/footer.php'; ?>
