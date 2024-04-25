@@ -83,6 +83,13 @@ include 'views/header.php';
 
         .single-blog {
             min-height: 100px;
+            width: 100%;
+        }
+
+        .col-lg-4,
+        .col-md-8,
+        .col-sm-10 {
+            padding: 0 15px;
         }
     </style>
 
@@ -106,6 +113,7 @@ include 'views/header.php';
             </div>
         </div>
     </section>
+
 </body>
 
 </html>
