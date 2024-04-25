@@ -81,9 +81,9 @@ include 'views/header.php';
         <div class="container">
             <div class="row justify-content-center">
                 <?php foreach ($pages as $page): ?>
-                    <div class="col-lg-4 col-md-8 col-sm-10">
+                    <div class="col-lg-4 col-md-8 col-sm-10" href="view_page.php?id=<?php echo $page['id']; ?>">
                         <div class="single-blog blog-style-one">
-                            <div class="blog-content" href="view_page.php?id=<?php echo $page['id']; ?>">
+                            <div class="blog-content">
                                 <h5 class="blog-title">
                                     <a><?php echo $page['title']; ?></a>
                                 </h5>
