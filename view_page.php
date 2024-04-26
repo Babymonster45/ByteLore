@@ -107,6 +107,11 @@ include ('views/header.php');
                     <div class="content">
                         <h3 class="fw-bold">Content</h3>
                         <p><?php echo $pageContent; ?></p>
+                        <?php
+                        if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
+                            echo '<div><a class="btn primary-btn" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
