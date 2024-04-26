@@ -12,6 +12,9 @@ if (isset($_SESSION["user_id"])) {
     header("Location: /");
     exit();
 }
+
+include 'views/pageBuilder.php';
+include 'views/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -21,12 +24,6 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <title>Forgot Password</title>
     <link rel="stylesheet" href="login.css">
-    <style>
-        .error-message {
-            color: red;
-            margin-top: 5px;
-        } 
-    </style>
     <script>
         // JavaScript to display error messages in red
         document.addEventListener("DOMContentLoaded", function() {
@@ -41,21 +38,38 @@ if (isset($_SESSION["user_id"])) {
     </script>
 </head>
 
-<body>
-    <header>
-        <h1>Forgot Password</h1>
-    </header>
-
-    <div class="subheader">
-        <?php include('header.php'); ?>
-    </div><br>
-
-    <form action="process_forgot_password.php" method="post">
-        <label for="email">Enter your email:</label>
-        <input type="email" name="email" required>
-        <input type="submit" value="Reset Password">
-        <div class="email-error error-message"></div>
-    </form>
-</body>
-
+<!-- Start Account Sign In Area -->
+<div class="account-login section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8">
+                <form class="card login-form inner-content" action="process_forgot_password.php" method="post">
+                    <div class="card-body">
+                        <div class="title">
+                            <h3>Forgot Password</h3>
+                            <p>Enter your email to reset your password.</p>
+                        </div>
+                        <div class="input-head">
+                            <div class="form-group input-group">
+                                <label> <i class="lni lni-envelope"></i> </label>
+                                <input class="form-control" type="email" name="email" id="email"
+                                    placeholder="Enter your email" required />
+                            </div>
+                        </div>
+                        <!-- Display the error message in red -->
+                        <div class="email-error error-message"></div>
+                        <div class="light-rounded-buttons">
+                            <button class="btn primary-btn" type="submit">Reset Password</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </html>
+<!-- End Account Sign In Area -->
+
+<?php
+include 'views/footer.php';
+?>
