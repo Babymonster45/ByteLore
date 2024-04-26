@@ -101,12 +101,12 @@ include ('views/header.php');
                         <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
                     </div>
                 </div>
-            </div>
+            </div><br><br><br>
             <div class="row">
                 <div class="col-12">
                     <div class="content">
                         <h3 class="fw-bold">Content</h3>
-                        <p><?php echo $pageContent; ?></p>
+                        <p><?php echo $pageContent; ?></p><br>
                         <?php
                         if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
                             echo '<div><a class="btn primary-btn" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
