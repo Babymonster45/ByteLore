@@ -41,6 +41,9 @@ if (isset ($_GET['id'])) {
             $title = $row['title'];
             $content = $row['content'];
             $imagePath = $row['image_path'];
+            $genre = $row['genre'];
+            $description = $row['description'];
+            $gameplay = $row['gameplay'];
         } else {
             echo "You do not have permission to edit this page.";
             exit();
@@ -54,6 +57,9 @@ if (isset ($_GET['id'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newTitle = ucwords($_POST["title"]);
     $newContent = $_POST["content"];
+    $newGenre = $_POST["genre"];
+    $newDescription = $_POST["description"];
+    $newGameplay = $_POST["gameplay"];
     $pageID = $_POST["page_id"]; // Retrieve the page ID from the form data
 
     // Fetch the old image path from the database
@@ -126,14 +132,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($imageUploaded) {
             // If a new image is uploaded, update the image path
-            $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=?";
+            $sql = "UPDATE user_pages SET title=?, content=?, genre=?, description=?, gameplay=?, image_path=? WHERE id=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssi", $newTitle, $newContent, $urlImagePath, $pageID);
+            $stmt->bind_param("ssssssi", $newTitle, $newContent, $newGenre, $newDescription, $newGameplay, $urlImagePath, $pageID);
         } else {
             // If no new image is uploaded, do not update the image path
-            $sql = "UPDATE user_pages SET title=?, content=? WHERE id=?";
+            $sql = "UPDATE user_pages SET title=?, content=?, genre=?, description=?, gameplay=? WHERE id=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssi", $newTitle, $newContent, $pageID);
+            $stmt->bind_param("sssssi", $newTitle, $newContent, $newGenre, $newDescription, $newGameplay, $pageID);
         }
 
         if ($stmt->execute()) {
@@ -143,10 +149,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $stmt->error;
         }
 
-        if ($imageUploaded || $newTitle != $title || $newContent != $content) {
-            $sql = "UPDATE user_pages SET title=?, content=?, image_path=? WHERE id=? AND created_by=?";
+        if ($imageUploaded || $newTitle != $title || $newContent != $content || $newGenre != $genre || $newDescription != $description || $newGameplay != $gameplay) {
+            $sql = "UPDATE user_pages SET title=?, content=?, genre=?, description=?, gameplay=?, image_path=? WHERE id=? AND created_by=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssii", $newTitle, $newContent, $urlImagePath, $pageID, $current_user_id);
+            $stmt->bind_param("ssssssii", $newTitle, $newContent, $newGenre, $newDescription, $newGameplay, $urlImagePath, $pageID, $current_user_id);
 
             if ($stmt->execute()) {
                 header("Location: view_page.php?id=$pageID");
@@ -215,12 +221,20 @@ include 'views/header.php';
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" value="<?php echo $title; ?>" required>
 
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" value="<?php echo $genre; ?>" required>
+
+        <label for="description">Publisher/Studio:</label>
+        <textarea id="description" name="description" rows="5" cols="50" required><?php echo $description; ?></textarea>
+
+        <label for="gameplay">Gameplay:</label>
+        <textarea id="gameplay" name="gameplay" rows="5" cols="50" required><?php echo $gameplay; ?></textarea>
+
         <label for="image">Current Image:</label><br>
         <img src="<?php echo $imagePath; ?>" alt="Current Image"><br>
 
         <label for="image">Upload an Image (Max: 250KB):</label>
-        <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
-            an Image</p>
+        <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose an Image</p>
         <p id="error" style="color: red;"></p>
         <label for="image" class="btn primary-btn">Choose an Image</label>
         <input type="file" name="image" id="image" accept="image/*" class="btn primary-btn" hidden>
