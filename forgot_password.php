@@ -1,6 +1,6 @@
 <?php
 // Checks if the user tagged remember me
-include('remember_me.php');
+include ('remember_me.php');
 
 // Start a session to manage user login state
 if (session_status() == PHP_SESSION_NONE) {
@@ -24,9 +24,15 @@ include 'views/header.php';
     <meta charset="UTF-8">
     <title>Forgot Password</title>
     <link rel="stylesheet" href="login.css">
+    <style>
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
     <script>
         // JavaScript to display error messages in red
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const urlParams = new URLSearchParams(window.location.search);
             const emailError = urlParams.get("email-error");
 
@@ -67,6 +73,7 @@ include 'views/header.php';
         </div>
     </div>
 </div>
+
 </html>
 <!-- End Account Sign In Area -->
 
