@@ -10,32 +10,41 @@ if (isset($_SESSION["user_id"])) {
     exit();
 }
 
+include 'views/pageBuilder.php';
+include 'views/header.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>Username/Password Reset Email Sent</title>
-    <link rel="stylesheet" href="verification.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 
-<body><br>
-    <header>
-        <h1>Username/Password Reset Email Sent</h1>
-    </header>
-    <div>
-        <?php include('header.php'); ?>
-    </div><br>
-    <main>
-        <form>
-            <h4>
-                <p>A Username/Password reset email has been sent to your provided email address.</p>
-                <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
-                <p>Click the link in the email to verify your account.</p>
-            </h4>
-        </form>
-    </main>
-</body>
-
+<!-- Start Account Sign In Area -->
+<div class="account-login section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8">
+                <div class="card login-form inner-content">
+                    <div class="card-body">
+                        <div class="title">
+                            <h3>Username/Password Reset Email Sent</h3>
+                            <p>A Username/Password reset email has been sent to your provided email address.</p>
+                            <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
+                            <p>Click the link in the email to verify your account.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </html>
+<!-- End Account Sign In Area -->
+
+<?php
+include 'views/footer.php';
+?>
