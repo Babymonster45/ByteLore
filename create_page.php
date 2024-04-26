@@ -130,7 +130,7 @@ include 'views/header.php';
         <label for="description">Publisher/Studio:</label>
         <textarea id="description" name="description" rows="5" cols="50" placeholder="Enter information about the publisher/studio here.." required></textarea>
 
-        <label for="history">History:</label>
+        <label for="history">Release Date(s):</label>
         <textarea id="history" name="history" rows="5" cols="50" placeholder="Enter history here.." required></textarea>
 
         <label for="image">Upload an Image (Max: 250KB):</label>

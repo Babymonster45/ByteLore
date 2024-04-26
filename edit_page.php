@@ -227,7 +227,7 @@ include 'views/header.php';
         <label for="description">Publisher/Studio:</label>
         <textarea id="description" name="description" rows="5" cols="50" required><?php echo $description; ?></textarea>
 
-        <label for="history">History:</label>
+        <label for="history">Release Date(s):</label>
         <textarea id="history" name="history" rows="5" cols="50" required><?php echo $history; ?></textarea>
 
         <label for="image">Current Image:</label><br>
