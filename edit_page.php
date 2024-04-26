@@ -239,7 +239,7 @@ include 'views/header.php';
         <label for="image" class="btn primary-btn">Choose an Image</label>
         <input type="file" name="image" id="image" accept="image/*" class="btn primary-btn" hidden>
 
-        <label for="content">Content:</label>
+        <label for="content">Information:</label>
         <textarea id="content" name="content" rows="10" cols="50" required><?php echo $content; ?></textarea><br>
         <input class="btn primary-btn" type="submit" value="Update Page">
     </form><br><br>

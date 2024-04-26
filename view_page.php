@@ -43,8 +43,8 @@ if (isset($_GET['id'])) {
         $pageCreatedAt = $row['created_at'];
         $createdBy = $row['username'];
         $genre = $row['genre'];
-        $description = $row['description'];
-        $history = $row['history'];
+        $description = nl2br($row['description']);
+        $history = nl2br($row['history']);
     } else {
         echo "Page not found.";
     }
@@ -105,7 +105,7 @@ include ('views/header.php');
             <div class="row">
                 <div class="col-12">
                     <div class="content">
-                        <h3 class="fw-bold">Content</h3>
+                        <h3 class="fw-bold">Information</h3>
                         <p><?php echo $pageContent; ?></p><br>
                         <?php
                         if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
