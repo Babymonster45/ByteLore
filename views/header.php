@@ -20,8 +20,8 @@
                <span class="toggler-icon"></span>
                <span class="toggler-icon"></span>
                </button>
-               <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
-                  <ul class="navbar-nav m-auto">
+               <div class="collapse navbar-collapse sub-menu-bar justify-content-center" id="navbarOne">
+                  <ul class="navbar-nav">
                      <li class="nav-item">
                         <a href="/">Home</a>
                      </li>
