@@ -44,7 +44,7 @@ if (isset($_GET['id'])) {
         $createdBy = $row['username'];
         $genre = $row['genre'];
         $description = $row['description'];
-        $gameplay = $row['gameplay'];
+        $history = $row['history'];
     } else {
         echo "Page not found.";
     }
@@ -91,8 +91,8 @@ include ('views/header.php');
                             <p><?php echo $genre; ?></p>
                             <h3 class="fw-bold">Publisher/Studio</h3>
                             <p><?php echo $description; ?></p>
-                            <h3 class="fw-bold">Gameplay</h3>
-                            <p><?php echo $gameplay; ?></p>
+                            <h3 class="fw-bold">History</h3>
+                            <p><?php echo $history; ?></p>
                         </div>
                     </div>
                 </div>

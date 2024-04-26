@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = ucwords($_POST["title"]);
     $content = $_POST["content"];
     $description = $_POST["description"];
-    $gameplay = $_POST["gameplay"];
     $history = $_POST["history"];
     $genre = $_POST["genre"];
 
@@ -58,9 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($imageUploaded) {
-            $sql = "INSERT INTO user_pages (title, content, description, gameplay, history, genre, image_path, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO user_pages (title, content, description, history, genre, image_path, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssssssi", $title, $content, $description, $gameplay, $history, $genre, $urlImagePath, $current_user_id);
+            $stmt->bind_param("sssssssi", $title, $content, $description, $history, $genre, $urlImagePath, $current_user_id);
 
             if ($stmt->execute()) {
                 $newPageID = $stmt->insert_id;
@@ -131,8 +130,8 @@ include 'views/header.php';
         <label for="description">Publisher/Studio:</label>
         <textarea id="description" name="description" rows="5" cols="50" placeholder="Enter information about the publisher/studio here.." required></textarea>
 
-        <label for="gameplay">Gameplay:</label>
-        <textarea id="gameplay" name="gameplay" rows="5" cols="50" placeholder="Enter gameplay here.." required></textarea>
+        <label for="history">History:</label>
+        <textarea id="history" name="history" rows="5" cols="50" placeholder="Enter history here.." required></textarea>
 
         <label for="image">Upload an Image (Max: 250KB):</label>
         <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
@@ -142,10 +141,7 @@ include 'views/header.php';
         <input type="file" name="image" id="image" accept="image/*" class="btn primary-btn" hidden>
 
         <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
-        
-        <label for="history">History:</label>
-        <textarea id="history" name="history" rows="5" cols="50" placeholder="Enter history here.." required></textarea><br>
+        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br>
         <input class="btn primary-btn" type="submit" value="Create Page">
     </form><br><br>
 </body>
