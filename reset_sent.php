@@ -23,27 +23,27 @@ include 'views/header.php';
     <link rel="stylesheet" href="login.css">
 </head>
 
-<!-- Start Account Sign In Area -->
-<div class="account-login section">
+<!--====== CALL TO ACTION FOUR PART START ======-->
+<section class="call-action-area call-action-four">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-8">
-                <div class="card login-form inner-content">
-                    <div class="card-body">
-                        <div class="title">
-                            <h3>Username/Password Reset Email Sent</h3>
-                            <p>A Username/Password reset email has been sent to your provided email address.</p>
-                            <p>Please check your inbox (and spam/junk folder) for the verification email.</p>
-                            <p>Click the link in the email to verify your account.</p>
-                        </div>
-                    </div>
+            <div class="col-lg-8">
+                <div class="call-action-content text-center">
+                    <h2 class="action-title">Username/Password Reset Email Sent</h2>
+                    <p class="text">
+                        A Username/Password reset email has been sent to your provided email address.<br />
+                        Please check your inbox (and spam/junk folder) for the verification email.<br />
+                        Click the link in the email to verify your account.
+                    </p>
                 </div>
+                <!-- call action content -->
             </div>
         </div>
+        <!-- row -->
     </div>
-</div>
-</html>
-<!-- End Account Sign In Area -->
+    <!-- container -->
+</section>
+<!--====== CALL TO ACTION FOUR PART ENDS ======-->
 
 <?php
 include 'views/footer.php';
