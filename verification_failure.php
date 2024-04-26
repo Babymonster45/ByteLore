@@ -13,31 +13,35 @@ if (isset($_SESSION["user_id"])) {
     exit();
 }
 
+include 'views/pageBuilder.php';
+include 'views/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
     <title>Verification Failed</title>
-    <link rel="stylesheet" href="verification.css">
 </head>
 
-<body><br>
-    <header>
-        <h1>Verification Failed</h1>
-    </header>
-    <div>
-        <?php include('header.php'); ?>
-    </div><br>
-    <main>
-        <form>
-            <h4>
-                <p>We're sorry, but the verification process failed.</p>
-                <p>This could be due to an invalid or expired verification link.</p>
-            </h4>
-        </form>
-    </main>
-</body>
+<!--====== CALL TO ACTION FOUR PART START ======-->
+<section class="call-action-area call-action-four">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="call-action-content text-center">
+                    <h2 class="action-title">Verification Failed</h2>
+                    <p class="text">
+                        We're sorry, but the verification process failed.<br />
+                        This could be due to an invalid or expired verification link.
+                    </p>
+                </div>
+                <!-- call action content -->
+            </div>
+        </div>
+        <!-- row -->
+    </div>
+    <!-- container -->
+</section>
+<!--====== CALL TO ACTION FOUR PART ENDS ======-->
 
-</html>
+<?php
+include 'views/footer.php';
+?>
