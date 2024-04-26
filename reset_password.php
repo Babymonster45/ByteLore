@@ -1,6 +1,6 @@
 <?php
 // Checks if the user tagged remember me
-include('remember_me.php');
+include ('remember_me.php');
 
 // Start a session to manage user login state
 if (session_status() == PHP_SESSION_NONE) {
@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Include necessary files and configurations
-include('/secure_config/config.php');
+include ('/secure_config/config.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
     $token = $_GET["token"];
@@ -22,7 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
 
     if ($checkTokenStmt->num_rows > 0) {
         // Token is valid, display the password reset form
+        include 'views/pageBuilder.php';
+        include 'views/header.php';
         ?>
+
         <!DOCTYPE html>
         <html lang="en">
 
@@ -50,27 +53,47 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
             </script>
         </head>
 
-        <body>
-            <header>
-                <h1>Reset Password</h1>
-            </header>
-            <div class="subheader">
-                <?php include('header.php'); ?>
-            </div><br>
-            <form action="process_reset_password.php" method="post">
-                <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-                <label for="password">New Password:</label>
-                <input type="password" name="password" id="password" required><br>
-                <label for="confirm_password">Confirm New Password:</label>
-                <input type="password" name="confirm_password" id="confirm_password" required><br>
-                <div class="password-error error-message"></div>
-
-                <input class="button" type="submit" value="Reset Password">
-            </form>
-        </body>
+        <!-- Start Account Sign In Area -->
+        <div class="account-login section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-8">
+                        <form class="card login-form inner-content" action="process_reset_password.php" method="post">
+                            <div class="card-body">
+                                <div class="title">
+                                    <h3>Reset Password</h3>
+                                    <p>Enter your new password and confirm it.</p>
+                                </div>
+                                <div class="input-head">
+                                    <div class="form-group input-group">
+                                        <label> <i class="lni lni-lock-alt"></i> </label>
+                                        <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
+                                        <input class="form-control" type="password" name="password" id="password"
+                                            placeholder="New Password" required>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <label> <i class="lni lni-lock-alt"></i> </label>
+                                        <input class="form-control" type="password" name="confirm_password"
+                                            id="confirm_password" placeholder="Confirm New Password" required>
+                                    </div>
+                                </div>
+                                <!-- Display the error message in red -->
+                                <div class="password-error error-message"></div>
+                                <div class="light-rounded-buttons">
+                                    <button class="btn primary-btn" type="submit">Reset Password</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         </html>
+        <!-- End Account Sign In Area -->
+
         <?php
+        include 'views/footer.php';
         exit();
     } else {
         // Token is invalid or expired

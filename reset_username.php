@@ -1,6 +1,6 @@
 <?php
 // Checks if the user tagged remember me
-include('remember_me.php');
+include ('remember_me.php');
 
 // Start a session to manage user login state
 if (session_status() == PHP_SESSION_NONE) {
@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Include necessary files and configurations
-include('/secure_config/config.php');
+include ('/secure_config/config.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
     $token = $_GET["token"];
@@ -33,6 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
             <meta charset="UTF-8">
             <title>Reset Username</title>
             <link rel="stylesheet" href="login.css">
+            <style>
+                .error-message {
+                    color: red;
+                    margin-top: 5px;
+                }
+            </style>
             <script>
                 // JavaScript to display error messages under the corresponding text boxes
                 document.addEventListener("DOMContentLoaded", function () {
@@ -62,11 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
                                     <div class="form-group input-group">
                                         <label> <i class="lni lni-user"></i> </label>
                                         <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-                                        <input class="form-control" type="text" name="username" id="username" placeholder="New Username" required>
+                                        <input class="form-control" type="text" name="username" id="username"
+                                            placeholder="New Username" required>
                                     </div>
                                     <div class="form-group input-group">
                                         <label> <i class="lni lni-user"></i> </label>
-                                        <input class="form-control" type="text" name="confirm_username" id="confirm_username" placeholder="Confirm New Username" required>
+                                        <input class="form-control" type="text" name="confirm_username" id="confirm_username"
+                                            placeholder="Confirm New Username" required>
                                     </div>
                                 </div>
                                 <!-- Display the error message in red -->
@@ -80,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
                 </div>
             </div>
         </div>
+
         </html>
         <!-- End Account Sign In Area -->
 
