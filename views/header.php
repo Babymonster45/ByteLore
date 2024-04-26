@@ -31,10 +31,23 @@
                      <?php
                      // Check if the user is logged in and display appropriate buttons
                      if (isset($_SESSION["user_id"])) {
-                         echo '<li class="nav-item"><a href="logout.php">Logout</a></li>';
+                         echo '<li class="nav-item d-lg-none"><a href="logout.php">Logout</a></li>';
                      } else {
-                         echo '<li class="nav-item"><a href="login.php">Sign In</a></li>';
-                         echo '<li class="nav-item"><a href="signup.php">Sign Up</a></li>';
+                         echo '<li class="nav-item d-lg-none"><a href="login.php">Sign In</a></li>';
+                         echo '<li class="nav-item d-lg-none"><a href="signup.php">Sign Up</a></li>';
+                     }
+                     ?>
+                  </ul>
+               </div>
+               <div class="navbar-btn d-none d-lg-inline-block">
+                  <ul>
+                     <?php
+                     // Check if the user is logged in and display appropriate buttons
+                     if (isset($_SESSION["user_id"])) {
+                         echo '<li><a class="btn primary-btn-outline" href="logout.php">Logout</a></li>';
+                     } else {
+                         echo '<li><a class="btn primary-btn-outline" href="login.php">Sign In</a></li>';
+                         echo '<li><a class="btn primary-btn" href="signup.php">Sign Up</a></li>';
                      }
                      ?>
                   </ul>
