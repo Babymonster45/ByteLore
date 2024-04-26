@@ -3,7 +3,7 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+            <nav class="navbar navbar-expand-md" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
                <a class="navbar-brand Headerlogo" href="./">
                <img style= "max-width:60%;" src="./web/img/logo-2.png" alt="Logo"/>
                </a>
