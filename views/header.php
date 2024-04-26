@@ -3,7 +3,7 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg">
+            <nav class="navbar navbar-expand-lg d-flex justify-content-between">
                <a class="navbar-brand Headerlogo" href="./">
                <img style= "max-width:60%;" src="./web/img/logo-2.png" alt="Logo"/>
                </a>
@@ -20,8 +20,8 @@
                <span class="toggler-icon"></span>
                <span class="toggler-icon"></span>
                </button>
-               <div class="collapse navbar-collapse sub-menu-bar justify-content-center" id="navbarOne">
-                  <ul class="navbar-nav">
+               <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
+                  <ul class="navbar-nav m-auto">
                      <li class="nav-item">
                         <a href="/">Home</a>
                      </li>
@@ -31,23 +31,10 @@
                      <?php
                      // Check if the user is logged in and display appropriate buttons
                      if (isset($_SESSION["user_id"])) {
-                         echo '<li class="nav-item d-lg-none"><a href="logout.php">Logout</a></li>';
+                         echo '<li class="nav-item"><a href="logout.php">Logout</a></li>';
                      } else {
-                         echo '<li class="nav-item d-lg-none"><a href="login.php">Sign In</a></li>';
-                         echo '<li class="nav-item d-lg-none"><a href="signup.php">Sign Up</a></li>';
-                     }
-                     ?>
-                  </ul>
-               </div>
-               <div class="navbar-btn d-none d-lg-inline-block">
-                  <ul>
-                     <?php
-                     // Check if the user is logged in and display appropriate buttons
-                     if (isset($_SESSION["user_id"])) {
-                         echo '<li><a class="btn primary-btn-outline" href="logout.php">Logout</a></li>';
-                     } else {
-                         echo '<li><a class="btn primary-btn-outline" href="login.php">Sign In</a></li>';
-                         echo '<li><a class="btn primary-btn" href="signup.php">Sign Up</a></li>';
+                         echo '<li class="nav-item"><a href="login.php">Sign In</a></li>';
+                         echo '<li class="nav-item"><a href="signup.php">Sign Up</a></li>';
                      }
                      ?>
                   </ul>
