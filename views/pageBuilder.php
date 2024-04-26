@@ -23,6 +23,7 @@
 
 
     <link rel="stylesheet" href="./web/css/app.css">
+    <title>ByteLore</title>
 </head>
 
 <body>

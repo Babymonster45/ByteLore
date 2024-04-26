@@ -11,10 +11,6 @@ include 'views/pageBuilder.php';
 include 'views/header.php';
 ?>
 
-<head>
-    <title>ByteLore</title>
-</head>
-
 <!--====== CALL TO ACTION FOUR PART START ======-->
 <section class="call-action-area call-action-four">
     <div class="container">
