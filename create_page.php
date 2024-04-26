@@ -125,17 +125,14 @@ include 'views/header.php';
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" placeholder="Megaman" required>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="5" cols="50" placeholder="Enter description here.." required></textarea>
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" placeholder="Enter genre here.." required>
+
+        <label for="description">Publisher/Studio:</label>
+        <textarea id="description" name="description" rows="5" cols="50" placeholder="Enter information about the publisher/studio here.." required></textarea>
 
         <label for="gameplay">Gameplay:</label>
         <textarea id="gameplay" name="gameplay" rows="5" cols="50" placeholder="Enter gameplay here.." required></textarea>
-
-        <label for="history">History:</label>
-        <textarea id="history" name="history" rows="5" cols="50" placeholder="Enter history here.." required></textarea>
-
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre" placeholder="Enter genre here.." required>
 
         <label for="image">Upload an Image (Max: 250KB):</label>
         <p id="file-upload-text" class="file-upload-text" placeholder="Choose an Image">Choose
@@ -145,7 +142,10 @@ include 'views/header.php';
         <input type="file" name="image" id="image" accept="image/*" class="btn primary-btn" hidden>
 
         <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br>
+        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea>
+        
+        <label for="history">History:</label>
+        <textarea id="history" name="history" rows="5" cols="50" placeholder="Enter history here.." required></textarea><br>
         <input class="btn primary-btn" type="submit" value="Create Page">
     </form><br><br>
 </body>

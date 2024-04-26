@@ -42,6 +42,9 @@ if (isset($_GET['id'])) {
         $imagePath = $row['image_path'];
         $pageCreatedAt = $row['created_at'];
         $createdBy = $row['username'];
+        $genre = $row['genre'];
+        $description = $row['description'];
+        $gameplay = $row['gameplay'];
     } else {
         echo "Page not found.";
     }
@@ -84,28 +87,26 @@ include ('views/header.php');
                 <div class="col-lg-6 col-12">
                     <div class="about-left">
                         <div class="section-title align-left">
-                            <p><?php echo $pageContent; ?></p>
-                            <div class="author">
-                                <div class="content">
-                                    <h5>
-                                        <p>Created by
-                                            <?php echo $createdBy; ?> at
-                                            <?php echo $pageCreatedAt; ?>
-                                        </p><br>
-                                        <?php
-                                        if (isset($_SESSION['user_id']) && ($currentUserRole >= 1 || $_SESSION['user_id'] == $row['created_by'])) {
-                                            echo '<div><a class="btn primary-btn" href="edit_page.php?id=' . $pageID . '">Edit Page</a></div>';
-                                        }
-                                        ?>
-                                    </h5>
-                                </div>
-                            </div>
+                            <h3 class="fw-bold">Genre</h3>
+                            <p><?php echo $genre; ?></p>
+                            <h3 class="fw-bold">Publisher/Studio</h3>
+                            <p><?php echo $description; ?></p>
+                            <h3 class="fw-bold">Gameplay</h3>
+                            <p><?php echo $gameplay; ?></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="about-right">
                         <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="content">
+                        <h3 class="fw-bold">Content</h3>
+                        <p><?php echo $pageContent; ?></p>
                     </div>
                 </div>
             </div>
