@@ -57,9 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($imageUploaded) {
-            $sql = "INSERT INTO user_pages (title, content, description, history, genre, image_path, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO user_pages (title, content, description, history, genre, image_path, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssssssi", $title, $content, $description, $history, $genre, $urlImagePath, $current_user_id);
+            $stmt->bind_param("ssssssi", $title, $content, $description, $history, $genre, $urlImagePath, $current_user_id);
 
             if ($stmt->execute()) {
                 $newPageID = $stmt->insert_id;
@@ -128,7 +128,8 @@ include 'views/header.php';
         <input type="text" id="genre" name="genre" placeholder="Enter genre here.." required>
 
         <label for="description">Publisher/Studio:</label>
-        <textarea id="description" name="description" rows="5" cols="50" placeholder="Enter information about the publisher/studio here.." required></textarea>
+        <textarea id="description" name="description" rows="5" cols="50"
+            placeholder="Enter information about the publisher/studio here.." required></textarea>
 
         <label for="history">Release Date(s):</label>
         <textarea id="history" name="history" rows="5" cols="50" placeholder="Enter history here.." required></textarea>
@@ -141,7 +142,8 @@ include 'views/header.php';
         <input type="file" name="image" id="image" accept="image/*" class="btn primary-btn" hidden>
 
         <label for="content">Information:</label>
-        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.." required></textarea><br>
+        <textarea id="content" name="content" rows="10" cols="50" placeholder="Enter text here.."
+            required></textarea><br>
         <input class="btn primary-btn" type="submit" value="Create Page">
     </form><br><br>
 </body>
