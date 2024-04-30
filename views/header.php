@@ -7,8 +7,7 @@
                <a class="navbar-brand Headerlogo" href="./">
                   <img style="max-width:60%;" src="./web/img/logo-2.png" alt="Logo" />
                </a>
-               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarOne"
-                  aria-controls="navbarOne" aria-expanded="false" aria-label="Toggle navigation">
+               <button class="navbar-toggler">
                   <span class="toggler-icon"></span>
                   <span class="toggler-icon"></span>
                   <span class="toggler-icon"></span>
@@ -17,7 +16,8 @@
                   <ul class="navbar-nav m-auto">
                      <li class="nav-item">
                         <a href="/">Home</a>
-
+                     </li>
+                     <li class="nav-item">
                         <a href="/games_list.php">Game List</a>
                      </li>
                   </ul>
