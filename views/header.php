@@ -3,7 +3,7 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg d-flex justify-content-between">
+            <nav class="navbar navbar-expand-lg">
                <a class="navbar-brand Headerlogo" href="./">
                   <img style="max-width:60%;" src="./web/img/logo-2.png" alt="Logo" />
                </a>
@@ -14,7 +14,7 @@
                   <span class="toggler-icon"></span>
                </button>
                <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
-                  <ul class="navbar-nav mx-auto">
+                  <ul class="navbar-nav m-auto">
                      <li class="nav-item">
                         <a class="page-scroll" href="/">
                            Home
@@ -25,7 +25,7 @@
                      </li>
                   </ul>
                </div>
-               <div class="navbar-btn d-none d-sm-inline-block">
+               <div class="navbar-btn d-none d-sm-inline-block collapse navbar-collapse">
                   <ul>
                      <?php
                      // Check if the user is logged in and display appropriate buttons
