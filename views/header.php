@@ -25,7 +25,7 @@
                      </li>
                   </ul>
                </div>
-               <div class="navbar-btn d-none d-sm-inline-block collapse navbar-collapse">
+               <div class="navbar-btn d-none d-sm-inline-block">
                   <ul>
                      <?php
                      // Check if the user is logged in and display appropriate buttons
