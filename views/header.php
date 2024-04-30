@@ -13,8 +13,8 @@
                   <span class="toggler-icon"></span>
                   <span class="toggler-icon"></span>
                </button>
-               <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
-                  <ul class="navbar-nav m-auto">
+               <div class="collapse navbar-collapse sub-menu-bar justify-content-center" id="navbarOne">
+                  <ul class="navbar-nav">
                      <li class="nav-item">
                         <a class="page-scroll" href="/">
                            Home
@@ -25,7 +25,7 @@
                      </li>
                   </ul>
                </div>
-               <div class="navbar-btn d-none d-sm-inline-block">
+               <div class="navbar-btn d-none d-sm-inline-block ml-auto">
                   <ul>
                      <?php
                      // Check if the user is logged in and display appropriate buttons
