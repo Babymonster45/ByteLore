@@ -13,32 +13,26 @@
                   <span class="toggler-icon"></span>
                   <span class="toggler-icon"></span>
                </button>
-               <div class="collapse navbar-collapse sub-menu-bar">
-                  <div id="navbarOne">
-                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item">
-                           <a class="page-scroll" href="/">
-                              Home
-                           </a>
-                        </li>
-                        <li class="nav-item">
-                           <a href="/games_list.php">Game List</a>
-                        </li>
-                     </ul>
-                  </div>
-                  <div class="navbar-btn d-none d-sm-inline-block">
-                     <ul>
-                        <?php
-                        // Check if the user is logged in and display appropriate buttons
-                        if (isset($_SESSION["user_id"])) {
-                           echo '<li><a class="btn primary-btn-outline" href="logout.php">Logout</a></li>';
-                        } else {
-                           echo '<li><a class="btn primary-btn-outline" href="login.php">Sign In</a></li>';
-                           echo '<li><a class="btn primary-btn" href="signup.php">Sign Up</a></li>';
-                        }
-                        ?>
-                     </ul>
-                  </div>
+               <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
+                  <ul class="navbar-nav m-auto">
+                     <li class="nav-item">
+                        <a class="page-scroll" href="/">
+                           Home
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="/games_list.php">Game List</a>
+                     </li>
+                     <?php
+                     // Check if the user is logged in and display appropriate buttons
+                     if (isset($_SESSION["user_id"])) {
+                        echo '<li><a class="btn primary-btn-outline" href="logout.php">Logout</a></li>';
+                     } else {
+                        echo '<li><a class="btn primary-btn-outline" href="login.php">Sign In</a></li>';
+                        echo '<li><a class="btn primary-btn" href="signup.php">Sign Up</a></li>';
+                     }
+                     ?>
+                  </ul>
                </div>
             </nav>
             <!-- navbar -->
